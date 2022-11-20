@@ -1,0 +1,81 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MAD3_ventanas
+{
+	public class ObjetoDB
+	{
+		public class DatosDeTienda
+		{
+			public byte IDTienda { get; set; }
+			public string NombreTienda { get; set; }
+			public byte Sucursal { get; set; }
+			public string RFC { get; set; }
+			public string Domicilio { get; set; }
+			public string CodigoPostal { get; set; }
+			public string email { get; set; }
+			public string numTel { get; set; }
+		}
+		public class Producto
+		{
+			public int		IDProducto		{ get; set; }
+			public string	Nombre			{ get; set; }
+			public string	Descripcion		{ get; set; }
+			public decimal	Costo			{ get; set; }
+			public decimal	PrecioUnitario	{ get; set; }
+			public DateTime	FechaAlta		{ get; set; }
+			public int		Existencias		{ get; set; }
+			public decimal	PuntoDeReorden	{ get; set; }
+			public short	DepartamentoFK	{ get; set; }
+			public short	UnidadMedidaFK	{ get; set; }
+		}
+		public class Departamento
+		{
+			public short IDDepartamento { get; set; }
+			public string nombreDept { get; set; }
+			public bool Reembolsable { get; set; }
+		}
+		public class Usuario
+		{
+			public short IDUsuario { get; set; }
+			public string contraseña { get; set; }
+			public string nombres { get; set; }
+			public string apellidoPat { get; set; }
+			public string apellidoMat { get; set; }
+			public string CURP { get; set; }
+			public DateTime fechNac { get; set; }
+			public string numNomina { get; set; }
+			public string email { get; set; }
+			public DateTime fechaAlta { get; set; }
+			public bool esAdmin { get; set; }
+		}
+		public class OpcionDePago
+		{
+			public byte IDOpcionDePago { get; set; }
+			public string Nombre { get; set; }
+		}
+		public class UnidadDeMedida
+		{
+			public short IDUnidadDeMedida { get; set; }
+			public string Nombre { get; set; }
+			public string Descripcion { get; set; }
+		}
+		public class Caja
+		{
+			public byte IDCaja { get; set; }
+			public bool Disponible { get; set; }
+		}
+		public class Descuento
+		{
+			public int IDDescuento { get; set; }
+			public string Nombre { get; set; }
+			public byte Porcentaje { get; set; }
+			public DateTime FechaINI { get; set; }
+			public DateTime FechaFIN { get; set; }
+			public int ProductoFK { get; set; }
+		}
+	}
+}

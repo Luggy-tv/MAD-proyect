@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CE9FB3AA-C7B1-4DAA-8D20-574DF834773F}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>MAD3_ventanas</RootNamespace>
+    <AssemblyName>MAD3 ventanas</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Administrador\ConsultaNotADM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrador\ConsultaNotADM.Designer.cs">
+      <DependentUpon>ConsultaNotADM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administrador\ConsultaRecADM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrador\ConsultaRecADM.Designer.cs">
+      <DependentUpon>ConsultaRecADM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administrador\DatosTienda.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrador\DatosTienda.Designer.cs">
+      <DependentUpon>DatosTienda.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administrador\DatosTiendaVer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrador\DatosTiendaVer.Designer.cs">
+      <DependentUpon>DatosTiendaVer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administrador\DescuentosAgreg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrador\DescuentosAgreg.Designer.cs">
+      <DependentUpon>DescuentosAgreg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administrador\DescuentosEditar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrador\DescuentosEditar.Designer.cs">
+      <DependentUpon>DescuentosEditar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administrador\Devoluciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrador\Devoluciones.Designer.cs">
+      <DependentUpon>Devoluciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administrador\GestCajas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrador\GestCajas.Designer.cs">
+      <DependentUpon>GestCajas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administrador\GestCajerosAgreg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrador\GestCajerosAgreg.Designer.cs">
+      <DependentUpon>GestCajerosAgreg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administrador\GestCajerosEditar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrador\GestCajerosEditar.Designer.cs">
+      <DependentUpon>GestCajerosEditar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administrador\GestDptosAgregar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrador\GestDptosAgregar.Designer.cs">
+      <DependentUpon>GestDptosAgregar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administrador\GestDptosEditar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrador\GestDptosEditar.Designer.cs">
+      <DependentUpon>GestDptosEditar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administrador\GestProdAgregar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrador\GestProdAgregar.Designer.cs">
+      <DependentUpon>GestProdAgregar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administrador\GestProdEditar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrador\GestProdEditar.Designer.cs">
+      <DependentUpon>GestProdEditar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administrador\InventarioADM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrador\InventarioADM.Designer.cs">
+      <DependentUpon>InventarioADM.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administrador\mainmenuADM1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrador\mainmenuADM1.Designer.cs">
+      <DependentUpon>mainmenuADM1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administrador\ReporteCajero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrador\ReporteCajero.Designer.cs">
+      <DependentUpon>ReporteCajero.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Administrador\ReporteVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Administrador\ReporteVentas.Designer.cs">
+      <DependentUpon>ReporteVentas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cajeros\ConsultaNot.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cajeros\ConsultaNot.Designer.cs">
+      <DependentUpon>ConsultaNot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cajeros\ConsultarRec.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cajeros\ConsultarRec.Designer.cs">
+      <DependentUpon>ConsultarRec.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cajeros\Inventario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cajeros\Inventario.Designer.cs">
+      <DependentUpon>Inventario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EnlaceDB.cs" />
+    <Compile Include="Login\loginCaj.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\loginCaj.Designer.cs">
+      <DependentUpon>loginCaj.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\loginAdm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\loginAdm.Designer.cs">
+      <DependentUpon>loginAdm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cajeros\mainmenuCAJ.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cajeros\mainmenuCAJ.Designer.cs">
+      <DependentUpon>mainmenuCAJ.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login\prelogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login\prelogin.Designer.cs">
+      <DependentUpon>prelogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cajeros\pagar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cajeros\pagar.Designer.cs">
+      <DependentUpon>pagar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ObjetoDB.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Cajeros\ventas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cajeros\ventas.Designer.cs">
+      <DependentUpon>ventas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cajeros\Rapida.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Cajeros\Rapida.Designer.cs">
+      <DependentUpon>Rapida.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Administrador\ConsultaNotADM.resx">
+      <DependentUpon>ConsultaNotADM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administrador\ConsultaRecADM.resx">
+      <DependentUpon>ConsultaRecADM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administrador\DatosTienda.resx">
+      <DependentUpon>DatosTienda.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administrador\DatosTiendaVer.resx">
+      <DependentUpon>DatosTiendaVer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administrador\DescuentosAgreg.resx">
+      <DependentUpon>DescuentosAgreg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administrador\DescuentosEditar.resx">
+      <DependentUpon>DescuentosEditar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administrador\Devoluciones.resx">
+      <DependentUpon>Devoluciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administrador\GestCajas.resx">
+      <DependentUpon>GestCajas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administrador\GestCajerosAgreg.resx">
+      <DependentUpon>GestCajerosAgreg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administrador\GestCajerosEditar.resx">
+      <DependentUpon>GestCajerosEditar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administrador\GestDptosAgregar.resx">
+      <DependentUpon>GestDptosAgregar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administrador\GestDptosEditar.resx">
+      <DependentUpon>GestDptosEditar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administrador\GestProdAgregar.resx">
+      <DependentUpon>GestProdAgregar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administrador\GestProdEditar.resx">
+      <DependentUpon>GestProdEditar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administrador\InventarioADM.resx">
+      <DependentUpon>InventarioADM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administrador\mainmenuADM1.resx">
+      <DependentUpon>mainmenuADM1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administrador\ReporteCajero.resx">
+      <DependentUpon>ReporteCajero.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Administrador\ReporteVentas.resx">
+      <DependentUpon>ReporteVentas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cajeros\ConsultaNot.resx">
+      <DependentUpon>ConsultaNot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cajeros\ConsultarRec.resx">
+      <DependentUpon>ConsultarRec.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cajeros\Inventario.resx">
+      <DependentUpon>Inventario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\loginCaj.resx">
+      <DependentUpon>loginCaj.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\loginAdm.resx">
+      <DependentUpon>loginAdm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login\prelogin.resx">
+      <DependentUpon>prelogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cajeros\mainmenuCAJ.resx">
+      <DependentUpon>mainmenuCAJ.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cajeros\pagar.resx">
+      <DependentUpon>pagar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Cajeros\ventas.resx">
+      <DependentUpon>ventas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Cajeros\Rapida.resx">
+      <DependentUpon>Rapida.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
