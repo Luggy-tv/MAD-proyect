@@ -50,6 +50,7 @@ namespace MAD3_ventanas
             this.Regresar = new System.Windows.Forms.Button();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -99,25 +100,26 @@ namespace MAD3_ventanas
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(487, 343);
+            this.textBox1.Location = new System.Drawing.Point(450, 343);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.Size = new System.Drawing.Size(137, 20);
             this.textBox1.TabIndex = 6;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(447, 346);
+            this.label3.Location = new System.Drawing.Point(410, 350);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(34, 13);
             this.label3.TabIndex = 7;
             this.label3.Text = "Total:";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(419, 320);
+            this.label4.Location = new System.Drawing.Point(382, 324);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(62, 13);
             this.label4.TabIndex = 8;
@@ -125,10 +127,10 @@ namespace MAD3_ventanas
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(487, 317);
+            this.textBox3.Location = new System.Drawing.Point(450, 317);
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
+            this.textBox3.Size = new System.Drawing.Size(137, 20);
             this.textBox3.TabIndex = 9;
             // 
             // textBox4
@@ -194,9 +196,9 @@ namespace MAD3_ventanas
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(487, 369);
+            this.button1.Location = new System.Drawing.Point(450, 398);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 23);
+            this.button1.Size = new System.Drawing.Size(137, 23);
             this.button1.TabIndex = 10;
             this.button1.Text = "Pagar";
             this.button1.UseVisualStyleBackColor = true;
@@ -242,11 +244,21 @@ namespace MAD3_ventanas
             this.label8.TabIndex = 21;
             this.label8.Text = "Unidad De Medida:";
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(450, 369);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(137, 23);
+            this.button3.TabIndex = 22;
+            this.button3.Text = "Agregar Descuento";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
             // ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(603, 433);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBox7);
             this.Controls.Add(this.Regresar);
@@ -300,5 +312,6 @@ namespace MAD3_ventanas
         private System.Windows.Forms.Button Regresar;
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button button3;
     }
 }

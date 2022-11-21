@@ -19,14 +19,12 @@ namespace MAD3_ventanas
         }
         private void label2_Click(object sender, EventArgs e)
         {
-
         }
         private void button1_Click(object sender, EventArgs e)
         {
             this.Hide();
             pagar pagar = new pagar();
             pagar.Show();
-
         }
         private void Regresar_Click(object sender, EventArgs e)
         {
@@ -104,6 +102,9 @@ namespace MAD3_ventanas
             }
         }
         private void button2_Click(object sender, EventArgs e)//BOTON INGRESAR
+        {
+        }
+        private void label3_Click(object sender, EventArgs e)
         {
 
         }
