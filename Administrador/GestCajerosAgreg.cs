@@ -17,7 +17,6 @@ namespace MAD3_ventanas.Administrador
         {
             InitializeComponent();
         }
-
         private void GestCajerosAgreg_Load(object sender, EventArgs e)
         {
             var objBD = new EnlaceDB();
@@ -25,14 +24,12 @@ namespace MAD3_ventanas.Administrador
             cantUser = 10001 + cantUser;
             textBox10.Text =cantUser.ToString();
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
             mainmenuADM1 mainmenu = new mainmenuADM1();
             mainmenu.Show();
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             bool comp = false;
@@ -214,30 +211,22 @@ namespace MAD3_ventanas.Administrador
             }
 
         }
-
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
         }
-
         private void label11_Click(object sender, EventArgs e)
         {
 
         }
-
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
         }
-
         private void textBox4_TextChanged_1(object sender, EventArgs e)
         {
-
         }
-
         private void textBox10_TextChanged(object sender, EventArgs e)
         {
-
         }
     }
 }

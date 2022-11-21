@@ -13,9 +13,8 @@ namespace MAD3_ventanas
 
     public partial class loginCaj : Form
     {
-       public static string loggedUser ;
-       public static string loggedUPass;
-       public static byte   loggedUCaja;
+       public static ObjetoDB.Usuario   loggedUser;
+       public static byte               loggedUCaja;
 
         public loginCaj()
         {
@@ -54,14 +53,13 @@ namespace MAD3_ventanas
                 login = true;
             }
 
-            if (IDusuario == "" || contraseña == "" /*|| numCaja == 0*/)
+            if (IDusuario == "" || contraseña == "")
             {
                 MessageBox.Show("Llenar todos los campos");
             }
             if (login) {
 
-                loggedUser = IDusuario;
-                loggedUPass = contraseña;
+                loggedUser = getUserFromString(IDusuario, listUsuarios);
                 loggedUCaja = numCaja;
 
                 this.Close();
@@ -99,10 +97,7 @@ namespace MAD3_ventanas
         }
         public bool userExists(string nombreUsuario, List<ObjetoDB.Usuario> listaUsuarios)
         {
-            //var objeto = new ObjetoDB.Usuario();
-            //objeto.IDUsuario = Convert.ToInt16(nombreUsuario);
-            //var si = listaUsuarios.Contains(objeto);
-            bool exists = false;
+           bool exists = false;
             for (int i1 = 0; i1 < listaUsuarios.Count; i1++)
             {
                 if (listaUsuarios[i1].IDUsuario == Convert.ToInt16(nombreUsuario))
@@ -119,6 +114,17 @@ namespace MAD3_ventanas
                     exists = true;
             }
             return exists;
+        }
+
+        public ObjetoDB.Usuario getUserFromString(string user, List<ObjetoDB.Usuario> listaUsuarios)
+        {
+            var usuario = new ObjetoDB.Usuario();
+            for (int i1 = 0; i1 < listaUsuarios.Count; i1++)
+            {
+                if (listaUsuarios[i1].IDUsuario == Convert.ToInt16(user))
+                    usuario = listaUsuarios[i1];
+            }
+            return usuario;
         }
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {

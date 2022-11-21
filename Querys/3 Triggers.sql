@@ -1,9 +1,9 @@
 USE Tienda01
 
-IF OBJECT_ID('t_TriggerUDepartamento') IS NOT NULL
-	DROP TRIGGER t_TriggerUDepartamento;
+IF OBJECT_ID('t_UpdateDepartamento') IS NOT NULL
+	DROP TRIGGER t_UpdateDepartamento;
 GO
-CREATE TRIGGER t_TriggerUDepartamento
+CREATE TRIGGER t_UpdateDepartamento
 ON dbo.Departamento
 FOR UPDATE
 AS
@@ -14,10 +14,10 @@ BEGIN
 	SET NOCOUNT OFF;
 END
 
-IF OBJECT_ID('t_TriggerUProducto') IS NOT NULL
-	DROP TRIGGER t_TriggerUProducto;
+IF OBJECT_ID('t_UpdateProducto') IS NOT NULL
+	DROP TRIGGER t_UpdateProducto;
 GO
-CREATE TRIGGER t_TriggerUProducto
+CREATE TRIGGER t_UpdateProducto
 ON dbo.Producto
 FOR UPDATE
 AS
