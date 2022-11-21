@@ -52,6 +52,7 @@ namespace MAD3_ventanas
             this.label8 = new System.Windows.Forms.Label();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -245,28 +246,39 @@ namespace MAD3_ventanas
             this.label8.TabIndex = 21;
             this.label8.Text = "Unidad De Medida:";
             // 
-            // label9
-            this.label9.AutoSize = true;
+            // textBox8
             // 
-            this.label9.Location = new System.Drawing.Point(410, 376);
+            this.textBox8.Location = new System.Drawing.Point(450, 369);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.ReadOnly = true;
+            this.textBox8.Size = new System.Drawing.Size(137, 20);
+            this.textBox8.TabIndex = 23;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(410, 372);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(34, 13);
             this.label9.TabIndex = 24;
             this.label9.Text = "Total:";
             // 
-            // textBox8
+            // label10
             // 
-            this.textBox8.Location = new System.Drawing.Point(450, 369);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(137, 20);
-            this.textBox8.ReadOnly = true;
-            this.textBox8.TabIndex = 23;
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(395, 346);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(49, 13);
+            this.label10.TabIndex = 25;
+            this.label10.Text = "Subtotal:";
+            this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(603, 441);
+            this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.textBox8);
             this.Controls.Add(this.label8);
@@ -324,5 +336,6 @@ namespace MAD3_ventanas
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.Label label10;
     }
 }

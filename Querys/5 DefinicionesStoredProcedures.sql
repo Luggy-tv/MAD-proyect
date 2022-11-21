@@ -608,3 +608,4 @@ BEGIN
 		Select IDRecVent_Prod,ReciboVentaFK,ProductoFK,CantProd  from DetalleProductos;
 END
 GO
+

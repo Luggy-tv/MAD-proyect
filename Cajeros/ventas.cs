@@ -13,8 +13,11 @@ namespace MAD3_ventanas
 {
     public partial class ventas : Form
     {
-        public List<ObjetoDB.ProductosEnVenta> productosEnVentasLista;
-        public DataTable productosEnVentasTabla;
+        public List<ObjetoDB.ProductosEnVenta> productosEnVentasLista= null;
+        public DataTable productosEnVentasTabla= null;
+        public decimal subtotal             = 0;
+        public decimal total                = 0;
+        public decimal cantidadDescontada   = 0;
         public ventas()
         {
             InitializeComponent();
@@ -96,7 +99,7 @@ namespace MAD3_ventanas
         }
         private void button2_Click(object sender, EventArgs e)//BOTON INGRESAR
         {
-
+            var seleccion = comboBox1.SelectedItem as ObjetoDB.Producto;
         }
         private void label3_Click(object sender, EventArgs e)
         {
@@ -104,6 +107,11 @@ namespace MAD3_ventanas
         }
         private void label2_Click(object sender, EventArgs e)
         {
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
