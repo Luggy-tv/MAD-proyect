@@ -76,8 +76,11 @@ namespace MAD3_ventanas.Administrador
 
 
             if (apellidoMat == "")
-                result3 = true;
-            apellidoMat = "-";
+            {
+              result3 = true;
+              apellidoMat = "-";
+            }
+               
 
             //VALIDACIÓN NO VACÍOS
             if (nombres == "" || apellidoPat == "" || fechaNac == null || CURP == "" || numNomina == "" || email == "" || contraseña == "" || contraseñaVal == "")

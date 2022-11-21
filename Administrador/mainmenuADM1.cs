@@ -26,7 +26,7 @@ namespace MAD3_ventanas.Administrador
                 tablaDeProductosEnRe = objBD.ConsultaProductosEnReorden();
             dataGridView1.DataSource = tablaDeProductosEnRe;
 
-            //TAMAÑO DEL DATAGRIDVIEW
+           
 
         }
 
@@ -162,6 +162,11 @@ namespace MAD3_ventanas.Administrador
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
         {
 
         }
