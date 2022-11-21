@@ -13,12 +13,11 @@ namespace MAD3_ventanas
 {
     public partial class ventas : Form
     {
+        public List<ObjetoDB.ProductosEnVenta> productosEnVentasLista;
+        public DataTable productosEnVentasTabla;
         public ventas()
         {
             InitializeComponent();
-        }
-        private void label2_Click(object sender, EventArgs e)
-        {
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -42,12 +41,8 @@ namespace MAD3_ventanas
         {
             var objBD = new EnlaceDB();
             List<ObjetoDB.Producto> listProductos = new List<ObjetoDB.Producto>();
-
             listProductos = null;
-
-
             listProductos = objBD.ConsultaProductos();
-
             if (listProductos.Count() == 0)
             {
                 MessageBox.Show("No se encuentran producto en la base de datos, favor de agregar estos al sistema",
@@ -60,9 +55,7 @@ namespace MAD3_ventanas
                 comboBox1.DataSource = listProductos;
                 comboBox1.ValueMember = "IDProducto";
                 comboBox1.DisplayMember = "Nombre";
-
                 DateTime localDate = DateTime.Now;
-
                 textBox4.Text = loginCaj.loggedUser.nombres+ loginCaj.loggedUser.apellidoPat+ loginCaj.loggedUser.apellidoMat;
                 textBox6.Text = loginCaj.loggedUCaja.ToString();
                 textBox5.Text = localDate.ToString();
@@ -103,10 +96,14 @@ namespace MAD3_ventanas
         }
         private void button2_Click(object sender, EventArgs e)//BOTON INGRESAR
         {
+
         }
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+        private void label2_Click(object sender, EventArgs e)
+        {
         }
     }
 }

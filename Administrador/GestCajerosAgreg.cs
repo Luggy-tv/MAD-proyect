@@ -62,6 +62,8 @@ namespace MAD3_ventanas.Administrador
             string regex = "^[a-zA-Z]+$";
             string regex2 = "^[a-zA-Z0-9]+$";
             string regex3 = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+
+
             bool result1 = Regex.IsMatch(nombres, regex);
             bool result2 = Regex.IsMatch(apellidoPat, regex);
             bool result3 = Regex.IsMatch(apellidoMat, regex);
