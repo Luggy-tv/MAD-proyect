@@ -524,6 +524,10 @@ END
 IF OBJECT_ID('sp_GetProductosEnPuntoDeReorden')IS NOT NULL
 	DROP PROCEDURE sp_GetProductosEnPuntoDeReorden;
 GO
+-----------------------------------------------------------SP_ProductosEnPuntoDeReorden
+IF OBJECT_ID('sp_GetProductosEnPuntoDeReorden')IS NOT NULL
+	DROP PROCEDURE sp_GetProductosEnPuntoDeReorden;
+GO
 Create PROCEDURE sp_GetProductosEnPuntoDeReorden(@op char(1)=NULL)
 AS
 BEGIN	
@@ -532,5 +536,75 @@ BEGIN
 	Else
 		SELECT 'No hay ningun Producto en punto de reorden'[Mensaje]
 END
+GO
+----------------------------------------------------------SP_BusquedaRapida
+IF OBJECT_ID('sp_BusquedaRapida')IS NOT NULL
+	DROP PROCEDURE sp_BusquedaRapida;
+GO
+Create Procedure sp_BusquedaRapida( @op Char(1)
+									,@IDProducto INT=NULL
+									,@Nombre VARCHAR(30)=NULL
+)
+AS
+BEGIN
+	if @op='N'
+	--DECLARE @nombre varchar(30);
+	--SET @Nombre ='cong'
+		SELECT IDProducto,Nombre,Costo,Departamento,[Unidad De Medida] from v_Productos where Nombre like CONCAT('%',@Nombre,'%');
 
+	if @op='C'
+	--DECLARE @idproducto int
+	--SET @idproducto= 2
+		SELECT IDProducto,Nombre,Costo,Departamento,[Unidad De Medida] from v_Productos where IDProducto like CONCAT('%',@IDProducto,'%');
+END
+GO
+----------------------------------------------------------SP_GestionarReciboVenta
+IF OBJECT_ID('sp_GestionarReciboDeVenta')IS NOT NULL
+	Drop procedure sp_GestionarReciboDeVenta;
+GO
+Create procedure sp_GestionarReciboDeVenta(@op char(1)
+											,@Total smallmoney	   =NULL
+											,@SubTotal smallmoney   =NULL
+)AS
+BEGIN
+	IF @op= 'i'
+		Insert into ReciboDeVenta(Total,Subtotal) VALUES (@Total,@SubTotal);
 
+	IF @op='s'
+		Select IDRecibo,Total,Subtotal from ReciboDeVenta 
+END
+GO
+---------------------------------------------------------SP_GestionarDetalleDePago
+IF OBJECT_ID('SP_GestionarDetalleDePago')IS NOT NULL
+	Drop procedure SP_GestionarDetalleDePago;
+GO
+Create procedure SP_GestionarDetalleDePago(@op char(1)
+											,@FKReciboVenta int			 =NULL
+											,@FkOpcionDePago tinyint	 =NULL
+											,@CantidadAPagar smallmoney	 =NULL
+)AS
+BEGIN
+	IF @op= 'i'
+		Insert into DetallePago(FkRecVenta,FKOpPago,Cantidad) VALUES (@FKReciboVenta,@FkOpcionDePago,@CantidadAPagar);
+
+	IF @op='s'
+		Select IDDetallePago,FkRecVenta,FkRecVenta,Cantidad  from DetallePago;
+END
+GO
+---------------------------------------------------------SP_GestionarDetalleProductos
+IF OBJECT_ID('SP_GestionarDetalleProductos')IS NOT NULL
+	Drop procedure SP_GestionarDetalleProductos;
+GO
+Create procedure SP_GestionarDetalleProductos(@op char(1)
+											,@FKReciboVenta int					=NULL
+											,@FkpProducto int					=NULL
+											,@CantidadDeProducto DEcimal(7,3)	=NULL
+)AS
+BEGIN
+	IF @op= 'i'
+		Insert into DetalleProductos(ReciboVentaFK,ProductoFK,CantProd) VALUES (@FKReciboVenta,@FkpProducto,@CantidadDeProducto);
+
+	IF @op='s'
+		Select IDRecVent_Prod,ReciboVentaFK,ProductoFK,CantProd  from DetalleProductos;
+END
+GO

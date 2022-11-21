@@ -34,12 +34,26 @@ namespace MAD3_ventanas
 
         private void button1_Click(object sender, EventArgs e)//Busqueda Por Nombre
         {
+            var seleccion = comboBox1.SelectedItem as ObjetoDB.Producto;
+            string op = "N";
+            int idProd = 0;
+            string nombre = seleccion.Nombre;
+            var objBD = new EnlaceDB();
+            var tabla = objBD.ConsultaRapidaPrecio(op,idProd,nombre);
 
+            dataGridView1.DataSource = tabla;
         }
 
         private void button2_Click(object sender, EventArgs e)//Busqueda por Codigo
         {
+            var seleccion = comboBox1.SelectedItem as ObjetoDB.Producto;
+            string op = "C";
+            int idProd = Int32.Parse(textBox1.Text);
+            string nombre = "";
+            var objBD = new EnlaceDB();
+            var tabla = objBD.ConsultaRapidaPrecio(op, idProd, nombre);
 
+            dataGridView1.DataSource = tabla;
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)

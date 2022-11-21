@@ -407,7 +407,6 @@ namespace MAD3_ventanas
 
             return tabla;
         }
-
         public DataTable ConsultaProductosEnReorden()
         {
             var msg = "";
@@ -441,11 +440,48 @@ namespace MAD3_ventanas
 
             return tabla;
         }
+        public DataTable ConsultaRapidaPrecio(string opc,int IDProducto,string nombre)
+        {
+            var msg = "";
+            DataTable tabla = new DataTable();
+            try
+            {
+                conectar();
+                string qry = "sp_BusquedaRapida"; //nombre del stored procedure
+                _comandosql = new SqlCommand(qry, _conexion);
+                _comandosql.CommandType = CommandType.StoredProcedure; // Hay tres tipos de comandos: SP, tabla o text(query, cualquier clausula del DML). 
+                                                                       // -> Para este proyecto siempre debe ser un Stored Procedure     
+                _comandosql.CommandTimeout = 1200; //Tiempo antes de determinar error
+                //Los parámtros deben llamarse exactamente igual que en SP
+                var parametro1 = _comandosql.Parameters.Add("@Op", SqlDbType.Char, 1); 
+                parametro1.Value = opc;
+                var parametro2 = _comandosql.Parameters.Add("@IDProducto", SqlDbType.Int, 4);
+                parametro2.Value = IDProducto;
+                var parametro3 = _comandosql.Parameters.Add("@Nombre", SqlDbType.VarChar, 30);
+                parametro3.Value = nombre;
+
+                _adaptador.SelectCommand = _comandosql;
+                _adaptador.Fill(tabla);
+            }
+            catch (SqlException e)
+            {
+                msg = "Excepción de base de datos: \n";
+                msg += e.Message;
+                MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            finally
+            {
+                desconectar();
+            }
+
+            return tabla;
+
+        }
 
         public bool GestDept(string op               , 
                              Int16 IDDepartamento    ,
                              string nombreDept       , 
-                             bool reembolsable       ) //Confirmar si realmente es bool lo que se debe usar
+                             bool reembolsable       ) 
         {
             var msg = "";
             var add = true;
@@ -497,7 +533,7 @@ namespace MAD3_ventanas
                                  DateTime fechaNac   ,
                                  string numNomina    , 
                                  string email        ,
-                                 bool esAdmin            ) //Confirmar si realmente es bool lo que se debe usar
+                                 bool esAdmin            ) 
         {
             var msg = "";
             var add = true;
