@@ -59,6 +59,8 @@ namespace MAD3_ventanas.Administrador
             bool val9;
             bool val10;
 
+            //CAMBIO EKIZ
+
             string regex = "^[a-zA-Z]+$";
             string regex2 = "^[a-zA-Z0-9]+$";
             string regex3 = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
