@@ -13,63 +13,120 @@ namespace MAD3_ventanas
 
     public partial class loginCaj : Form
     {
-
-        string usuario;
-        string contrasena;
-
-        int numCaja;
-
+       public static string loggedUser ;
+       public static string loggedUPass;
+       public static byte   loggedUCaja;
 
         public loginCaj()
         {
             InitializeComponent();
         }
-
         private void Regresar_Click(object sender, EventArgs e)
         {
             this.Hide();
             prelogin prelogin = new prelogin();
             prelogin.Show();
         }
-
         private void Ingresar_Click(object sender, EventArgs e)
         {
+            ObjetoDB.Caja seleccion = comboBox1.SelectedItem as ObjetoDB.Caja;
+
+            var objBD = new EnlaceDB();
+            var listUsuarios = new List<ObjetoDB.Usuario>();
+            listUsuarios = null;
+            listUsuarios = objBD.ConsultaUsuarios();
+
             string IDusuario = textBox1.Text;
             string contraseña = textBox2.Text;
-            int numCaja = comboBox1.SelectedIndex;
+            byte numCaja = seleccion.IDCaja;
 
-            if (usuario == "" || contrasena == "" /*|| numCaja == 0*/) 
+            bool userIsValid = false, passIsVal = false, login = false;
+
+            userIsValid = userExists(IDusuario,listUsuarios);
+            
+            if (userIsValid)
             {
-                MessageBox.Show("Llenar todos los campos");
-
+                passIsVal = passIsValid(IDusuario, contraseña,listUsuarios);
             }
 
-            else {
+            if (userIsValid && passIsVal)
+            {
+                login = true;
+            }
+
+            if (IDusuario == "" || contraseña == "" /*|| numCaja == 0*/)
+            {
+                MessageBox.Show("Llenar todos los campos");
+            }
+            if (login) {
+
+                loggedUser = IDusuario;
+                loggedUPass = contraseña;
+                loggedUCaja = numCaja;
+
                 this.Close();
                 mainmenuCAJ mainmenuCAJ = new mainmenuCAJ();
                 mainmenuCAJ.Show();
+
             }
-            
         }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-           
-        }
-
         private void loginCaj_Load(object sender, EventArgs e)
         {
+            var objBD = new EnlaceDB();
+            var listUsuarios = new List<ObjetoDB.Usuario>();
+            listUsuarios = null;
+            listUsuarios = objBD.ConsultaUsuarios();
 
+            var listCajas = new List<ObjetoDB.Caja>();
+            listCajas = null;
+            listCajas = objBD.ConsultaCajas();
+
+            comboBox1.DataSource = listCajas;
+            comboBox1.ValueMember = "IDCaja";
+            comboBox1.DisplayMember = "IDCaja";
+        }
+        private void textBox1_TextChanged(object sender, EventArgs e)//USUARIO
+        {
+
+        }
+        private void textBox2_TextChanged(object sender, EventArgs e)//CONTRASEÑA
+        {
+
+        }
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)//COMBOBOX
+        {
+
+        }
+        public bool userExists(string nombreUsuario, List<ObjetoDB.Usuario> listaUsuarios)
+        {
+            //var objeto = new ObjetoDB.Usuario();
+            //objeto.IDUsuario = Convert.ToInt16(nombreUsuario);
+            //var si = listaUsuarios.Contains(objeto);
+            bool exists = false;
+            for (int i1 = 0; i1 < listaUsuarios.Count; i1++)
+            {
+                if (listaUsuarios[i1].IDUsuario == Convert.ToInt16(nombreUsuario))
+                    exists = true;
+            }
+            return exists;
+        }
+        public bool passIsValid(string user,string pass, List<ObjetoDB.Usuario> listaUsuarios)
+        {
+            bool exists = false;
+            for (int i1 = 0; i1 < listaUsuarios.Count; i1++)
+            {
+                if (listaUsuarios[i1].contraseña == pass && listaUsuarios[i1].IDUsuario== Convert.ToInt16(user))
+                    exists = true;
+            }
+            return exists;
+        }
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+                (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

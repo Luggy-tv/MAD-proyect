@@ -17,14 +17,14 @@ namespace MAD3_ventanas.Administrador
             InitializeComponent();
             
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)//Cerrar
         {
            
             this.Close();
             mainmenuADM1 mainmenuADM1 = new mainmenuADM1();
             mainmenuADM1.Show();
         }
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)//EditarDepartamento
         {
             bool comp = false;
             string op = "e";
@@ -77,7 +77,8 @@ namespace MAD3_ventanas.Administrador
 
             if (listDepartamentos.Count() == 0)
             {
-                MessageBox.Show("No se encuentran departamentos en la base de datos, favor de agregar estos al sistema", "Datos pendientes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No se encuentran departamentos en la base de datos, favor de agregar estos al sistema",
+                    "Datos pendientes", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
                 mainmenuADM1 mainmenuADM1 = new mainmenuADM1();
                 mainmenuADM1.Show();
@@ -89,7 +90,7 @@ namespace MAD3_ventanas.Administrador
                 comboBox1.DisplayMember = "nombreDept";
             }
         }
-        private void button3_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)//Eliminar
         {
             bool comp = false;
             string op = "d";

@@ -3,13 +3,12 @@ USE Tienda01;
     /*
 	DROPS ALL SP
 	
-	DROP PROCEDURE sp_InsertarUsuario;
-	DROP PROCEDURE sp_InsertarCajero;
-	DROP PROCEDURE sp_InsertarOpcionDePago;
-	DROP PROCEDURE sp_InsertarUnidadDeMedida;
-	DROP PROCEDURE sp_InsertarCaja;
-	DROP PROCEDURE sp_InsertarDepartamento;
-	DROP PROCEDURE sp_InsertarProducto;
+	DROP PROCEDURE sp_GestionarUsuario;
+	DROP PROCEDURE sp_GestionarOpcionDePago;
+	DROP PROCEDURE sp_GestionarUnidadDeMedida;
+	DROP PROCEDURE sp_GestionarCaja;
+	DROP PROCEDURE sp_GestionarDepartamento;
+	DROP PROCEDURE sp_GestionarProducto;
 	*/
 
 	-------------------------------------------------------SP_INSERTAR_ADMINISTRADOR
@@ -334,8 +333,8 @@ Create Procedure sp_GestionarProducto(
 	,@Descripcion			VARCHAR(50)	  	 =NULL
 	,@Costo					SMALLMONEY	  	 =NULL
 	,@PrecioUnitario		SMALLMONEY		 =NULL
-	,@Existencias			INT				 =NULL
-	,@PuntoDeReorden		INT				 =NULL
+	,@Existencias			DECIMAL (7,3)	 =NULL
+	,@PuntoDeReorden		DECIMAL (7,3)	 =NULL
 	,@DepartamentoFK		SMALLINT		 =NULL
 	,@UnidadMedidaFK		SMALLINT		 =NULL
 	
@@ -413,12 +412,12 @@ IF OBJECT_ID('sp_GestionarDescuento')IS NOT NULL
 GO
 Create Procedure sp_GestionarDescuento(
 										 @op					CHAR
-										,@IDDescuento			INT		  
-										,@Nombre 				VARCHAR(20)	  
-										,@Porcentaje			TINYINT		  
-										,@FechaINI				DATE		  
-										,@FechaFIN				DATE		
-										,@ProductoFK			INT			
+										,@IDDescuento			INT				=NULL  
+										,@Nombre 				VARCHAR(20)	  	=NULL
+										,@Porcentaje			TINYINT		  	=NULL
+										,@FechaINI				DATE		  	=NULL
+										,@FechaFIN				DATE			=NULL
+										,@ProductoFK			INT				=NULL
 	
 	--Este sp tiene 3 opciones: I,E,D
 
@@ -520,3 +519,18 @@ Create procedure sp_LoginCajeroACaja(
 BEGIN
 	Insert into Usuario_Caja(CajeroFK,CajaFK) Values(@UsuarioFK,@CajaFk);
 END
+
+----------------------------------------------------------SP_GetProductosEnPuntoDeReorden
+IF OBJECT_ID('sp_GetProductosEnPuntoDeReorden')IS NOT NULL
+	DROP PROCEDURE sp_GetProductosEnPuntoDeReorden;
+GO
+Create PROCEDURE sp_GetProductosEnPuntoDeReorden(@op char(1)=NULL)
+AS
+BEGIN	
+	IF EXISTS (Select IDProducto from v_Productos where Existencias<=PuntoDeReorden)
+		Select IDProducto,Nombre, Descripcion,Existencias,PuntoDeReorden[Punto de Reorden],Departamento,[Unidad De Medida] from v_Productos where Existencias<=PuntoDeReorden;
+	Else
+		SELECT 'No hay ningun Producto en punto de reorden'[Mensaje]
+END
+
+

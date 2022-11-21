@@ -20,7 +20,11 @@ namespace MAD3_ventanas.Administrador
 
         private void mainmenuADM1_Load(object sender, EventArgs e)
         {
-
+            var objBD = new EnlaceDB();
+            DataTable tablaDeProductosEnRe = new DataTable();
+            tablaDeProductosEnRe = null;
+                tablaDeProductosEnRe = objBD.ConsultaProductosEnReorden();
+            dataGridView1.DataSource = tablaDeProductosEnRe;
         }
 
         private void agregarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -151,6 +155,11 @@ namespace MAD3_ventanas.Administrador
             this.Close();
             ConsultaNotADM consultaNotADM = new ConsultaNotADM();
             consultaNotADM.Show();
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
         }
     }
