@@ -54,7 +54,7 @@ namespace MAD3_ventanas
                 login = true;
             }
 
-            if (IDusuario == "" || contraseña == "" /*|| numCaja == 0*/)
+            if (IDusuario == "" || contraseña == "")
             {
                 MessageBox.Show("Llenar todos los campos");
             }
@@ -99,10 +99,7 @@ namespace MAD3_ventanas
         }
         public bool userExists(string nombreUsuario, List<ObjetoDB.Usuario> listaUsuarios)
         {
-            //var objeto = new ObjetoDB.Usuario();
-            //objeto.IDUsuario = Convert.ToInt16(nombreUsuario);
-            //var si = listaUsuarios.Contains(objeto);
-            bool exists = false;
+           bool exists = false;
             for (int i1 = 0; i1 < listaUsuarios.Count; i1++)
             {
                 if (listaUsuarios[i1].IDUsuario == Convert.ToInt16(nombreUsuario))

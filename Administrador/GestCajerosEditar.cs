@@ -16,7 +16,6 @@ namespace MAD3_ventanas.Administrador
         {
             InitializeComponent();
         }
-
         private void GestCajerosEditar_Load(object sender, EventArgs e)
         {
             var objBD = new EnlaceDB();
@@ -41,14 +40,12 @@ namespace MAD3_ventanas.Administrador
                 comboBox1.DisplayMember = "nombres" + "apellidoPat"+ "apellidoMat";
             }
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
             mainmenuADM1 mainmenuADM1 = new mainmenuADM1();
             mainmenuADM1.Show();
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             bool val = false;
@@ -217,5 +214,6 @@ namespace MAD3_ventanas.Administrador
         {
 
         }
+
     }
 }

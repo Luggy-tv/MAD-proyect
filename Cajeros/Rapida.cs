@@ -16,15 +16,40 @@ namespace MAD3_ventanas
         {
             InitializeComponent();
         }
-
         private void button3_Click(object sender, EventArgs e)
         {
             this.Close();
         }
-
         private void Rapida_Load(object sender, EventArgs e)
+        {
+            var objBD = new EnlaceDB();
+            List<ObjetoDB.Producto> listProductos = new List<ObjetoDB.Producto>();
+            listProductos = null;
+            listProductos = objBD.ConsultaProductos();
+
+            comboBox1.DataSource = listProductos;
+            comboBox1.ValueMember = "IDProducto";
+            comboBox1.DisplayMember = "Nombre";
+        }
+
+        private void button1_Click(object sender, EventArgs e)//Busqueda Por Nombre
         {
 
         }
+
+        private void button2_Click(object sender, EventArgs e)//Busqueda por Codigo
+        {
+
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+                (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
+
     }
 }
