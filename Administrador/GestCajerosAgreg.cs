@@ -17,19 +17,22 @@ namespace MAD3_ventanas.Administrador
         {
             InitializeComponent();
         }
+
         private void GestCajerosAgreg_Load(object sender, EventArgs e)
         {
             var objBD = new EnlaceDB();
             int cantUser = objBD.GetCount("USER");
             cantUser = 10001 + cantUser;
-            textBox10.Text =cantUser.ToString();
+            textBox10.Text = cantUser.ToString();
         }
+
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
             mainmenuADM1 mainmenu = new mainmenuADM1();
             mainmenu.Show();
         }
+
         private void button2_Click(object sender, EventArgs e)
         {
             bool comp = false;
@@ -58,11 +61,13 @@ namespace MAD3_ventanas.Administrador
 
             string regex = "^[a-zA-Z]+$";
             string regex2 = "^[a-zA-Z0-9]+$";
+            string regex3 = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             bool result1 = Regex.IsMatch(nombres, regex);
             bool result2 = Regex.IsMatch(apellidoPat, regex);
             bool result3 = Regex.IsMatch(apellidoMat, regex);
             bool result4 = Regex.IsMatch(CURP, regex2);
             bool result5 = Regex.IsMatch(numNomina, regex2);
+            bool result6 = Regex.IsMatch(email, regex3);
 
 
 
@@ -176,7 +181,7 @@ namespace MAD3_ventanas.Administrador
             }
 
             //VALIDACION CARACTERES EMAIL !!! pendiente validar formato !!!
-            if (email.Length > 30)
+            if (email.Length > 30 || result6 == false)
             {
                 MessageBox.Show("El e-mail excede el límite de 30 caracteres");
                 val10 = false;
@@ -211,22 +216,40 @@ namespace MAD3_ventanas.Administrador
             }
 
         }
+
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+
         }
+
         private void label11_Click(object sender, EventArgs e)
         {
 
         }
+
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
         }
+
         private void textBox4_TextChanged_1(object sender, EventArgs e)
         {
+
         }
+
         private void textBox10_TextChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
