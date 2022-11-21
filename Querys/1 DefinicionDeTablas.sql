@@ -105,7 +105,7 @@ BEGIN
 		,Costo					SMALLMONEY		 NOT NULL
 		,PrecioUnitario			SMALLMONEY		 NOT NULL
 		,FechaAlta				DATE			 NOT NULL
-		,Existencias			INT				 NOT NULL
+		,Existencias			DECIMAL (7,3)	 NOT NULL
 		,PuntoDeReorden			DECIMAL (7,3)	 NOT NULL
 		,Estatus				BIT	 CONSTRAINT DF_ProductoEstatus DEFAULT 1	 
 		,DepartamentoFK			SMALLINT		 NOT NULL
@@ -118,6 +118,9 @@ BEGIN
 		CONSTRAINT FK_UNIDADMEDIDA
 			FOREIGN KEY (UnidadMedidaFK) REFERENCES UnidadDeMedida(IDUnidadDeMedida)
 	);
+
+
+	
 ------------------------------------------------------------Descuento
 	IF OBJECT_ID(N'dbo.Descuento')IS NOT NULL
 		DROP TABLE dbo.Descuento;

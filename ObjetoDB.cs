@@ -27,7 +27,7 @@ namespace MAD3_ventanas
 			public decimal	Costo			{ get; set; }
 			public decimal	PrecioUnitario	{ get; set; }
 			public DateTime	FechaAlta		{ get; set; }
-			public int		Existencias		{ get; set; }
+			public decimal	Existencias		{ get; set; }
 			public decimal	PuntoDeReorden	{ get; set; }
 			public short	DepartamentoFK	{ get; set; }
 			public short	UnidadMedidaFK	{ get; set; }
@@ -70,12 +70,12 @@ namespace MAD3_ventanas
 		}
 		public class Descuento
 		{
-			public int IDDescuento { get; set; }
-			public string Nombre { get; set; }
-			public byte Porcentaje { get; set; }
-			public DateTime FechaINI { get; set; }
-			public DateTime FechaFIN { get; set; }
-			public int ProductoFK { get; set; }
+			public int		IDDescuento		{ get; set; }
+			public string	Nombre		{ get; set; }
+			public byte Porcentaje		{ get; set; }
+			public DateTime FechaINI	{ get; set; }
+			public DateTime FechaFIN	{ get; set; }
+			public int ProductoFK		{ get; set; }
 		}
 	}
 }

@@ -41,20 +41,20 @@ namespace MAD3_ventanas
             // 
             // Regresar
             // 
-            this.Regresar.Location = new System.Drawing.Point(181, 146);
+            this.Regresar.Location = new System.Drawing.Point(92, 146);
             this.Regresar.Name = "Regresar";
             this.Regresar.Size = new System.Drawing.Size(75, 23);
-            this.Regresar.TabIndex = 17;
+            this.Regresar.TabIndex = 3;
             this.Regresar.Text = "Regresar";
             this.Regresar.UseVisualStyleBackColor = true;
             this.Regresar.Click += new System.EventHandler(this.Regresar_Click);
             // 
             // Ingresar
             // 
-            this.Ingresar.Location = new System.Drawing.Point(100, 146);
+            this.Ingresar.Location = new System.Drawing.Point(191, 146);
             this.Ingresar.Name = "Ingresar";
             this.Ingresar.Size = new System.Drawing.Size(75, 23);
-            this.Ingresar.TabIndex = 16;
+            this.Ingresar.TabIndex = 4;
             this.Ingresar.Text = "Ingresar";
             this.Ingresar.UseVisualStyleBackColor = true;
             this.Ingresar.Click += new System.EventHandler(this.Ingresar_Click);
@@ -63,8 +63,9 @@ namespace MAD3_ventanas
             // 
             this.textBox2.Location = new System.Drawing.Point(166, 76);
             this.textBox2.Name = "textBox2";
+            this.textBox2.PasswordChar = '*';
             this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 15;
+            this.textBox2.TabIndex = 1;
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // textBox1
@@ -72,8 +73,9 @@ namespace MAD3_ventanas
             this.textBox1.Location = new System.Drawing.Point(166, 44);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 14;
+            this.textBox1.TabIndex = 0;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
             // label2
             // 
@@ -89,9 +91,9 @@ namespace MAD3_ventanas
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(89, 47);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 13);
+            this.label1.Size = new System.Drawing.Size(57, 13);
             this.label1.TabIndex = 12;
-            this.label1.Text = "Usuario";
+            this.label1.Text = "ID Usuario";
             // 
             // label3
             // 
@@ -108,7 +110,7 @@ namespace MAD3_ventanas
             this.comboBox1.Location = new System.Drawing.Point(166, 105);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(100, 21);
-            this.comboBox1.TabIndex = 19;
+            this.comboBox1.TabIndex = 2;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // loginCaj

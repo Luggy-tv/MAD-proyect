@@ -63,7 +63,13 @@ namespace MAD3_ventanas
 
         private void mainmenuCAJ_Load(object sender, EventArgs e)
         {
+            //loginCaj.loggedUCaja;
 
+            var objBD = new EnlaceDB();
+            DataTable tablaDeProductosEnRe = new DataTable();
+            tablaDeProductosEnRe = null;
+            tablaDeProductosEnRe = objBD.ConsultaProductosEnReorden();
+            dataGridView1.DataSource = tablaDeProductosEnRe;
         }
     }
 }

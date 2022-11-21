@@ -171,7 +171,7 @@ namespace MAD3_ventanas
                 var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
                 parametro1.Value = "s";
                 var dataReader = _comandosql.ExecuteReader();
-                dataReader = dataReader;
+                //dataReader = dataReader;
                 lista = GetList<ObjetoDB.Departamento>(dataReader);
                 //_adaptador.SelectCommand = _comandosql;
                 //_adaptador.Fill(tabla);
@@ -348,7 +348,7 @@ namespace MAD3_ventanas
             try
             {
                 conectar();
-                string qry = "sp_GestionarDescuento";
+                string qry = "sp_GestionarProducto";
                 _comandosql = new SqlCommand(qry, _conexion);
                 _comandosql.CommandType = CommandType.StoredProcedure;
                 _comandosql.CommandTimeout = 1200;
@@ -407,6 +407,41 @@ namespace MAD3_ventanas
 
             return tabla;
         }
+
+        public DataTable ConsultaProductosEnReorden()
+        {
+            var msg = "";
+            DataTable tabla = new DataTable();
+            string opc = "s";
+            try
+            {
+                conectar();
+                string qry = "SP_GetProductosEnPuntoDeReorden"; //nombre del stored procedure
+                _comandosql = new SqlCommand(qry, _conexion);
+                _comandosql.CommandType = CommandType.StoredProcedure; // Hay tres tipos de comandos: SP, tabla o text(query, cualquier clausula del DML). 
+                                                                       // -> Para este proyecto siempre debe ser un Stored Procedure     
+                _comandosql.CommandTimeout = 1200; //Tiempo antes de determinar error
+                //Los parámtros deben llamarse exactamente igual que en SP
+                var parametro1 = _comandosql.Parameters.Add("@Op", SqlDbType.Char, 1); //Orden: (Nombre, tipo de dato, longitud)
+                parametro1.Value = opc; //Qué valor le voy a mandar. Se inicializa en el primer string (en el public)
+                _adaptador.SelectCommand = _comandosql;
+                _adaptador.Fill(tabla);
+
+            }
+            catch (SqlException e)
+            {
+                msg = "Excepción de base de datos: \n";
+                msg += e.Message;
+                MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            finally
+            {
+                desconectar();
+            }
+
+            return tabla;
+        }
+
         public bool GestDept(string op               , 
                              Int16 IDDepartamento    ,
                              string nombreDept       , 
@@ -523,7 +558,7 @@ namespace MAD3_ventanas
                              string     Descripcion	    , 
                              decimal    Costo			, 
                              decimal    PrecioUnitario  ,
-                             int        Existencias	    , 
+                             decimal        Existencias	    , 
                              decimal    PuntoDeReorden  , 
                              short      DepartamentoFK  , 
                              short      UnidadMedidaFK  )
@@ -542,7 +577,7 @@ namespace MAD3_ventanas
                 parametro1.Value = op;
                 var parametro2 = _comandosql.Parameters.Add("@IDProducto", SqlDbType.Int, 4);
                 parametro2.Value = IDProducto;
-                var parametro3 = _comandosql.Parameters.Add("@Nombre", SqlDbType.VarChar, 30);
+                var parametro3 = _comandosql.Parameters.Add("@Nombre", SqlDbType.VarChar, 32);
                 parametro3.Value = Nombre;
                 var parametro4 = _comandosql.Parameters.Add("@Descripcion", SqlDbType.VarChar, 50);
                 parametro4.Value = Descripcion;
@@ -675,48 +710,38 @@ namespace MAD3_ventanas
             return add;
         }
 
-        public bool GestProductos(  string op
-                                  ,int       IDProducto
-                                  ,string	Nombre			
-                                  ,string	Descripcion		
-                                  ,decimal	Costo			
-                                  ,decimal	PrecioUnitario	
-                                  ,DateTime	FechaAlta		
-                                  ,int		Existencias		
-                                  ,decimal	PuntoDeReorden	
-                                  ,short	DepartamentoFK	
-                                  ,short	UnidadMedidaFK )
+        public bool GestDescuento(string op
+                                  ,int IDDescuento
+                                  ,string Nombre		
+                                  ,byte Porcentaje		
+                                  ,DateTime FechaINI	
+                                  ,DateTime FechaFIN	
+                                  ,int ProductoFK     )
         {
             var msg = "";
             var add = true;
             try
             {
                 conectar();
-                string qry = "sp_GestionarProducto";
+                string qry = "sp_GestionarDescuento";
                 _comandosql = new SqlCommand(qry, _conexion);
                 _comandosql.CommandType = CommandType.StoredProcedure;
                 _comandosql.CommandTimeout = 1200;
 
                 var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
                 parametro1.Value = op;
-                var parametro2 = _comandosql.Parameters.Add("@IDProducto",      SqlDbType.VarChar,        30);
-                parametro2.Value = IDProducto;
-                var parametro3 = _comandosql.Parameters.Add("@Nombre",          SqlDbType.VarChar,        50);
+                var parametro2 = _comandosql.Parameters.Add("@IDDescuento", SqlDbType.Int, 4);
+                parametro2.Value = IDDescuento;
+                var parametro3 = _comandosql.Parameters.Add("@Nombre",      SqlDbType.VarChar, 20);
                 parametro3.Value = Nombre;
-                var parametro4 = _comandosql.Parameters.Add("@Descripcion",     SqlDbType.SmallMoney,     13);
-                parametro4.Value = Descripcion;
-                var parametro5 = _comandosql.Parameters.Add("@Costo",           SqlDbType.VarChar,        100);
-                parametro5.Value = Costo;
-                var parametro6 = _comandosql.Parameters.Add("@PrecioUnitario",  SqlDbType.Char,           6);
-                parametro6.Value = PrecioUnitario;
-                var parametro7 = _comandosql.Parameters.Add("@Existencias",     SqlDbType.VarChar,        40);
-                parametro7.Value = Existencias;
-                var parametro8 = _comandosql.Parameters.Add("@PuntoDeReorden",  SqlDbType.Char,           10);
-                parametro8.Value = PuntoDeReorden;
-                var parametro9 = _comandosql.Parameters.Add("@DepartamentoFK",  SqlDbType.Char,           10);
-                parametro9.Value = DepartamentoFK;
-                var parametro10 = _comandosql.Parameters.Add("@UnidadMedidaFK",  SqlDbType.Char,           10);
-                parametro10.Value = UnidadMedidaFK;
+                var parametro4 = _comandosql.Parameters.Add("@Porcentaje",  SqlDbType.TinyInt, 1);
+                parametro4.Value = Porcentaje;
+                var parametro5 = _comandosql.Parameters.Add("@FechaINI",    SqlDbType.Date, 3);
+                parametro5.Value = FechaINI;
+                var parametro6 = _comandosql.Parameters.Add("@FechaFIN",    SqlDbType.Date, 3);
+                parametro6.Value = FechaFIN;
+                var parametro7 = _comandosql.Parameters.Add("@ProductoFK",  SqlDbType.VarChar, 40);
+                parametro7.Value = ProductoFK;
 
                 _adaptador.InsertCommand = _comandosql;
                 _comandosql.ExecuteNonQuery();
@@ -735,7 +760,7 @@ namespace MAD3_ventanas
             }
 
             return add;
-        }
+        }//Agregado
 
         public int GetCount(string op)
         {

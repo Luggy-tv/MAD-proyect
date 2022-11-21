@@ -215,6 +215,7 @@ namespace MAD3_ventanas.Administrador
             this.button3.TabIndex = 5;
             this.button3.Text = "Eliminar descuento";
             this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // comboBox2
             // 
@@ -223,6 +224,7 @@ namespace MAD3_ventanas.Administrador
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(235, 21);
             this.comboBox2.TabIndex = 4;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // DescuentosEditar
             // 

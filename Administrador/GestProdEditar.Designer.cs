@@ -84,6 +84,7 @@ namespace MAD3_ventanas.Administrador
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Editar información del producto:";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // button2
             // 
@@ -276,6 +277,7 @@ namespace MAD3_ventanas.Administrador
             this.button3.TabIndex = 5;
             this.button3.Text = "Eliminar producto";
             this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // comboBox3
             // 
@@ -298,6 +300,7 @@ namespace MAD3_ventanas.Administrador
             this.MaximizeBox = false;
             this.Name = "GestProdEditar";
             this.Text = "Editar productos";
+            this.Load += new System.EventHandler(this.GestProdEditar_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
