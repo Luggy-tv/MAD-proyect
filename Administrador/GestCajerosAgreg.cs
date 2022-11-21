@@ -22,7 +22,7 @@ namespace MAD3_ventanas.Administrador
         {
             var objBD = new EnlaceDB();
             int cantUser = objBD.GetCount("USER");
-            cantUser = 10001 + cantUser;
+            cantUser = 10000 + cantUser;
             textBox10.Text = cantUser.ToString();
         }
 
@@ -61,7 +61,7 @@ namespace MAD3_ventanas.Administrador
 
             //CAMBIO EKIZ
 
-            string regex = "^[a-zA-Z]+$";
+            string regex = "^[a-zA-Z ]+$";
             string regex2 = "^[a-zA-Z0-9]+$";
             string regex3 = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             bool result1 = Regex.IsMatch(nombres, regex);

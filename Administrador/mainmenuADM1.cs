@@ -25,6 +25,9 @@ namespace MAD3_ventanas.Administrador
             tablaDeProductosEnRe = null;
                 tablaDeProductosEnRe = objBD.ConsultaProductosEnReorden();
             dataGridView1.DataSource = tablaDeProductosEnRe;
+
+            //TAMAÑO DEL DATAGRIDVIEW
+
         }
 
         private void agregarToolStripMenuItem_Click(object sender, EventArgs e)
