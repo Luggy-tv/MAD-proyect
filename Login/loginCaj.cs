@@ -53,6 +53,11 @@ namespace MAD3_ventanas
                 login = true;
             }
 
+            else
+            {
+                MessageBox.Show("La contraseña es incorrecta");
+            }
+
             if (IDusuario == "" || contraseña == "")
             {
                 MessageBox.Show("Llenar todos los campos");

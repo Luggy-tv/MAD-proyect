@@ -252,3 +252,40 @@ C:\Users\luisa\Downloads\MAD03 11172022-1746\MAD-20-11-2022-0947\obj\Debug\MAD3 
 C:\Users\luisa\Downloads\MAD03 11172022-1746\MAD-20-11-2022-0947\obj\Debug\MAD3 ventanas.csproj.CoreCompileInputs.cache
 C:\Users\luisa\Downloads\MAD03 11172022-1746\MAD-20-11-2022-0947\obj\Debug\MAD3 ventanas.exe
 C:\Users\luisa\Downloads\MAD03 11172022-1746\MAD-20-11-2022-0947\obj\Debug\MAD3 ventanas.pdb
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\bin\Debug\MAD3 ventanas.exe.config
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\bin\Debug\MAD3 ventanas.exe
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\bin\Debug\MAD3 ventanas.pdb
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3 ventanas.csprojAssemblyReference.cache
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.ConsultaNotADM.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.ConsultaRecADM.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.DatosTienda.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.DatosTiendaVer.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.DescuentosAgreg.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.DescuentosEditar.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.Devoluciones.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.GestCajas.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.GestCajerosAgreg.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.GestCajerosEditar.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.GestDptosAgregar.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.GestDptosEditar.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.GestProdAgregar.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.GestProdEditar.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.InventarioADM.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.mainmenuADM1.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.ReporteCajero.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.ReporteVentas.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.ConsultaNot.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.ConsultarRec.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Inventario.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.loginCaj.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.login.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.prelogin.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.mainmenuCAJ.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.pagar.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Properties.Resources.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.ventas.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Rapida.resources
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3 ventanas.csproj.GenerateResource.cache
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3 ventanas.csproj.CoreCompileInputs.cache
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3 ventanas.exe
+C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3 ventanas.pdb

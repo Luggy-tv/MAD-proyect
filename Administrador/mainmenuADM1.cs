@@ -25,6 +25,9 @@ namespace MAD3_ventanas.Administrador
             tablaDeProductosEnRe = null;
                 tablaDeProductosEnRe = objBD.ConsultaProductosEnReorden();
             dataGridView1.DataSource = tablaDeProductosEnRe;
+
+           
+
         }
 
         private void agregarToolStripMenuItem_Click(object sender, EventArgs e)
@@ -159,6 +162,11 @@ namespace MAD3_ventanas.Administrador
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
         {
 
         }

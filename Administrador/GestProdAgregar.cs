@@ -54,7 +54,7 @@ namespace MAD3_ventanas.Administrador
             }
             else
             {
-                cantProd = cantProd + 1000001;
+                cantProd = cantProd + 1000000;
                 textBox1.Text = cantProd.ToString();
 
                 comboBox1.DataSource = listDepartamentos;

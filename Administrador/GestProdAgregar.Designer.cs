@@ -49,8 +49,6 @@ namespace MAD3_ventanas.Administrador
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox1
@@ -71,21 +69,21 @@ namespace MAD3_ventanas.Administrador
             // 
             // textBox5
             // 
-            this.textBox5.Location = new System.Drawing.Point(316, 94);
+            this.textBox5.Location = new System.Drawing.Point(314, 94);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(100, 20);
             this.textBox5.TabIndex = 4;
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(440, 144);
+            this.textBox6.Location = new System.Drawing.Point(438, 144);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(100, 20);
             this.textBox6.TabIndex = 9;
             // 
             // textBox10
             // 
-            this.textBox10.Location = new System.Drawing.Point(440, 94);
+            this.textBox10.Location = new System.Drawing.Point(438, 94);
             this.textBox10.Name = "textBox10";
             this.textBox10.Size = new System.Drawing.Size(100, 20);
             this.textBox10.TabIndex = 5;
@@ -104,7 +102,7 @@ namespace MAD3_ventanas.Administrador
             // comboBox2
             // 
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(316, 44);
+            this.comboBox2.Location = new System.Drawing.Point(314, 44);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(224, 21);
             this.comboBox2.TabIndex = 11;
@@ -139,7 +137,7 @@ namespace MAD3_ventanas.Administrador
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(313, 28);
+            this.label4.Location = new System.Drawing.Point(311, 28);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(93, 13);
             this.label4.TabIndex = 18;
@@ -148,7 +146,7 @@ namespace MAD3_ventanas.Administrador
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(313, 78);
+            this.label5.Location = new System.Drawing.Point(311, 78);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(34, 13);
             this.label5.TabIndex = 19;
@@ -157,7 +155,7 @@ namespace MAD3_ventanas.Administrador
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(437, 78);
+            this.label6.Location = new System.Drawing.Point(435, 78);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(76, 13);
             this.label6.TabIndex = 20;
@@ -166,7 +164,7 @@ namespace MAD3_ventanas.Administrador
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(313, 128);
+            this.label8.Location = new System.Drawing.Point(311, 128);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(60, 13);
             this.label8.TabIndex = 22;
@@ -175,7 +173,7 @@ namespace MAD3_ventanas.Administrador
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(437, 128);
+            this.label9.Location = new System.Drawing.Point(435, 128);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(89, 13);
             this.label9.TabIndex = 23;
@@ -199,7 +197,7 @@ namespace MAD3_ventanas.Administrador
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(316, 144);
+            this.textBox4.Location = new System.Drawing.Point(314, 144);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(100, 20);
             this.textBox4.TabIndex = 26;
@@ -228,21 +226,11 @@ namespace MAD3_ventanas.Administrador
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 297);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(527, 100);
-            this.dataGridView1.TabIndex = 30;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
             // GestProdAgregar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(586, 445);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(586, 250);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox4);
@@ -267,7 +255,6 @@ namespace MAD3_ventanas.Administrador
             this.Name = "GestProdAgregar";
             this.Text = "Agregar Productos";
             this.Load += new System.EventHandler(this.GestProdAgregar_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -295,6 +282,5 @@ namespace MAD3_ventanas.Administrador
         private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

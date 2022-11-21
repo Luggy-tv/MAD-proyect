@@ -25,7 +25,7 @@ namespace MAD3_ventanas.Administrador
             var objBD = new EnlaceDB();
             int cantDep = objBD.GetCount("DPTO");
 
-            cantDep = cantDep + 10000+1;
+            cantDep = cantDep + 10000;
             textBox2.Text = cantDep.ToString();
 
         }
