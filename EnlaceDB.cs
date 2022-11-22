@@ -403,6 +403,45 @@ namespace MAD3_ventanas
 
             return lista;
         }//Agregado
+        public List<ObjetoDB.ReciboDeVenta> ConsultaUltimoreciboDeVenta(int IDRecibo 
+                                                    , decimal Total 
+                                                    , decimal Subtotal)
+ {                 
+     var msg = ""; 
+            List<ObjetoDB.ReciboDeVenta> lista = new List<ObjetoDB.ReciboDeVenta>();
+            try
+            {
+                conectar();
+                string qry = "sp_GestionarReciboDeVenta";
+                _comandosql = new SqlCommand(qry, _conexion);
+                _comandosql.CommandType = CommandType.StoredProcedure;
+                _comandosql.CommandTimeout = 1200;
+                var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
+                parametro1.Value = "i";
+                var parametro2 = _comandosql.Parameters.Add("@idRecibo", SqlDbType.Int, 4);
+                parametro2.Value = IDRecibo; 
+                var parametro3 = _comandosql.Parameters.Add("@Total", SqlDbType.SmallMoney, 17);
+                parametro3.Value = Total; 
+                var parametro4 = _comandosql.Parameters.Add("@SubTotal", SqlDbType.SmallMoney, 17);
+                parametro4.Value = Subtotal; 
+                var dataReader = _comandosql.ExecuteReader();
+                lista = GetList<ObjetoDB.ReciboDeVenta>(dataReader);
+                //_adaptador.SelectCommand = _comandosql;
+                //_adaptador.Fill(tabla);
+            }
+            catch (SqlException e)
+            {
+                msg = "Excepción de base de datos: \n";
+                msg += e.Message;
+                MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            finally
+            {
+                desconectar();
+            }
+
+            return lista;
+        }//Agregado
         public DataTable ConsultaTablaDatosDeTienda()
         {
             var msg = "";
