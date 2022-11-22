@@ -16,27 +16,51 @@ namespace MAD3_ventanas
         {
             InitializeComponent();
         }
-
         private void pagar_Load(object sender, EventArgs e)
         {
+            textBox5.Text = ventas.ptotalVenta.ToString();
 
+            var objBD = new EnlaceDB();
+            var listaDeOpcionesDePago = objBD.ConsultaOpcionDePago();
+
+            comboBox1.DataSource = listaDeOpcionesDePago;
+            comboBox1.ValueMember = "IDOpcionDePago";
+            comboBox1.DisplayMember = "Nombre";
+
+            comboBox2.DataSource = listaDeOpcionesDePago;
+            comboBox2.ValueMember = "IDOpcionDePago";
+            comboBox2.DisplayMember = "Nombre";
+
+            comboBox3.DataSource = listaDeOpcionesDePago;
+            comboBox3.ValueMember = "IDOpcionDePago";
+            comboBox3.DisplayMember = "Nombre";
+
+            comboBox4.DataSource = listaDeOpcionesDePago;
+            comboBox4.ValueMember = "IDOpcionDePago";
+            comboBox4.DisplayMember = "Nombre";
         }
-
-        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+       
+        private void checkBox1_CheckStateChanged(object sender, EventArgs e) {
+            comboBox2.Enabled = (checkBox1.CheckState == CheckState.Checked);
+            textBox2.Enabled = (checkBox1.CheckState == CheckState.Checked);
+        }
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-
+            comboBox3.Enabled = (checkBox1.CheckState == CheckState.Checked);
+             textBox3.Enabled = (checkBox1.CheckState == CheckState.Checked);
         }
-
-        private void checkBox4_CheckedChanged(object sender, EventArgs e)
+        private void checkBox_3CheckedChanged(object sender, EventArgs e)
         {
-
+            comboBox4.Enabled = (checkBox1.CheckState == CheckState.Checked);
+             textBox4.Enabled = (checkBox1.CheckState == CheckState.Checked);
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
-            ventas ventas = new ventas();
-            ventas.Show();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
 
         }
     }

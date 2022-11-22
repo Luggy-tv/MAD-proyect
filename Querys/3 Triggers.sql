@@ -13,6 +13,7 @@ BEGIN
 		UPDATE P SET P.Estatus=0 FROM Producto AS P LEFT JOIN inserted AS D ON P.DepartamentoFK=D.IDDepartamento WHERE p.DepartamentoFK=d.IDDepartamento;
 	SET NOCOUNT OFF;
 END
+GO
 
 IF OBJECT_ID('t_UpdateProducto') IS NOT NULL
 	DROP TRIGGER t_UpdateProducto;
@@ -27,5 +28,5 @@ BEGIN
 		UPDATE Descuento SET Estado=0 FROM Descuento AS DE LEFT JOIN inserted AS PR ON DE.ProductoFK=PR.IDProducto WHERE DE.ProductoFK=PR.IDProducto;
 	SET NOCOUNT OFF;
 END
-
+GO
 
