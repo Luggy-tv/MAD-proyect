@@ -575,7 +575,7 @@ GO
 IF OBJECT_ID('sp_GestionarReciboDeVenta')IS NOT NULL
 	Drop procedure sp_GestionarReciboDeVenta;
 GO
-Create procedure sp_GestionarReciboDeVenta(@op char(1)
+Create procedure sp_GestionarReciboDeVenta(  @op char(1)
 											,@idrecibo int =null
 											,@Total smallmoney	   =NULL
 											,@SubTotal smallmoney   =NULL
@@ -615,7 +615,7 @@ IF OBJECT_ID('SP_GestionarDetalleProductos')IS NOT NULL
 GO
 Create procedure SP_GestionarDetalleProductos(@op char(1)
 											,@FKReciboVenta int					=NULL
-											,@FkpProducto int					=NULL
+											,@FkProducto int					=NULL
 											,@CantidadDeProducto DEcimal(7,3)	=NULL
 )AS
 BEGIN
@@ -623,12 +623,57 @@ BEGIN
 
 	IF @op= 'i'
 	begin
-		Insert into DetalleProductos(ReciboVentaFK,ProductoFK,CantProd) VALUES (@FKReciboVenta,@FkpProducto,@CantidadDeProducto);
-		update Producto set Existencias = Existencias-@CantidadDeProducto where Producto.IDProducto=@FkpProducto;
+		Insert into DetalleProductos(ReciboVentaFK,ProductoFK,CantProd) VALUES (@FKReciboVenta,@FkProducto,@CantidadDeProducto);
+		update Producto set Existencias = Existencias-@CantidadDeProducto where Producto.IDProducto=@FkProducto;
 	end
 	IF @op='s'
 		Select IDRecVent_Prod,ReciboVentaFK,ProductoFK,CantProd  from DetalleProductos;
 END
 GO
 
-----------------------------------------------------------SP_ges
+----------------------------------------------------------SP_GestionarVentas
+
+IF OBJECT_ID('SP_GestionarVentas')IS NOT NULL
+	Drop procedure SP_GestionarVentas;
+GO
+Create procedure SP_GestionarVentas(@op char(1)
+											,@FKReciboVenta int					=NULL
+											,@FCajeroLog8nFK int					=NULL
+
+)AS
+BEGIN
+	declare @completed bit;
+
+	IF @op= 'i'
+	begin
+		Insert into DetalleProductos(ReciboVentaFK,ProductoFK,CantProd) VALUES (@FKReciboVenta,@FkProducto,@CantidadDeProducto);
+		update Producto set Existencias = Existencias-@CantidadDeProducto where Producto.IDProducto=@FkProducto;
+	end
+	IF @op='s'
+		Select IDRecVent_Prod,ReciboVentaFK,ProductoFK,CantProd  from DetalleProductos;
+END
+GO
+
+----------------------------------------------------------Sp_ReporteDeVentas
+
+
+IF OBJECT_ID('sp_BusquedaRapida')IS NOT NULL
+	DROP PROCEDURE sp_BusquedaRapida;
+GO
+Create Procedure sp_BusquedaRapida( @op Char(1)
+									,@IDProducto INT=NULL
+									,@Nombre VARCHAR(30)=NULL
+)
+AS
+BEGIN
+	if @op='N'
+	--DECLARE @nombre varchar(30);
+	--SET @Nombre ='cong'
+		SELECT IDProducto,Nombre,Costo,Departamento,[Unidad De Medida] from v_Productos where Nombre like CONCAT('%',@Nombre,'%');
+
+	if @op='C'
+	--DECLARE @idproducto int
+	--SET @idproducto= 2
+		SELECT IDProducto,Nombre,Costo,Departamento,[Unidad De Medida] from v_Productos where IDProducto like CONCAT('%',@IDProducto,'%');
+END
+GO

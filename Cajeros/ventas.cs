@@ -32,10 +32,15 @@ namespace MAD3_ventanas
 
             if (productosEnVentasLista.Count() > 0)
             {
-                ptotalVenta = subtotal;
-                subtotalVenta = total;
+                subtotalVenta= subtotal;
+                ptotalVenta  = total;
+                
                 pagar pagar = new pagar();
                 pagar.ShowDialog();
+
+                this.Close();
+                mainmenuCAJ mainmenuCAJ = new mainmenuCAJ();
+                mainmenuCAJ.Show();
             } 
             else
             {
@@ -58,7 +63,7 @@ namespace MAD3_ventanas
         {
             ptotalVenta = 0;
             subtotalVenta = 0;
-            //productosEnVentasLista= ;
+            productosEnVentasLista = new List<ObjetoDB.ProductosEnVenta>();
 
             var objBD = new EnlaceDB();
             List<ObjetoDB.Producto> listProductos = new List<ObjetoDB.Producto>();

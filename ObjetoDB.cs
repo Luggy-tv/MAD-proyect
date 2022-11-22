@@ -124,7 +124,7 @@ namespace MAD3_ventanas
 		{
 			public int IDDetallePago { get; set; }
 			public int FkRecVenta { get; set; }
-			public byte FKOpPago { get; set; }
+			public byte		FKOpPago { get; set; }
 			public decimal Cantidad { get; set; }
 		}
 

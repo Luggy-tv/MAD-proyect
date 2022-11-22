@@ -130,29 +130,61 @@ namespace MAD3_ventanas
             //textBox4.Text = loginCaj.loggedUser.IdUser;
             //textBox6.Text = loginCaj.loggedUCaja.ToString();
             //textBox5.Text = localDate.ToString();
-
+            bool comp=false;
             decimal cant1 = 0;
             decimal cant2 = 0;
             decimal cant3 = 0;
             decimal cant4 = 0;
+            var seleccion = comboBox1.SelectedItem as ObjetoDB.OpcionDePago;
+            var seleccion2 = comboBox1.SelectedItem as ObjetoDB.OpcionDePago;
+            var seleccion3= comboBox1.SelectedItem as ObjetoDB.OpcionDePago;
+            var seleccion4 = comboBox1.SelectedItem as ObjetoDB.OpcionDePago;
+
 
             List<ObjetoDB.DetallePago> listaDPagos = new List<ObjetoDB.DetallePago>();
 
-            if (textBox1.Text != "") { 
-
+            if (textBox1.Text != "") {
+                
                 cant1 = decimal.Parse(textBox1.Text);
+                listaDPagos.Add(new ObjetoDB.DetallePago
+                {
+                    FKOpPago = seleccion.IDOpcionDePago,
+                    Cantidad = cant1
+
+                }) ;
+                
 
                 if (checkBox1.CheckState == CheckState.Checked)
                 {
                     cant2 = decimal.Parse(textBox2.Text);
+                    listaDPagos.Add(new ObjetoDB.DetallePago
+                    {
+                        FKOpPago = seleccion2.IDOpcionDePago,
+                        Cantidad = cant2
+
+                    });
+
+                    
                 }
                 if (checkBox2.CheckState == CheckState.Checked)
                 {
                     cant3 = decimal.Parse(textBox3.Text);
+                    listaDPagos.Add(new ObjetoDB.DetallePago
+                    {
+                        FKOpPago = seleccion3.IDOpcionDePago,
+                        Cantidad = cant3
+
+                    });
                 }
                 if (checkBox3.CheckState == CheckState.Checked)
                 {
                     cant4 = decimal.Parse(textBox4.Text);
+                    listaDPagos.Add(new ObjetoDB.DetallePago
+                    {
+                        FKOpPago = seleccion4.IDOpcionDePago,
+                        Cantidad = cant4
+
+                    });
                 }
                 decimal pagoTot = cant1 + cant2 + cant3 + cant4;
                 if(pagoTot>= ventas.ptotalVenta)
@@ -164,6 +196,24 @@ namespace MAD3_ventanas
                         case DialogResult.Yes:
                             var objBD = new EnlaceDB();
                             reciboDeVenta = objBD.ConsultaUltimoreciboDeVental(reciboDeVenta.IDRecibo, ventas.ptotalVenta, ventas.subtotalVenta).First<ObjetoDB.ReciboDeVenta>();
+                            foreach(var items in listaDPagos)
+                            {
+                                string op = "i";
+                                comp = objBD.GestDetallePago(op,
+                                     reciboDeVenta.IDRecibo,
+                                     items.FKOpPago,
+                                     items.Cantidad);
+                            }
+                            foreach(var item in ventas.productosEnVentasLista)
+                            {
+                                string op = "i";
+                                comp = objBD.GestDetalleProd(op, reciboDeVenta.IDRecibo, item.IDProducto, item.CantProd);
+                            }
+                            if (comp)
+                            {
+                                MessageBox.Show("Compra realizada cambio de :" + (pagoTot- ventas.ptotalVenta).ToString(), "Gracias por comprar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                this.Close();
+                            }
 
                             break;
                         case DialogResult.No:

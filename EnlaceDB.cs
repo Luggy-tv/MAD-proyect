@@ -944,6 +944,94 @@ namespace MAD3_ventanas
 
             return add;
         }//Agregado
+
+        public bool GestDetalleProd(string op,
+                                     int FkRecVent,
+                                     int FkProd,
+                                     decimal CantProd)
+        {
+            var msg = "";
+            var add = true;
+
+            try
+            {
+                conectar();
+                string qry = "SP_GestionarDetalleProductos";
+                _comandosql = new SqlCommand(qry, _conexion);
+                _comandosql.CommandType = CommandType.StoredProcedure;
+                _comandosql.CommandTimeout = 1200;
+
+                var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
+                parametro1.Value = op;
+                var parametro2 = _comandosql.Parameters.Add("@FKReciboVenta", SqlDbType.Int, 4);
+                parametro2.Value = FkRecVent;
+                var parametro3 = _comandosql.Parameters.Add("@FkProducto", SqlDbType.Int, 4);
+                parametro3.Value = FkProd;
+                var parametro4 = _comandosql.Parameters.Add("@CantidadDeProducto", SqlDbType.Decimal, 7);
+                parametro4.Value = CantProd;
+                _adaptador.InsertCommand = _comandosql;
+                _comandosql.ExecuteNonQuery();
+
+            }
+            catch (SqlException e)
+            {
+                add = false;
+                msg = "Excepción de base de datos: \n";
+                msg += e.Message;
+                MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            finally
+            {
+                desconectar();
+            }
+
+            return add;
+        }
+
+        public bool GestDetallePago(string      op          ,
+                                     int        FkRecVent   ,
+                                     byte        FKOpPago,
+                                     decimal Cantidad)
+        {
+            var msg = "";
+            var add = true;
+
+            try
+            {
+                conectar();
+                string qry = "SP_GestionarDetalleDePago";
+                _comandosql = new SqlCommand(qry, _conexion);
+                _comandosql.CommandType = CommandType.StoredProcedure;
+                _comandosql.CommandTimeout = 1200;
+
+                var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
+                parametro1.Value = op;
+                var parametro2 = _comandosql.Parameters.Add("@FKReciboVenta", SqlDbType.Int, 4);
+                parametro2.Value = FkRecVent;
+                var parametro3 = _comandosql.Parameters.Add("@FkOpcionDePago", SqlDbType.TinyInt, 1);
+                parametro3.Value = FKOpPago;
+                var parametro4 = _comandosql.Parameters.Add("@CantidadAPagar", SqlDbType.Decimal, 17);
+                parametro4.Value = Cantidad;
+                _adaptador.InsertCommand = _comandosql;
+                _comandosql.ExecuteNonQuery();
+
+            }
+            catch (SqlException e)
+            {
+                add = false;
+                msg = "Excepción de base de datos: \n";
+                msg += e.Message;
+                MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            finally
+            {
+                desconectar();
+            }
+
+            return add;
+        }
+
+
         public int GetCount(string op)
         {
             int cantidad = 0;
