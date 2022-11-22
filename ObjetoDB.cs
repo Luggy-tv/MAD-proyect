@@ -113,6 +113,9 @@ namespace MAD3_ventanas
 			public decimal Costo { get; set; }
 			public decimal Existencias { get; set; }
 			public decimal CantProd { get; set; }
+			public decimal PrecioProds { get; set; }
+			public decimal descuento { get; set; }
+
 		}
 	}
 }

@@ -16,28 +16,19 @@ namespace MAD3_ventanas
         {
             InitializeComponent();
         }
-
         private void pagar_Load(object sender, EventArgs e)
         {
 
         }
-
         private void checkBox5_CheckedChanged(object sender, EventArgs e)
         {
-
         }
-
         private void checkBox4_CheckedChanged(object sender, EventArgs e)
         {
-
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
-            ventas ventas = new ventas();
-            ventas.Show();
-
         }
     }
 }

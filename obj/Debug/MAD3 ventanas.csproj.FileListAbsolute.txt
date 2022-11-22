@@ -289,3 +289,40 @@ C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411
 C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3 ventanas.csproj.CoreCompileInputs.cache
 C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3 ventanas.exe
 C:\Users\monve\Desktop\LMAD\MAD\Terceras\MAD-21-11-2022-0411\MAD-21-11-2022-0411\obj\Debug\MAD3 ventanas.pdb
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\bin\Debug\MAD3 ventanas.exe.config
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\bin\Debug\MAD3 ventanas.exe
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\bin\Debug\MAD3 ventanas.pdb
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3 ventanas.csproj.AssemblyReference.cache
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.ConsultaNotADM.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.ConsultaRecADM.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.DatosTienda.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.DatosTiendaVer.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.DescuentosAgreg.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.DescuentosEditar.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.Devoluciones.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.GestCajas.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.GestCajerosAgreg.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.GestCajerosEditar.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.GestDptosAgregar.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.GestDptosEditar.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.GestProdAgregar.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.GestProdEditar.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.InventarioADM.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.mainmenuADM1.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.ReporteCajero.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Administrador.ReporteVentas.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.ConsultaNot.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.ConsultarRec.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Inventario.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.loginCaj.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.login.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.prelogin.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.mainmenuCAJ.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.pagar.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Properties.Resources.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.ventas.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3_ventanas.Rapida.resources
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3 ventanas.csproj.GenerateResource.cache
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3 ventanas.csproj.CoreCompileInputs.cache
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3 ventanas.exe
+C:\Users\luisa\Downloads\MAD-21-11-2022-0411\obj\Debug\MAD3 ventanas.pdb
