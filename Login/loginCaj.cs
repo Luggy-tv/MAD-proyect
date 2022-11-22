@@ -26,6 +26,8 @@ namespace MAD3_ventanas
             prelogin prelogin = new prelogin();
             prelogin.Show();
         }
+
+
         private void Ingresar_Click(object sender, EventArgs e)
         {
             ObjetoDB.Caja seleccion = comboBox1.SelectedItem as ObjetoDB.Caja;
@@ -39,40 +41,50 @@ namespace MAD3_ventanas
             string contraseña = textBox2.Text;
             byte numCaja = seleccion.IDCaja;
 
-            bool userIsValid = false, passIsVal = false, login = false;
-
-            userIsValid = userExists(IDusuario,listUsuarios);
-            
-            if (userIsValid)
-            {
-                passIsVal = passIsValid(IDusuario, contraseña,listUsuarios);
-            }
-
-            if (userIsValid && passIsVal)
-            {
-                login = true;
-            }
-
-            else
-            {
-                MessageBox.Show("La contraseña es incorrecta");
-            }
+           
 
             if (IDusuario == "" || contraseña == "")
             {
                 MessageBox.Show("Llenar todos los campos");
             }
-            if (login) {
 
-                loggedUser = getUserFromString(IDusuario, listUsuarios);
-                loggedUCaja = numCaja;
+            else
+            {
+                bool userIsValid = false, passIsVal = false, login = false;
 
-                this.Close();
-                mainmenuCAJ mainmenuCAJ = new mainmenuCAJ();
-                mainmenuCAJ.Show();
+                userIsValid = userExists(IDusuario,listUsuarios);
+            
+                if (userIsValid)
+                {
+                     passIsVal = passIsValid(IDusuario, contraseña,listUsuarios);
+                }
+    
+                 if (userIsValid && passIsVal)
+                 {
+                     login = true;
+                 }
 
+                else
+                 {
+                     MessageBox.Show("La contraseña es incorrecta");
+                 }
+
+                 if (login) {
+
+                    loggedUser = getUserFromString(IDusuario, listUsuarios);
+                    loggedUCaja = numCaja;
+
+                     this.Close();
+                     mainmenuCAJ mainmenuCAJ = new mainmenuCAJ();
+                     mainmenuCAJ.Show();
+
+                 }
             }
+
         }
+
+
+
         private void loginCaj_Load(object sender, EventArgs e)
         {
             var objBD = new EnlaceDB();
@@ -102,7 +114,8 @@ namespace MAD3_ventanas
         }
         public bool userExists(string nombreUsuario, List<ObjetoDB.Usuario> listaUsuarios)
         {
-           bool exists = false;
+           
+            bool exists = false;
             for (int i1 = 0; i1 < listaUsuarios.Count; i1++)
             {
                 if (listaUsuarios[i1].IDUsuario == Convert.ToInt16(nombreUsuario))

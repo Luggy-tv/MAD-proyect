@@ -128,5 +128,15 @@ namespace MAD3_ventanas
 			public decimal Cantidad { get; set; }
 		}
 
-	}
+        public class Inventario
+        {
+            public string DepartamentoID { get; set; }
+			public decimal cantMin { get; set; }
+			public bool agotados { get; set; }
+			public bool merma { get; set; }
+
+        }
+
+
+    }
 }
