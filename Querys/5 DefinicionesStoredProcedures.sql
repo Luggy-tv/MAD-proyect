@@ -591,6 +591,8 @@ BEGIN
 		Select IDDetallePago,FkRecVenta,FkRecVenta,Cantidad  from DetallePago;
 END
 GO
+
+
 ---------------------------------------------------------SP_GestionarDetalleProductos
 IF OBJECT_ID('SP_GestionarDetalleProductos')IS NOT NULL
 	Drop procedure SP_GestionarDetalleProductos;
@@ -601,10 +603,15 @@ Create procedure SP_GestionarDetalleProductos(@op char(1)
 											,@CantidadDeProducto DEcimal(7,3)	=NULL
 )AS
 BEGIN
-	IF @op= 'i'
-		Insert into DetalleProductos(ReciboVentaFK,ProductoFK,CantProd) VALUES (@FKReciboVenta,@FkpProducto,@CantidadDeProducto);
+	declare @completed bit;
 
+	IF @op= 'i'
+	begin
+		Insert into DetalleProductos(ReciboVentaFK,ProductoFK,CantProd) VALUES (@FKReciboVenta,@FkpProducto,@CantidadDeProducto);
+		update Producto set Existencias = Existencias-@CantidadDeProducto where Producto.IDProducto=@FkpProducto;
+	end
 	IF @op='s'
 		Select IDRecVent_Prod,ReciboVentaFK,ProductoFK,CantProd  from DetalleProductos;
 END
 GO
+

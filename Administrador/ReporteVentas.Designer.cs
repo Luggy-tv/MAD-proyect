@@ -195,6 +195,7 @@ namespace MAD3_ventanas.Administrador
             this.MaximizeBox = false;
             this.Name = "ReporteVentas";
             this.Text = "Reporte por Ventas";
+            this.Load += new System.EventHandler(this.ReporteVentas_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

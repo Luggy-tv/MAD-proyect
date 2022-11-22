@@ -30,3 +30,18 @@ begin
 	set @res= (Select esAdmin from Usuario where IDUsuario=@IDUsuario)
 	return @res;
 end
+GO
+
+--IF OBJECT_ID('fn_DisminuirExistencias')IS NOT NULL
+--	drop function fn_DisminuirExistencias;
+--GO
+--Create function fn_DisminuirExistencias(@idproducto int, @cantVendida decimal)returns bit
+--BEGIN
+--	declare @res bit;
+--	set @res=0;
+	
+--	IF @@ROWCOUNT >0
+--		set @res =1;
+
+--	return @res;
+--END

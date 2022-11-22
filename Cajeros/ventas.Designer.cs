@@ -50,13 +50,15 @@ namespace MAD3_ventanas
             this.Regresar = new System.Windows.Forms.Button();
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(392, 83);
+            this.textBox2.Location = new System.Drawing.Point(443, 83);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(114, 20);
             this.textBox2.TabIndex = 1;
@@ -74,7 +76,7 @@ namespace MAD3_ventanas
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(389, 67);
+            this.label2.Location = new System.Drawing.Point(443, 67);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(52, 13);
             this.label2.TabIndex = 3;
@@ -83,10 +85,17 @@ namespace MAD3_ventanas
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToResizeColumns = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 110);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(575, 201);
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dataGridView1.Size = new System.Drawing.Size(633, 201);
             this.dataGridView1.TabIndex = 4;
             // 
             // comboBox1
@@ -94,13 +103,13 @@ namespace MAD3_ventanas
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(12, 83);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(249, 21);
+            this.comboBox1.Size = new System.Drawing.Size(254, 21);
             this.comboBox1.TabIndex = 5;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(450, 343);
+            this.textBox1.Location = new System.Drawing.Point(508, 317);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(137, 20);
@@ -109,17 +118,17 @@ namespace MAD3_ventanas
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(410, 350);
+            this.label3.Location = new System.Drawing.Point(453, 324);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(34, 13);
+            this.label3.Size = new System.Drawing.Size(49, 13);
             this.label3.TabIndex = 7;
-            this.label3.Text = "Total:";
+            this.label3.Text = "Subtotal:";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(382, 324);
+            this.label4.Location = new System.Drawing.Point(440, 324);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(62, 13);
             this.label4.TabIndex = 8;
@@ -127,7 +136,7 @@ namespace MAD3_ventanas
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(450, 317);
+            this.textBox3.Location = new System.Drawing.Point(508, 343);
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(137, 20);
@@ -146,12 +155,12 @@ namespace MAD3_ventanas
             this.textBox5.Location = new System.Drawing.Point(317, 29);
             this.textBox5.Name = "textBox5";
             this.textBox5.ReadOnly = true;
-            this.textBox5.Size = new System.Drawing.Size(179, 20);
+            this.textBox5.Size = new System.Drawing.Size(237, 20);
             this.textBox5.TabIndex = 12;
             // 
             // textBox6
             // 
-            this.textBox6.Location = new System.Drawing.Point(502, 29);
+            this.textBox6.Location = new System.Drawing.Point(560, 29);
             this.textBox6.Name = "textBox6";
             this.textBox6.ReadOnly = true;
             this.textBox6.Size = new System.Drawing.Size(85, 20);
@@ -178,7 +187,7 @@ namespace MAD3_ventanas
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(499, 13);
+            this.label7.Location = new System.Drawing.Point(557, 13);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(65, 13);
             this.label7.TabIndex = 16;
@@ -186,9 +195,9 @@ namespace MAD3_ventanas
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(512, 82);
+            this.button2.Location = new System.Drawing.Point(563, 81);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 21);
+            this.button2.Size = new System.Drawing.Size(82, 22);
             this.button2.TabIndex = 17;
             this.button2.Text = "Ingresar";
             this.button2.UseVisualStyleBackColor = true;
@@ -196,9 +205,9 @@ namespace MAD3_ventanas
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(450, 398);
+            this.button1.Location = new System.Drawing.Point(508, 396);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(137, 23);
+            this.button1.Size = new System.Drawing.Size(137, 28);
             this.button1.TabIndex = 10;
             this.button1.Text = "Pagar";
             this.button1.UseVisualStyleBackColor = true;
@@ -232,33 +241,53 @@ namespace MAD3_ventanas
             this.textBox7.Location = new System.Drawing.Point(272, 84);
             this.textBox7.Name = "textBox7";
             this.textBox7.ReadOnly = true;
-            this.textBox7.Size = new System.Drawing.Size(114, 20);
+            this.textBox7.Size = new System.Drawing.Size(165, 20);
             this.textBox7.TabIndex = 20;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(269, 67);
+            this.label8.Location = new System.Drawing.Point(269, 68);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(99, 13);
             this.label8.TabIndex = 21;
             this.label8.Text = "Unidad De Medida:";
             // 
-            // button3
+            // textBox8
             // 
-            this.button3.Location = new System.Drawing.Point(450, 369);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(137, 23);
-            this.button3.TabIndex = 22;
-            this.button3.Text = "Agregar Descuento";
-            this.button3.UseVisualStyleBackColor = true;
+            this.textBox8.Location = new System.Drawing.Point(508, 369);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.ReadOnly = true;
+            this.textBox8.Size = new System.Drawing.Size(137, 20);
+            this.textBox8.TabIndex = 23;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(468, 372);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(34, 13);
+            this.label9.TabIndex = 24;
+            this.label9.Text = "Total:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(453, 346);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(49, 13);
+            this.label10.TabIndex = 25;
+            this.label10.Text = "Subtotal:";
+            this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(603, 433);
-            this.Controls.Add(this.button3);
+            this.ClientSize = new System.Drawing.Size(657, 441);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.textBox8);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.textBox7);
             this.Controls.Add(this.Regresar);
@@ -312,6 +341,8 @@ namespace MAD3_ventanas
         private System.Windows.Forms.Button Regresar;
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.Label label10;
     }
 }
