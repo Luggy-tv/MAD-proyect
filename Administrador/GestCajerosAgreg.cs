@@ -187,7 +187,7 @@ namespace MAD3_ventanas.Administrador
             //VALIDACION CARACTERES EMAIL !!! pendiente validar formato !!!
             if (email.Length > 30 || result6 == false)
             {
-                MessageBox.Show("El e-mail excede el límite de 30 caracteres");
+                MessageBox.Show("El formato del correo electrónico no es válido o excede el límite de 30 caracteres");
                 val10 = false;
             }
             else
