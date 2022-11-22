@@ -54,6 +54,8 @@ namespace MAD3_ventanas
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -64,12 +66,13 @@ namespace MAD3_ventanas
             // 
             this.button1.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Location = new System.Drawing.Point(217, 368);
+            this.button1.Location = new System.Drawing.Point(210, 386);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(107, 23);
+            this.button1.Size = new System.Drawing.Size(100, 22);
             this.button1.TabIndex = 5;
             this.button1.Text = "Emitir recibo";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
@@ -82,9 +85,9 @@ namespace MAD3_ventanas
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(107, 368);
+            this.button2.Location = new System.Drawing.Point(104, 386);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(104, 23);
+            this.button2.Size = new System.Drawing.Size(100, 22);
             this.button2.TabIndex = 7;
             this.button2.Text = "Regresar";
             this.button2.UseVisualStyleBackColor = true;
@@ -162,6 +165,7 @@ namespace MAD3_ventanas
             // 
             // textBox2
             // 
+            this.textBox2.Enabled = false;
             this.textBox2.Location = new System.Drawing.Point(198, 42);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 20);
@@ -178,6 +182,7 @@ namespace MAD3_ventanas
             // 
             // comboBox2
             // 
+            this.comboBox2.Enabled = false;
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Location = new System.Drawing.Point(9, 41);
             this.comboBox2.Name = "comboBox2";
@@ -298,11 +303,30 @@ namespace MAD3_ventanas
             this.comboBox4.Size = new System.Drawing.Size(183, 21);
             this.comboBox4.TabIndex = 16;
             // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(210, 360);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.ReadOnly = true;
+            this.textBox5.Size = new System.Drawing.Size(100, 20);
+            this.textBox5.TabIndex = 21;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(117, 363);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(87, 13);
+            this.label9.TabIndex = 22;
+            this.label9.Text = "Saldo pendiente:";
+            // 
             // pagar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(335, 403);
+            this.ClientSize = new System.Drawing.Size(335, 421);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.textBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -322,6 +346,7 @@ namespace MAD3_ventanas
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -351,5 +376,7 @@ namespace MAD3_ventanas
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.Label label9;
     }
 }

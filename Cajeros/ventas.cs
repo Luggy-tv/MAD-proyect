@@ -54,8 +54,8 @@ namespace MAD3_ventanas
         }
         private void ventas_Load(object sender, EventArgs e)
         {
-            ñ.,ptotalVenta = 0;
-           Venta = 0;
+            ptotalVenta = 0;
+            subtotalVenta = 0;
 
             var objBD = new EnlaceDB();
             List<ObjetoDB.Producto> listProductos = new List<ObjetoDB.Producto>();
