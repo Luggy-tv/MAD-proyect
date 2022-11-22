@@ -165,7 +165,7 @@ namespace MAD3_ventanas
                     {
                         case DialogResult.Yes:
                             var objBD = new EnlaceDB();
-                            reciboDeVenta = objBD.ConsultaUltimoreciboDeVenta(reciboDeVenta.IDRecibo,)
+                            //reciboDeVenta = objBD.ConsultaUltimoreciboDeVenta(reciboDeVenta.IDRecibo,); // falta llenar variables
                             
                             break;
                         case DialogResult.No:
@@ -188,5 +188,9 @@ namespace MAD3_ventanas
            
         }
 
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }
