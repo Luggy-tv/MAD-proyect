@@ -82,7 +82,7 @@ namespace MAD3_ventanas
 
             var listCajas = new List<ObjetoDB.Caja>();
             listCajas = null;
-            listCajas = objBD.ConsultaCajas();
+            listCajas = objBD.ConsultaCajasl();
 
             comboBox1.DataSource = listCajas;
             comboBox1.ValueMember = "IDCaja";

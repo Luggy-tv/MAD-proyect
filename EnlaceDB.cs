@@ -9,6 +9,7 @@ using System.Configuration;
 using System.Windows.Forms;
 using MAD3_ventanas.Administrador;
 using System.Reflection;
+//using System.Reflection;
 
 namespace MAD3_ventanas 
 {
@@ -22,7 +23,6 @@ namespace MAD3_ventanas
         //
         static private DataTable _tabla = new DataTable();
         static private DataSet _DS = new DataSet();
-
         public DataTable obtenertabla
         {
             get
@@ -41,7 +41,6 @@ namespace MAD3_ventanas
         {
             _conexion.Close();
         }
-
         /*
        public bool Autentificar(string us, string ps)
        {
@@ -154,10 +153,8 @@ namespace MAD3_ventanas
        }
 
        */
-
         //GESTIONAR DEPARTAMENTO (AGREGAR) ------------------------------------------------------------------------------------------------
         //---------------------------------------------------------------------------------------------------------------------------------
-
         public List<ObjetoDB.Departamento> ConsultaDepartamentos()
         {
             var msg = "";
@@ -311,6 +308,37 @@ namespace MAD3_ventanas
 
             return lista;
         }
+        public List<ObjetoDB.Caja> ConsultaCajasl()
+        {
+            var msg = "";
+            List<ObjetoDB.Caja> lista = new List<ObjetoDB.Caja>();
+            try
+            {
+                conectar();
+                string qry = "sp_GestionarCaja";
+                _comandosql = new SqlCommand(qry, _conexion);
+                _comandosql.CommandType = CommandType.StoredProcedure;
+                _comandosql.CommandTimeout = 1200;
+                var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
+                parametro1.Value = "l";
+                var dataReader = _comandosql.ExecuteReader();
+                lista = GetList<ObjetoDB.Caja>(dataReader);
+                //_adaptador.SelectCommand = _comandosql;
+                //_adaptador.Fill(tabla);
+            }
+            catch (SqlException e)
+            {
+                msg = "Excepción de base de datos: \n";
+                msg += e.Message;
+                MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            finally
+            {
+                desconectar();
+            }
+
+            return lista;
+        }
         public List<ObjetoDB.Descuento> ConsultaDescuentos()
         {
             var msg = "";
@@ -404,12 +432,13 @@ namespace MAD3_ventanas
 
             return lista;
         }//Agregado
-        public List<ObjetoDB.ReciboDeVenta> ConsultaUltimoreciboDeVenta(int IDRecibo 
+        public ObjetoDB.ReciboDeVenta ConsultaUltimoreciboDeVenta(int IDRecibo 
                                                     , decimal Total 
                                                     , decimal Subtotal)
  {                 
-     var msg = ""; 
-            List<ObjetoDB.ReciboDeVenta> lista = new List<ObjetoDB.ReciboDeVenta>();
+     var msg = "";
+            ObjetoDB.ReciboDeVenta obj = new ObjetoDB.ReciboDeVenta();
+            //ObjetoDB.ReciboDeVenta obj2 = new ObjetoDB.ReciboDeVenta();
             try
             {
                 conectar();
@@ -426,7 +455,11 @@ namespace MAD3_ventanas
                 var parametro4 = _comandosql.Parameters.Add("@SubTotal", SqlDbType.SmallMoney, 17);
                 parametro4.Value = Subtotal; 
                 var dataReader = _comandosql.ExecuteReader();
-                lista = GetList<ObjetoDB.ReciboDeVenta>(dataReader);
+
+                //T MapToClass<T>(SqlDataReader reader)
+                obj = MapToClass<ObjetoDB.ReciboDeVenta>(dataReader);
+
+                //obj2.IDRecibo = dataReader.
                 //_adaptador.SelectCommand = _comandosql;
                 //_adaptador.Fill(tabla);
             }
@@ -441,7 +474,52 @@ namespace MAD3_ventanas
                 desconectar();
             }
 
-            return lista;
+            return obj;
+        }//Agregado
+
+        public List<ObjetoDB.ReciboDeVenta> ConsultaUltimoreciboDeVental(int IDRecibo
+                                                   , decimal Total
+                                                   , decimal Subtotal)
+        {
+            var msg = "";
+            List<ObjetoDB.ReciboDeVenta> obj = new List<ObjetoDB.ReciboDeVenta>();
+            //ObjetoDB.ReciboDeVenta obj2 = new ObjetoDB.ReciboDeVenta();
+            try
+            {
+                conectar();
+                string qry = "sp_GestionarReciboDeVenta";
+                _comandosql = new SqlCommand(qry, _conexion);
+                _comandosql.CommandType = CommandType.StoredProcedure;
+                _comandosql.CommandTimeout = 1200;
+                var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
+                parametro1.Value = "i";
+                var parametro2 = _comandosql.Parameters.Add("@idRecibo", SqlDbType.Int, 4);
+                parametro2.Value = IDRecibo;
+                var parametro3 = _comandosql.Parameters.Add("@Total", SqlDbType.SmallMoney, 17);
+                parametro3.Value = Total;
+                var parametro4 = _comandosql.Parameters.Add("@SubTotal", SqlDbType.SmallMoney, 17);
+                parametro4.Value = Subtotal;
+                var dataReader = _comandosql.ExecuteReader();
+
+                //T MapToClass<T>(SqlDataReader reader)
+                obj = GetList<ObjetoDB.ReciboDeVenta>(dataReader);
+
+                //obj2.IDRecibo = dataReader.
+                //_adaptador.SelectCommand = _comandosql;
+                //_adaptador.Fill(tabla);
+            }
+            catch (SqlException e)
+            {
+                msg = "Excepción de base de datos: \n";
+                msg += e.Message;
+                MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            finally
+            {
+                desconectar();
+            }
+
+            return obj;
         }//Agregado
         public DataTable ConsultaTablaDatosDeTienda()
         {
@@ -918,7 +996,6 @@ namespace MAD3_ventanas
             }
             return list;
         }
-
         T MapToClass<T>(SqlDataReader reader) where T : class
         {
             T returnedObject = Activator.CreateInstance<T>();

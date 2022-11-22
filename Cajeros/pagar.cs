@@ -136,8 +136,6 @@ namespace MAD3_ventanas
             decimal cant3 = 0;
             decimal cant4 = 0;
 
-           
-
             List<ObjetoDB.DetallePago> listaDPagos = new List<ObjetoDB.DetallePago>();
 
             if (textBox1.Text != "") { 
@@ -165,8 +163,8 @@ namespace MAD3_ventanas
                     {
                         case DialogResult.Yes:
                             var objBD = new EnlaceDB();
-                            reciboDeVenta = objBD.ConsultaUltimoreciboDeVenta(reciboDeVenta.IDRecibo,)
-                            
+                            reciboDeVenta = objBD.ConsultaUltimoreciboDeVental(reciboDeVenta.IDRecibo, ventas.ptotalVenta, ventas.subtotalVenta).First<ObjetoDB.ReciboDeVenta>();
+
                             break;
                         case DialogResult.No:
 

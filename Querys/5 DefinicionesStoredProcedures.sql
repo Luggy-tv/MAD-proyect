@@ -208,6 +208,11 @@ BEGIN
 	IF @op='S'
 	SELECT IDCaja,Disponible FROM Caja where Activa=1;
 
+	if @op='l'
+	select idcaja, disponible from caja where Disponible =1;
+
+
+
 END
 GO
 -----------------------------------------------------------SP_Gestionar_Tienda
