@@ -123,6 +123,7 @@ namespace MAD3_ventanas
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            ObjetoDB.ReciboDeVenta reciboDeVenta = new ObjetoDB.ReciboDeVenta();
             //ventas.productosEnVentasLista;
 
             //DateTime localDate = DateTime.Now;
@@ -135,7 +136,7 @@ namespace MAD3_ventanas
             decimal cant3 = 0;
             decimal cant4 = 0;
 
-            var objBD = new EnlaceDB();
+           
 
             List<ObjetoDB.DetallePago> listaDPagos = new List<ObjetoDB.DetallePago>();
 
@@ -163,7 +164,9 @@ namespace MAD3_ventanas
                     switch (dr)
                     {
                         case DialogResult.Yes:
-
+                            var objBD = new EnlaceDB();
+                            reciboDeVenta = objBD.ConsultaUltimoreciboDeVenta(reciboDeVenta.IDRecibo,)
+                            
                             break;
                         case DialogResult.No:
 
@@ -174,7 +177,7 @@ namespace MAD3_ventanas
                 else
                 {
                     MessageBox.Show("Pago insuficiente", "Error de venta", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-
+                    
                 }
 
             }
