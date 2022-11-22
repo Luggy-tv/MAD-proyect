@@ -48,6 +48,7 @@ namespace MAD3_ventanas.Administrador
             string numNomina = textBox2.Text;
             string email = textBox5.Text;
             bool esAdmin = false;
+            
             bool val;
             bool val2;
             bool val3;
@@ -70,8 +71,6 @@ namespace MAD3_ventanas.Administrador
             bool result4 = Regex.IsMatch(CURP, regex2);
             bool result5 = Regex.IsMatch(numNomina, regex2);
             bool result6 = Regex.IsMatch(email, regex3);
-
-
 
 
 
