@@ -62,7 +62,7 @@ namespace MAD3_ventanas
             this.Close();
         }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        {kkkk
 
         }
         private void textBox1_TextChanged(object sender, EventArgs e)
