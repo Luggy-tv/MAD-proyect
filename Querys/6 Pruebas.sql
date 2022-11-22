@@ -25,4 +25,7 @@ EXEC sp_GestionarCaja @op='i';
 
 --yyyy-mm-dd
 
+SELECT * FROM Producto;
+SELECT * FROM Departamento;
+SELECT * FROM UnidadDeMedida;
 
