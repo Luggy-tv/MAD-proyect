@@ -22,7 +22,7 @@ namespace MAD3_ventanas.Administrador
         {
             var objBD = new EnlaceDB();
             int cantUser = objBD.GetCount("USER");
-            cantUser = 10001 + cantUser;
+            cantUser = 10000 + cantUser;
             textBox10.Text = cantUser.ToString();
         }
 
@@ -48,6 +48,7 @@ namespace MAD3_ventanas.Administrador
             string numNomina = textBox2.Text;
             string email = textBox5.Text;
             bool esAdmin = false;
+            
             bool val;
             bool val2;
             bool val3;
@@ -59,7 +60,9 @@ namespace MAD3_ventanas.Administrador
             bool val9;
             bool val10;
 
-            string regex = "^[a-zA-Z]+$";
+            //CAMBIO EKIZ
+
+            string regex = "^[a-zA-Z ]+$";
             string regex2 = "^[a-zA-Z0-9]+$";
             string regex3 = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             bool result1 = Regex.IsMatch(nombres, regex);
@@ -71,11 +74,12 @@ namespace MAD3_ventanas.Administrador
 
 
 
-
-
             if (apellidoMat == "")
-                result3 = true;
-            apellidoMat = "-";
+            {
+              result3 = true;
+              apellidoMat = "-";
+            }
+               
 
             //VALIDACIÓN NO VACÍOS
             if (nombres == "" || apellidoPat == "" || fechaNac == null || CURP == "" || numNomina == "" || email == "" || contraseña == "" || contraseñaVal == "")
@@ -183,7 +187,7 @@ namespace MAD3_ventanas.Administrador
             //VALIDACION CARACTERES EMAIL !!! pendiente validar formato !!!
             if (email.Length > 30 || result6 == false)
             {
-                MessageBox.Show("El e-mail excede el límite de 30 caracteres");
+                MessageBox.Show("El formato del correo electrónico no es válido o excede el límite de 30 caracteres");
                 val10 = false;
             }
             else

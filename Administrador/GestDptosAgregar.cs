@@ -8,12 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MAD3_ventanas;
+using System.Text.RegularExpressions;
 
 namespace MAD3_ventanas.Administrador
 {
     public partial class GestDptosAgregar : Form
     {
-        //string nombreDept;
 
         public GestDptosAgregar()
         {
@@ -25,7 +25,7 @@ namespace MAD3_ventanas.Administrador
             var objBD = new EnlaceDB();
             int cantDep = objBD.GetCount("DPTO");
 
-            cantDep = cantDep + 10000+1;
+            cantDep = cantDep + 10000;
             textBox2.Text = cantDep.ToString();
 
         }
@@ -45,17 +45,19 @@ namespace MAD3_ventanas.Administrador
 
         private void button2_Click(object sender, EventArgs e) //FALTA VALIDAR QUE NO ESTÉ VACÍO
         {
-            //falta guardar info
             bool comp = false;
             string op = "i";
             Int16 IDDepartamento = 10000;
             string nombreDept = textBox1.Text;
             bool reembolsable = checkBox1.Checked;
 
-            if (nombreDept == "")
-            {
-                MessageBox.Show("Ingresar nombre del departamento");
+            string regex = "^[a-zA-Z ]+$";
+            bool result1 = Regex.IsMatch(nombreDept, regex);
 
+            //VALIDACIÓN DPTOS
+            if (nombreDept == "" || nombreDept.Length > 30 || result1 == false)
+            {
+                MessageBox.Show("Se debe ingresar el nombre del departamento con un límite de 30 caracteres únicamente alfabéticos");
             }
 
             else

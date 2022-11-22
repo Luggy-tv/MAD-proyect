@@ -34,5 +34,10 @@ namespace MAD3_ventanas.Administrador
         {
             //Busqueda en la BD y display en grid
         }
+
+        private void ReporteVentas_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

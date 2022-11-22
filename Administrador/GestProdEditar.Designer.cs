@@ -53,7 +53,10 @@ namespace MAD3_ventanas.Administrador
             this.label12 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -78,7 +81,7 @@ namespace MAD3_ventanas.Administrador
             this.groupBox1.Controls.Add(this.textBox5);
             this.groupBox1.Controls.Add(this.textBox2);
             this.groupBox1.Controls.Add(this.textBox1);
-            this.groupBox1.Location = new System.Drawing.Point(12, 55);
+            this.groupBox1.Location = new System.Drawing.Point(12, 157);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(528, 258);
             this.groupBox1.TabIndex = 0;
@@ -288,11 +291,33 @@ namespace MAD3_ventanas.Administrador
             this.comboBox3.TabIndex = 4;
             this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(21, 58);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dataGridView1.Size = new System.Drawing.Size(504, 82);
+            this.dataGridView1.TabIndex = 7;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(18, 42);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(94, 13);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "Información actual";
+            // 
             // GestProdEditar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(560, 330);
+            this.ClientSize = new System.Drawing.Size(555, 427);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.comboBox3);
@@ -303,6 +328,7 @@ namespace MAD3_ventanas.Administrador
             this.Load += new System.EventHandler(this.GestProdEditar_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -334,5 +360,7 @@ namespace MAD3_ventanas.Administrador
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Label label7;
     }
 }

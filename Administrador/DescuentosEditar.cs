@@ -28,21 +28,73 @@ namespace MAD3_ventanas.Administrador
             string op = "e";
             int IDProducto = Convert.ToInt32(textBox3.Text);
             string Nombre = textBox1.Text;
-            byte porcentaje = byte.Parse(textBox2.Text);
+            //byte porcentaje=    byte.Parse(textBox2.Text);
             DateTime FechaINI = dateTimePicker1.Value;
             DateTime FechaFIN = dateTimePicker2.Value;
             ObjetoDB.Producto producto = comboBox1.SelectedItem as ObjetoDB.Producto;
 
+            bool val1;
+            bool val2;
+            bool val3;
+            bool val4;
+
+            //VALIDAR QUE NO HAYA CAMPOS VACÍOS
             if (Nombre == "" || textBox2.Text == "")
             {
                 MessageBox.Show("Llenar todos los campos", "Datos Faltantes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                val1 = false;
             }
             else
+            {
+                val1 = true;
+            }
+
+            //MÁXIMO 20 CARACTERES
+            if (Nombre.Length > 20)
+            {
+                MessageBox.Show("El nombre excede el límite de 20 caracteres", "Límite de caracteres");
+                val2 = false;
+            }
+            else
+            {
+                val2 = true;
+            }
+
+            //VALIDACIÓN FECHA DE INICIO < FECHA DE FIN
+            if (dateTimePicker1.Value >= dateTimePicker2.Value)
+            {
+                MessageBox.Show("La fecha de inicio no puede ser mayor o igual a la fecha de fin");
+                val3 = false;
+            }
+            else
+            {
+                val3 = true;
+            }
+
+
+            byte porcentaje = byte.Parse(textBox2.Text);
+            int min = 1;
+            int max = 100;
+
+            //VALIDACION DESCUENTRO ENTRE 1 AL 100
+            if (porcentaje < min || porcentaje > max)
+            {
+                MessageBox.Show("El porcentaje del descuento debe estar entre 1 y 100");
+                val4 = false;
+            }
+            else
+            {
+                val4 = true;
+            }
+
+            if (val1 == true && val2 == true && val3 == true && val4 == true)
             {
                 DialogResult dr = MessageBox.Show("¿Desea Agregar este descuento?", "Agregar descuento", MessageBoxButtons.YesNo);
                 switch (dr)
                 {
                     case DialogResult.Yes:
+
+
 
                         var objBD = new EnlaceDB();
                         comp = objBD.GestDescuento(op, IDProducto, Nombre, porcentaje, FechaINI, FechaFIN, producto.IDProducto);
@@ -58,6 +110,8 @@ namespace MAD3_ventanas.Administrador
                 }
             }
         }//Actualizar
+
+
         private void button3_Click(object sender, EventArgs e)//eliminar
         {
             bool comp = false;
