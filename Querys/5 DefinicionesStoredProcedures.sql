@@ -657,23 +657,27 @@ GO
 ----------------------------------------------------------Sp_ReporteDeVentas
 
 
-IF OBJECT_ID('sp_BusquedaRapida')IS NOT NULL
-	DROP PROCEDURE sp_BusquedaRapida;
+IF OBJECT_ID('sp_ConsultaRecibos')IS NOT NULL
+	DROP PROCEDURE sp_ConsultaRecibos;
 GO
-Create Procedure sp_BusquedaRapida( @op Char(1)
-									,@IDProducto INT=NULL
-									,@Nombre VARCHAR(30)=NULL
+Create Procedure sp_ConsultaRecibos( @op Char(1)
+									,@IDRecibo INT=NULL
 )
 AS
 BEGIN
-	if @op='N'
-	--DECLARE @nombre varchar(30);
-	--SET @Nombre ='cong'
-		SELECT IDProducto,Nombre,Costo,Departamento,[Unidad De Medida] from v_Productos where Nombre like CONCAT('%',@Nombre,'%');
-
 	if @op='C'
-	--DECLARE @idproducto int
-	--SET @idproducto= 2
-		SELECT IDProducto,Nombre,Costo,Departamento,[Unidad De Medida] from v_Productos where IDProducto like CONCAT('%',@IDProducto,'%');
+	DECLARE @IDRecibo int
+	SET @IDRecibo= 4
+		SELECT rv.IDRecibo[Numero de recibo]
+		,rv.Subtotal
+		,rv.Total
+		,p.Nombre
+		, dpr.CantProd [Cantidad de productos]
+		from ReciboDeVenta as rv 
+		left join DetallePago as DPa on rv.IDRecibo=dpa.FkRecVenta 
+		left join DetalleProductos as DPr on rv.IDRecibo = dpr.ReciboVentaFK  
+		 left join Producto as p on dpr.ProductoFK=p.IDProducto
+		left join OpcionDePago as op on dpa.FKOpPago = op.IDOpcionDePago
+		where IDRecibo like CONCAT('%',@IDRecibo,'%');
 END
 GO
