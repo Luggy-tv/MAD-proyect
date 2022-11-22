@@ -153,6 +153,7 @@ namespace MAD3_ventanas
             this.checkBox1.TabIndex = 21;
             this.checkBox1.Text = "Pago 2";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckStateChanged);
             // 
             // label3
             // 
@@ -212,6 +213,7 @@ namespace MAD3_ventanas
             this.checkBox2.TabIndex = 22;
             this.checkBox2.Text = "Pago 3";
             this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
             // label5
             // 
@@ -269,6 +271,7 @@ namespace MAD3_ventanas
             this.checkBox3.TabIndex = 23;
             this.checkBox3.Text = "Pago 4";
             this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox_3CheckedChanged);
             // 
             // label7
             // 

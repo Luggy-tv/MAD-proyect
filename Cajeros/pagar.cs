@@ -46,13 +46,12 @@ namespace MAD3_ventanas
         }
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
-            comboBox3.Enabled = (checkBox1.CheckState == CheckState.Checked);
-             textBox3.Enabled = (checkBox1.CheckState == CheckState.Checked);
+            comboBox3.Enabled = (checkBox2.CheckState == CheckState.Checked);
+             textBox3.Enabled = (checkBox2.CheckState == CheckState.Checked);
         }
         private void checkBox_3CheckedChanged(object sender, EventArgs e)
         {
-            comboBox4.Enabled = (checkBox1.CheckState == CheckState.Checked);
-             textBox4.Enabled = (checkBox1.CheckState == CheckState.Checked);
+
         }
         private void button2_Click(object sender, EventArgs e)
         {
@@ -61,7 +60,13 @@ namespace MAD3_ventanas
 
         private void button1_Click(object sender, EventArgs e)
         {
+            decimal cant1 = 0;
 
+            var objBD = new EnlaceDB();
+            if(checkBox1.CheckState == CheckState.Checked)
+            {
+
+            }
         }
     }
 }
