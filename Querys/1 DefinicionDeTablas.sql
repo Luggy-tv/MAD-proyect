@@ -118,6 +118,8 @@ BEGIN
 		CONSTRAINT FK_UNIDADMEDIDA
 			FOREIGN KEY (UnidadMedidaFK) REFERENCES UnidadDeMedida(IDUnidadDeMedida)
 	);
+
+
 ------------------------------------------------------------Descuento
 	IF OBJECT_ID(N'dbo.Descuento')IS NOT NULL
 		DROP TABLE dbo.Descuento;
