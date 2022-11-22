@@ -12,6 +12,8 @@ USE Tienda01;
 
 	*/
 
+
+	SELECT * FROM Caja;
 	-------------------------------------------------------SP_INSERTAR_ADMINISTRADOR
 IF OBJECT_ID('sp_GestionarUsuario') IS NOT NULL
 	DROP PROCEDURE sp_GestionarUsuario;
