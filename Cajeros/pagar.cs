@@ -122,7 +122,13 @@ namespace MAD3_ventanas
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            decimal cant1 = 0;
 
+            var objBD = new EnlaceDB();
+            if(checkBox1.CheckState == CheckState.Checked)
+            {
+
+            }
         }
 
     }
