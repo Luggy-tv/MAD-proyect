@@ -48,6 +48,7 @@ namespace MAD3_ventanas.Administrador
             string numNomina = textBox2.Text;
             string email = textBox5.Text;
             bool esAdmin = false;
+            
             bool val;
             bool val2;
             bool val3;
@@ -72,8 +73,6 @@ namespace MAD3_ventanas.Administrador
             bool result4 = Regex.IsMatch(CURP, regex2);
             bool result5 = Regex.IsMatch(numNomina, regex2);
             bool result6 = Regex.IsMatch(email, regex3);
-
-
 
 
 
@@ -190,7 +189,7 @@ namespace MAD3_ventanas.Administrador
             //VALIDACION CARACTERES EMAIL !!! pendiente validar formato !!!
             if (email.Length > 30 || result6 == false)
             {
-                MessageBox.Show("El e-mail excede el límite de 30 caracteres");
+                MessageBox.Show("El formato del correo electrónico no es válido o excede el límite de 30 caracteres");
                 val10 = false;
             }
             else

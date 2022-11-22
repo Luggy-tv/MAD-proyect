@@ -73,6 +73,7 @@ namespace MAD3_ventanas.Administrador
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(100, 20);
             this.textBox5.TabIndex = 4;
+            this.textBox5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox5_KeyPress);
             // 
             // textBox6
             // 
@@ -80,6 +81,7 @@ namespace MAD3_ventanas.Administrador
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(100, 20);
             this.textBox6.TabIndex = 9;
+            this.textBox6.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox6_KeyPress);
             // 
             // textBox10
             // 
@@ -88,6 +90,7 @@ namespace MAD3_ventanas.Administrador
             this.textBox10.Size = new System.Drawing.Size(100, 20);
             this.textBox10.TabIndex = 5;
             this.textBox10.TextChanged += new System.EventHandler(this.textBox10_TextChanged);
+            this.textBox10.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox10_KeyPress);
             // 
             // comboBox1
             // 
@@ -101,6 +104,7 @@ namespace MAD3_ventanas.Administrador
             // 
             // comboBox2
             // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Location = new System.Drawing.Point(314, 44);
             this.comboBox2.Name = "comboBox2";
@@ -201,6 +205,7 @@ namespace MAD3_ventanas.Administrador
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(100, 20);
             this.textBox4.TabIndex = 26;
+            this.textBox4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox4_KeyPress);
             // 
             // button2
             // 
