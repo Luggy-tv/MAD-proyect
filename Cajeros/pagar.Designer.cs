@@ -109,6 +109,7 @@ namespace MAD3_ventanas
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(183, 21);
             this.comboBox1.TabIndex = 16;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // textBox1
             // 
@@ -116,6 +117,8 @@ namespace MAD3_ventanas
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 17;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
             // groupBox1
             // 
@@ -153,6 +156,7 @@ namespace MAD3_ventanas
             this.checkBox1.TabIndex = 21;
             this.checkBox1.Text = "Pago 2";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckStateChanged);
             // 
             // label3
             // 
@@ -170,6 +174,7 @@ namespace MAD3_ventanas
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 20);
             this.textBox2.TabIndex = 17;
+            this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress);
             // 
             // label4
             // 
@@ -212,6 +217,7 @@ namespace MAD3_ventanas
             this.checkBox2.TabIndex = 22;
             this.checkBox2.Text = "Pago 3";
             this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
             // label5
             // 
@@ -224,10 +230,12 @@ namespace MAD3_ventanas
             // 
             // textBox3
             // 
+            this.textBox3.Enabled = false;
             this.textBox3.Location = new System.Drawing.Point(198, 42);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(100, 20);
             this.textBox3.TabIndex = 17;
+            this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox3_KeyPress);
             // 
             // label6
             // 
@@ -240,6 +248,7 @@ namespace MAD3_ventanas
             // 
             // comboBox3
             // 
+            this.comboBox3.Enabled = false;
             this.comboBox3.FormattingEnabled = true;
             this.comboBox3.Location = new System.Drawing.Point(9, 41);
             this.comboBox3.Name = "comboBox3";
@@ -269,6 +278,7 @@ namespace MAD3_ventanas
             this.checkBox3.TabIndex = 23;
             this.checkBox3.Text = "Pago 4";
             this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox3.CheckedChanged += new System.EventHandler(this.checkBox_3CheckedChanged);
             // 
             // label7
             // 
@@ -281,10 +291,12 @@ namespace MAD3_ventanas
             // 
             // textBox4
             // 
+            this.textBox4.Enabled = false;
             this.textBox4.Location = new System.Drawing.Point(198, 42);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(100, 20);
             this.textBox4.TabIndex = 17;
+            this.textBox4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox4_KeyPress);
             // 
             // label8
             // 
@@ -297,6 +309,7 @@ namespace MAD3_ventanas
             // 
             // comboBox4
             // 
+            this.comboBox4.Enabled = false;
             this.comboBox4.FormattingEnabled = true;
             this.comboBox4.Location = new System.Drawing.Point(9, 41);
             this.comboBox4.Name = "comboBox4";

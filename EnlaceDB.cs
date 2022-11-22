@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Windows.Forms;
 using MAD3_ventanas.Administrador;
+using System.Reflection;
 
 namespace MAD3_ventanas 
 {
@@ -387,6 +388,45 @@ namespace MAD3_ventanas
                 parametro1.Value = "s";
                 var dataReader = _comandosql.ExecuteReader();
                 lista = GetList<ObjetoDB.OpcionDePago>(dataReader);
+                //_adaptador.SelectCommand = _comandosql;
+                //_adaptador.Fill(tabla);
+            }
+            catch (SqlException e)
+            {
+                msg = "Excepción de base de datos: \n";
+                msg += e.Message;
+                MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            finally
+            {
+                desconectar();
+            }
+
+            return lista;
+        }//Agregado
+        public List<ObjetoDB.ReciboDeVenta> ConsultaUltimoreciboDeVenta(int IDRecibo 
+                                                    , decimal Total 
+                                                    , decimal Subtotal)
+ {                 
+     var msg = ""; 
+            List<ObjetoDB.ReciboDeVenta> lista = new List<ObjetoDB.ReciboDeVenta>();
+            try
+            {
+                conectar();
+                string qry = "sp_GestionarReciboDeVenta";
+                _comandosql = new SqlCommand(qry, _conexion);
+                _comandosql.CommandType = CommandType.StoredProcedure;
+                _comandosql.CommandTimeout = 1200;
+                var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
+                parametro1.Value = "i";
+                var parametro2 = _comandosql.Parameters.Add("@idRecibo", SqlDbType.Int, 4);
+                parametro2.Value = IDRecibo; 
+                var parametro3 = _comandosql.Parameters.Add("@Total", SqlDbType.SmallMoney, 17);
+                parametro3.Value = Total; 
+                var parametro4 = _comandosql.Parameters.Add("@SubTotal", SqlDbType.SmallMoney, 17);
+                parametro4.Value = Subtotal; 
+                var dataReader = _comandosql.ExecuteReader();
+                lista = GetList<ObjetoDB.ReciboDeVenta>(dataReader);
                 //_adaptador.SelectCommand = _comandosql;
                 //_adaptador.Fill(tabla);
             }
@@ -879,5 +919,27 @@ namespace MAD3_ventanas
             return list;
         }
 
+        T MapToClass<T>(SqlDataReader reader) where T : class
+        {
+            T returnedObject = Activator.CreateInstance<T>();
+            PropertyInfo[] modelProperties = returnedObject.GetType().GetProperties();
+            for (int i = 0; i < modelProperties.Length; i++)
+            {
+                MappingAttribute[] attributes = modelProperties[i].GetCustomAttributes<MappingAttribute>(true).ToArray();
+
+                if (attributes.Length > 0 && attributes[0].ColumnName != null)
+                    modelProperties[i].SetValue(returnedObject, Convert.ChangeType(reader[attributes[0].ColumnName], modelProperties[i].PropertyType), null);
+            }
+            return returnedObject;
+        }
+
     }//FIN public class EnlaceDB
 }//FIN namespace MAD3_ventanas 
+
+
+[AttributeUsage(AttributeTargets.Property, Inherited = true)]
+[Serializable]
+public class MappingAttribute : Attribute
+{
+    public string ColumnName = null;
+}

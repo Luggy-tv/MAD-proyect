@@ -75,8 +75,11 @@ namespace MAD3_ventanas
 		}
 		public class ReciboDeVenta
 		{
+			[Mapping(ColumnName = "IDRecibo")]
 			public int IDRecibo { get; set; }
+			[Mapping(ColumnName = "Total")]
 			public decimal Total { get; set; }
+			[Mapping(ColumnName = "Subtotal")]
 			public decimal Subtotal { get; set; }
 		}
 		public class Devolucion
@@ -117,5 +120,13 @@ namespace MAD3_ventanas
 			public decimal descuento { get; set; }
 
 		}
+		public class DetallePago
+		{
+			public int IDDetallePago { get; set; }
+			public int FkRecVenta { get; set; }
+			public byte FKOpPago { get; set; }
+			public decimal Cantidad { get; set; }
+		}
+
 	}
 }

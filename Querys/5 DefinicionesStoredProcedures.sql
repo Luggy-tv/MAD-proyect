@@ -9,6 +9,7 @@ USE Tienda01;
 	DROP PROCEDURE sp_GestionarCaja;
 	DROP PROCEDURE sp_GestionarDepartamento;
 	DROP PROCEDURE sp_GestionarProducto;
+
 	*/
 
 	-------------------------------------------------------SP_INSERTAR_ADMINISTRADOR
@@ -512,12 +513,19 @@ GO
 IF OBJECT_ID('sp_LoginCajeroACaja')IS NOT NULL
 	DROP PROCEDURE sp_LoginCajeroACaja;
 GO
-Create procedure sp_LoginCajeroACaja(
-	@UsuarioFK	smallint,
-	@CajaFk		tinyint
+Create procedure sp_LoginCajeroACaja(@op char(1),
+	@UsuarioFK	smallint=null,
+	@CajaFk		tinyint =null
 )AS
 BEGIN
+	if @op='i'
 	Insert into Usuario_Caja(CajeroFK,CajaFK) Values(@UsuarioFK,@CajaFk);
+
+	if @op = 'l'
+	select IDCajero_Caja ,CajeroFK,CajaFK from Usuario_Caja where IDCajero_Caja=@@IDENTITY;
+
+	if @op = 'i'
+	select IDCajero_Caja ,CajeroFK,CajaFK from Usuario_Caja;
 END
 
 ----------------------------------------------------------SP_GetProductosEnPuntoDeReorden
@@ -563,15 +571,20 @@ IF OBJECT_ID('sp_GestionarReciboDeVenta')IS NOT NULL
 	Drop procedure sp_GestionarReciboDeVenta;
 GO
 Create procedure sp_GestionarReciboDeVenta(@op char(1)
+											,@idrecibo int =null
 											,@Total smallmoney	   =NULL
 											,@SubTotal smallmoney   =NULL
+										
 )AS
 BEGIN
 	IF @op= 'i'
-		Insert into ReciboDeVenta(Total,Subtotal) VALUES (@Total,@SubTotal);
+	begin
+		Insert into ReciboDeVenta(Total,Subtotal) VALUES (@Total,@SubTotal)
+		Select IDRecibo,Total,Subtotal from ReciboDeVenta where  idrecibo = @@IDENTITY;
+	end
 
 	IF @op='s'
-		Select IDRecibo,Total,Subtotal from ReciboDeVenta 
+		Select IDRecibo,Total,Subtotal from ReciboDeVenta where IDRecibo =@idrecibo;
 END
 GO
 ---------------------------------------------------------SP_GestionarDetalleDePago
@@ -591,8 +604,6 @@ BEGIN
 		Select IDDetallePago,FkRecVenta,FkRecVenta,Cantidad  from DetallePago;
 END
 GO
-
-
 ---------------------------------------------------------SP_GestionarDetalleProductos
 IF OBJECT_ID('SP_GestionarDetalleProductos')IS NOT NULL
 	Drop procedure SP_GestionarDetalleProductos;
@@ -615,3 +626,4 @@ BEGIN
 END
 GO
 
+----------------------------------------------------------SP_ges
