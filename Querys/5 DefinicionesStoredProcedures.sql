@@ -513,12 +513,19 @@ GO
 IF OBJECT_ID('sp_LoginCajeroACaja')IS NOT NULL
 	DROP PROCEDURE sp_LoginCajeroACaja;
 GO
-Create procedure sp_LoginCajeroACaja(
-	@UsuarioFK	smallint,
-	@CajaFk		tinyint
+Create procedure sp_LoginCajeroACaja(@op char(1),
+	@UsuarioFK	smallint=null,
+	@CajaFk		tinyint =null
 )AS
 BEGIN
+	if @op='i'
 	Insert into Usuario_Caja(CajeroFK,CajaFK) Values(@UsuarioFK,@CajaFk);
+
+	if @op = 'l'
+	select IDCajero_Caja ,CajeroFK,CajaFK from Usuario_Caja where IDCajero_Caja=@@IDENTITY;
+
+	if @op = 'i'
+	select IDCajero_Caja ,CajeroFK,CajaFK from Usuario_Caja;
 END
 
 ----------------------------------------------------------SP_GetProductosEnPuntoDeReorden
