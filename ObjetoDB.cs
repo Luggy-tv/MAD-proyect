@@ -117,5 +117,13 @@ namespace MAD3_ventanas
 			public decimal descuento { get; set; }
 
 		}
+		public class DetallePago
+		{
+			public int IDDetallePago { get; set; }
+			public int FkRecVenta { get; set; }
+			public byte FKOpPago { get; set; }
+			public decimal Cantidad { get; set; }
+		}
+
 	}
 }

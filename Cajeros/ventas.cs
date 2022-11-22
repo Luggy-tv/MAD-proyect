@@ -13,14 +13,14 @@ namespace MAD3_ventanas
 {
     public partial class ventas : Form
     {
-        public List<ObjetoDB.ProductosEnVenta> productosEnVentasLista= new List<ObjetoDB.ProductosEnVenta>();
+        public static List<ObjetoDB.ProductosEnVenta> productosEnVentasLista= new List<ObjetoDB.ProductosEnVenta>();
         public DataTable productosEnVentasTabla= null;
         public decimal subtotal             = 0;
         public decimal total                = 0;
         public decimal cantidadDescontada   = 0;
         public int cantidadDeProductos      = 0;
 
-        public static decimal ptotalVenta=0     ;
+        public static decimal ptotalVenta  =0 ;
         public static decimal subtotalVenta = 0 ;
 
         public ventas()
@@ -58,6 +58,7 @@ namespace MAD3_ventanas
         {
             ptotalVenta = 0;
             subtotalVenta = 0;
+            productosEnVentasLista = null;
 
             var objBD = new EnlaceDB();
             List<ObjetoDB.Producto> listProductos = new List<ObjetoDB.Producto>();
@@ -75,6 +76,7 @@ namespace MAD3_ventanas
                 comboBox1.DataSource = listProductos;
                 comboBox1.ValueMember = "IDProducto";
                 comboBox1.DisplayMember = "Nombre";
+
                 DateTime localDate = DateTime.Now;
                 textBox4.Text = loginCaj.loggedUser.nombres+ loginCaj.loggedUser.apellidoPat+ loginCaj.loggedUser.apellidoMat;
                 textBox6.Text = loginCaj.loggedUCaja.ToString();

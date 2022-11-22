@@ -564,6 +564,7 @@ IF OBJECT_ID('sp_GestionarReciboDeVenta')IS NOT NULL
 	Drop procedure sp_GestionarReciboDeVenta;
 GO
 Create procedure sp_GestionarReciboDeVenta(@op char(1)
+											,@idrecibo int =null
 											,@Total smallmoney	   =NULL
 											,@SubTotal smallmoney   =NULL
 										
@@ -572,10 +573,11 @@ BEGIN
 	IF @op= 'i'
 	begin
 		Insert into ReciboDeVenta(Total,Subtotal) VALUES (@Total,@SubTotal)
-		Select IDRecibo,Total,Subtotal from ReciboDeVenta where  idrecibo = SCOPE_IDENTITY() ORDER BY IDRecibo DESC LIMIT 1
+		Select IDRecibo,Total,Subtotal from ReciboDeVenta where  idrecibo = @@IDENTITY;
 	end
+
 	IF @op='s'
-		Select IDRecibo,Total,Subtotal from ReciboDeVenta 
+		Select IDRecibo,Total,Subtotal from ReciboDeVenta where IDRecibo =@idrecibo;
 END
 GO
 ---------------------------------------------------------SP_GestionarDetalleDePago

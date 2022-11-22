@@ -18,6 +18,7 @@ namespace MAD3_ventanas
         }
         private void pagar_Load(object sender, EventArgs e)
         {
+            
             textBox5.Text = "$"+ventas.ptotalVenta.ToString();
 
             var objBD = new EnlaceDB();
@@ -122,13 +123,66 @@ namespace MAD3_ventanas
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            //ventas.productosEnVentasLista;
+
+            //DateTime localDate = DateTime.Now;
+            //textBox4.Text = loginCaj.loggedUser.IdUser;
+            //textBox6.Text = loginCaj.loggedUCaja.ToString();
+            //textBox5.Text = localDate.ToString();
+
             decimal cant1 = 0;
+            decimal cant2 = 0;
+            decimal cant3 = 0;
+            decimal cant4 = 0;
 
             var objBD = new EnlaceDB();
-            if(checkBox1.CheckState == CheckState.Checked)
-            {
+
+            List<ObjetoDB.DetallePago> listaDPagos = new List<ObjetoDB.DetallePago>();
+
+            if (textBox1.Text != "") { 
+
+                cant1 = decimal.Parse(textBox1.Text);
+
+                if (checkBox1.CheckState == CheckState.Checked)
+                {
+                    cant2 = decimal.Parse(textBox2.Text);
+                }
+                if (checkBox2.CheckState == CheckState.Checked)
+                {
+                    cant3 = decimal.Parse(textBox3.Text);
+                }
+                if (checkBox3.CheckState == CheckState.Checked)
+                {
+                    cant4 = decimal.Parse(textBox4.Text);
+                }
+                decimal pagoTot = cant1 + cant2 + cant3 + cant4;
+                if(pagoTot>= ventas.ptotalVenta)
+                {
+                    DialogResult dr = MessageBox.Show("¿Desea emitjr recibo?",
+                         "Agregar departamento", MessageBoxButtons.YesNo);
+                    switch (dr)
+                    {
+                        case DialogResult.Yes:
+
+                            break;
+                        case DialogResult.No:
+
+                            break;
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("Pago insuficiente", "Error de venta", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+                }
 
             }
+            else
+            {
+                MessageBox.Show("Favor de llenar los campos", "Accion Imposible", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+           
         }
 
     }
