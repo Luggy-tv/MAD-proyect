@@ -20,13 +20,20 @@ namespace MAD3_ventanas.Administrador
         private void InventarioADM_Load(object sender, EventArgs e)
         {
             var objBD = new EnlaceDB();
+            int cantProd = objBD.GetCount("PROD");
+
             List<ObjetoDB.Departamento> listDepartamentos = new List<ObjetoDB.Departamento>();
+          
+
             listDepartamentos = null;
+            
+
             listDepartamentos = objBD.ConsultaDepartamentos();
+           
 
             if (listDepartamentos.Count() == 0)
             {
-                MessageBox.Show("No se encuentran departamentos en la base de datos, favor de agregar estos al sistema", "Datos pendientes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No se encuentran departamentos o unidades de medida en la base de datos, favor de agregar estos al sistema", "Datos pendientes", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 this.Close();
                 mainmenuADM1 mainmenuADM1 = new mainmenuADM1();
@@ -37,15 +44,34 @@ namespace MAD3_ventanas.Administrador
                 comboBox1.DataSource = listDepartamentos;
                 comboBox1.ValueMember = "IDDepartamento";
                 comboBox1.DisplayMember = "nombreDept";
+
             }
 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            decimal cantMin = 0;
+            //bool comp = false;
+            //string op = "i";
+            //decimal cantMin = 0;
+            //bool agotados = false;
+            //bool merma = false;
 
-            cantMin = decimal.Parse(textBox1.Text);
+
+
+            //ObjetoDB.Departamento departamento = comboBox1.SelectedItem as ObjetoDB.Departamento;
+
+
+
+            //cantMin = decimal.Parse(textBox1.Text);
+
+
+
+
+            //var objBD = new EnlaceDB();
+            //comp = List<ObjetoDB.Inventario>(op, departamento.IDDepartamento, cantMin, agotados, merma);
+
+
 
 
 
@@ -85,5 +111,9 @@ namespace MAD3_ventanas.Administrador
 
         }
 
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

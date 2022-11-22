@@ -97,8 +97,8 @@ namespace MAD3_ventanas
                     //loggedUser = getUserFromString(IDusuario, listUsuarios);
 
                     this.Close();
-                    mainmenuCAJ mainmenuCAJ = new mainmenuCAJ();
-                    mainmenuCAJ.Show();
+                    mainmenuADM1 mainmenuADM1 = new mainmenuADM1();
+                    mainmenuADM1.Show();
 
                 }
             }

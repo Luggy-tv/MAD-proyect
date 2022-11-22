@@ -412,6 +412,63 @@ BEGIN
 		SELECT p.IDProducto,p.Nombre,p.Descripcion,p.Costo,p.PrecioUnitario,p.FechaAlta,p.Existencias,p.PuntoDeReorden,p.DepartamentoFK,p.UnidadMedidaFK from Producto as P LEFT JOIN Departamento AS D on p.DepartamentoFK= d.IDDepartamento Where p.Estatus=1 AND d.Estatus=1;
 END
 GO
+
+---------------------------------------------------------------------------------------------------SP_GESTIONAR_INVENTARIO
+--IF OBJECT_ID('sp_GestionarInventario')IS NOT NULL
+--	DROP PROCEDURE sp_GestionarInventario;
+--GO
+--Create Procedure sp_GestionarInventario(
+--	 @op					CHAR			
+--	,@DepartamentoID        SMALLINT         =NULL
+--	,@cantMin               DECIMAL (7,3)    =NULL
+--	,@agotados              BIT              =NULL
+--	,@merma                 BIT              =NULL
+	
+	--Este sp tiene 2 opciones: I,i,E,D
+	--i lo que hace es guardar todo como se ingresa.
+
+	--I lo que hace es guardar todo menos la fecha que se ingresa, 
+	--se guarda la fecha del servidor como la fecha de alta.
+	
+	--E Sobre escribe todos los datos modificables siendo estos:
+	--Nombre,descripcion,costo,precio unitario, existencias, punto de reorden, departamento y unidad de medida
+
+	--D Elimina de forma logica haciendo estatus = 0
+)
+--AS
+--BEGIN
+--	IF @op='S'
+		--SELECT p.IDProducto,p.Nombre,p.Descripcion,p.Costo,p.PrecioUnitario,p.FechaAlta,p.Existencias,p.PuntoDeReorden,D.nombreDept [Departamento],Ue.Nombre[Unidad De Medida] From Producto AS P LEFT JOIN Departamento AS D ON P.DepartamentoFK=D.IDDepartamento LEFT JOIN UnidadDeMedida AS UE ON P.UnidadMedidaFK=UE.IDUnidadDeMedida  Where p.Estatus=1;
+--		SELECT p.IDProducto,
+--				p.Nombre,
+--				p.Descripcion,
+--				p.Costo,
+--				p.PrecioUnitario,
+--				p.FechaAlta,
+--				p.Existencias,
+--				p.PuntoDeReorden,
+--				p.DepartamentoFK,
+--				p.UnidadMedidaFK 
+--		from Producto as P 
+--		LEFT JOIN Departamento AS D on p.DepartamentoFK= d.IDDepartamento 
+--		LEFT JOIN
+--		LEFT JOIN
+--		LEFT JOIN
+--		Where p.Estatus=1 AND d.Estatus=1;
+
+--END
+--GO
+
+
+
+
+
+
+
+
+
+
+
 -----------------------------------------------------------SP_INSERTAR_DESCUENTO
 IF OBJECT_ID('sp_GestionarDescuento')IS NOT NULL
 	DROP PROCEDURE sp_GestionarDescuento;
