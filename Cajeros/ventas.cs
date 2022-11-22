@@ -32,6 +32,8 @@ namespace MAD3_ventanas
 
             if (productosEnVentasLista.Count() > 0)
             {
+                ptotalVenta = subtotal;
+                subtotalVenta = total;
                 pagar pagar = new pagar();
                 pagar.ShowDialog();
             } 
@@ -153,9 +155,9 @@ namespace MAD3_ventanas
 
                     dataGridView1.DataSource = ConvertToDatatable(productosEnVentasLista);
 
-                    textBox3.Text = subtotal.ToString();
-                    textBox1.Text = cantidadDescontada.ToString();
-                    textBox8.Text = total.ToString();
+                    textBox3.Text = "$"+ subtotal.ToString();
+                    textBox1.Text = "-$"+ cantidadDescontada.ToString();
+                    textBox8.Text = "$"+ total.ToString();
                     
                     cantidadDeProductos++;
 
@@ -224,6 +226,11 @@ namespace MAD3_ventanas
             }
             
             return descuente;
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

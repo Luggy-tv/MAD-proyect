@@ -9,6 +9,7 @@ USE Tienda01;
 	DROP PROCEDURE sp_GestionarCaja;
 	DROP PROCEDURE sp_GestionarDepartamento;
 	DROP PROCEDURE sp_GestionarProducto;
+
 	*/
 
 	-------------------------------------------------------SP_INSERTAR_ADMINISTRADOR
@@ -565,11 +566,14 @@ GO
 Create procedure sp_GestionarReciboDeVenta(@op char(1)
 											,@Total smallmoney	   =NULL
 											,@SubTotal smallmoney   =NULL
+										
 )AS
 BEGIN
 	IF @op= 'i'
-		Insert into ReciboDeVenta(Total,Subtotal) VALUES (@Total,@SubTotal);
-
+	begin
+		Insert into ReciboDeVenta(Total,Subtotal) VALUES (@Total,@SubTotal)
+		Select IDRecibo,Total,Subtotal from ReciboDeVenta where  idrecibo = SCOPE_IDENTITY() ORDER BY IDRecibo DESC LIMIT 1
+	end
 	IF @op='s'
 		Select IDRecibo,Total,Subtotal from ReciboDeVenta 
 END
@@ -591,8 +595,6 @@ BEGIN
 		Select IDDetallePago,FkRecVenta,FkRecVenta,Cantidad  from DetallePago;
 END
 GO
-
-
 ---------------------------------------------------------SP_GestionarDetalleProductos
 IF OBJECT_ID('SP_GestionarDetalleProductos')IS NOT NULL
 	Drop procedure SP_GestionarDetalleProductos;
@@ -615,3 +617,4 @@ BEGIN
 END
 GO
 
+----------------------------------------------------------SP_ges
