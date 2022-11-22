@@ -58,7 +58,7 @@ namespace MAD3_ventanas
         {
             ptotalVenta = 0;
             subtotalVenta = 0;
-            productosEnVentasLista = null;
+            //productosEnVentasLista= ;
 
             var objBD = new EnlaceDB();
             List<ObjetoDB.Producto> listProductos = new List<ObjetoDB.Producto>();
