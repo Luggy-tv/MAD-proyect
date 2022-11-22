@@ -20,14 +20,25 @@ namespace MAD3_ventanas
         public decimal cantidadDescontada   = 0;
         public int cantidadDeProductos      = 0;
 
+        public static decimal ptotalVenta=0     ;
+        public static decimal subtotalVenta = 0 ;
+
         public ventas()
         {
             InitializeComponent();
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            pagar pagar = new pagar();
-            pagar.ShowDialog();
+
+            if (productosEnVentasLista.Count() > 0)
+            {
+                pagar pagar = new pagar();
+                pagar.ShowDialog();
+            } 
+            else
+            {
+                MessageBox.Show("No se puede continuar porque no hay productos a pagar", "Datos Faltantes", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
         }
         private void Regresar_Click(object sender, EventArgs e)
         {
@@ -43,6 +54,9 @@ namespace MAD3_ventanas
         }
         private void ventas_Load(object sender, EventArgs e)
         {
+            ñ.,ptotalVenta = 0;
+           Venta = 0;
+
             var objBD = new EnlaceDB();
             List<ObjetoDB.Producto> listProductos = new List<ObjetoDB.Producto>();
             listProductos = null;
