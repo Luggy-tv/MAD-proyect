@@ -209,6 +209,7 @@ namespace MAD3_ventanas
                                 string op = "i";
                                 comp = objBD.GestDetalleProd(op, reciboDeVenta.IDRecibo, item.IDProducto, item.CantProd);
                             }
+
                             if (comp)
                             {
                                 MessageBox.Show("Compra realizada cambio de :" + (pagoTot- ventas.ptotalVenta).ToString(), "Gracias por comprar", MessageBoxButtons.OK, MessageBoxIcon.Information);

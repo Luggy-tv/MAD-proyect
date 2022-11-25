@@ -37,15 +37,12 @@ Create view v_UnidadDeMedidas AS
 			,CASE Estatus WHEN 0THEN 'NO DISPONIBLE'ELSE 'DISPONIBLE' END AS [Estado de unidad de medida]
 			from UnidadDeMedida ;
 GO
-
-
 IF OBJECT_ID('v_Productos')IS NOT NULL
 	DROP view v_Productos;
 GO
 CREATE VIEW v_Productos as
 SELECT p.IDProducto,p.Nombre,p.Descripcion,p.Costo,p.PrecioUnitario,p.FechaAlta,p.Existencias,p.PuntoDeReorden,D.nombreDept [Departamento],Ue.Nombre[Unidad De Medida] From Producto AS P LEFT JOIN Departamento AS D ON P.DepartamentoFK=D.IDDepartamento LEFT JOIN UnidadDeMedida AS UE ON P.UnidadMedidaFK=UE.IDUnidadDeMedida  Where p.Estatus=1 AND D.Estatus=1;
 GO
-
 IF OBJECT_ID('v_Descuentos')IS NOT NULL
 	DROP view v_Descuentos;
 GO
