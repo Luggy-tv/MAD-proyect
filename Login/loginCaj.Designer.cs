@@ -37,11 +37,13 @@ namespace MAD3_ventanas
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Regresar
             // 
-            this.Regresar.Location = new System.Drawing.Point(92, 146);
+            this.Regresar.Location = new System.Drawing.Point(91, 180);
             this.Regresar.Name = "Regresar";
             this.Regresar.Size = new System.Drawing.Size(75, 23);
             this.Regresar.TabIndex = 3;
@@ -51,7 +53,7 @@ namespace MAD3_ventanas
             // 
             // Ingresar
             // 
-            this.Ingresar.Location = new System.Drawing.Point(191, 146);
+            this.Ingresar.Location = new System.Drawing.Point(190, 180);
             this.Ingresar.Name = "Ingresar";
             this.Ingresar.Size = new System.Drawing.Size(75, 23);
             this.Ingresar.TabIndex = 4;
@@ -61,7 +63,7 @@ namespace MAD3_ventanas
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(166, 76);
+            this.textBox2.Location = new System.Drawing.Point(165, 110);
             this.textBox2.Name = "textBox2";
             this.textBox2.PasswordChar = '*';
             this.textBox2.Size = new System.Drawing.Size(100, 20);
@@ -70,7 +72,7 @@ namespace MAD3_ventanas
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(166, 44);
+            this.textBox1.Location = new System.Drawing.Point(165, 78);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 0;
@@ -80,7 +82,7 @@ namespace MAD3_ventanas
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(89, 79);
+            this.label2.Location = new System.Drawing.Point(88, 113);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(61, 13);
             this.label2.TabIndex = 13;
@@ -89,7 +91,7 @@ namespace MAD3_ventanas
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(89, 47);
+            this.label1.Location = new System.Drawing.Point(88, 81);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 13);
             this.label1.TabIndex = 12;
@@ -98,7 +100,7 @@ namespace MAD3_ventanas
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(89, 108);
+            this.label3.Location = new System.Drawing.Point(88, 142);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(28, 13);
             this.label3.TabIndex = 18;
@@ -107,17 +109,35 @@ namespace MAD3_ventanas
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(166, 105);
+            this.comboBox1.Location = new System.Drawing.Point(165, 139);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(100, 21);
             this.comboBox1.TabIndex = 2;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(165, 46);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(100, 20);
+            this.dateTimePicker1.TabIndex = 19;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(88, 53);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(37, 13);
+            this.label4.TabIndex = 20;
+            this.label4.Text = "Fecha";
+            // 
             // loginCaj
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(354, 207);
+            this.ClientSize = new System.Drawing.Size(354, 267);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.Regresar);
@@ -145,5 +165,7 @@ namespace MAD3_ventanas
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.Label label4;
     }
 }

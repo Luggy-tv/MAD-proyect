@@ -15,7 +15,9 @@ namespace MAD3_ventanas
     {
        public static ObjetoDB.Usuario   loggedUser;
        public static byte               loggedUCaja;
+        public static DateTime date;
 
+        public static ObjetoDB.CurrentLogin currentLogin;
         public loginCaj()
         {
             InitializeComponent();
@@ -36,10 +38,12 @@ namespace MAD3_ventanas
             var listUsuarios = new List<ObjetoDB.Usuario>();
             listUsuarios = null;
             listUsuarios = objBD.ConsultaUsuarios();
+            string op = "i";
 
             string IDusuario = textBox1.Text;
             string contraseña = textBox2.Text;
             byte numCaja = seleccion.IDCaja;
+            
 
            
 
@@ -73,6 +77,9 @@ namespace MAD3_ventanas
 
                     loggedUser = getUserFromString(IDusuario, listUsuarios);
                     loggedUCaja = numCaja;
+                    date = dateTimePicker1.Value;
+
+                    bool comp = objBD.GestLogin(op, loggedUser.IDUsuario, loggedUCaja, date);
 
                      this.Close();
                      mainmenuCAJ mainmenuCAJ = new mainmenuCAJ();

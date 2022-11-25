@@ -82,10 +82,10 @@ namespace MAD3_ventanas
                 comboBox1.ValueMember = "IDProducto";
                 comboBox1.DisplayMember = "Nombre";
 
-                DateTime localDate = DateTime.Now;
+                
                 textBox4.Text = loginCaj.loggedUser.nombres+ loginCaj.loggedUser.apellidoPat+ loginCaj.loggedUser.apellidoMat;
                 textBox6.Text = loginCaj.loggedUCaja.ToString();
-                textBox5.Text = localDate.ToString();
+                textBox5.Text = loginCaj.date.ToString();
             }
         }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -218,13 +218,13 @@ namespace MAD3_ventanas
             List<ObjetoDB.Descuento> listaDescuentos = null;
             var objBD = new EnlaceDB();
             listaDescuentos = objBD.ConsultaDescuentos();
-            DateTime localDate = DateTime.Now;
+            //DateTime localDate = DateTime.Now;
 
             foreach ( var item in listaDescuentos)
             {
                 if(item.ProductoFK == producto.IDProducto)
                 {
-                    if (localDate > item.FechaINI && localDate < item.FechaFIN)
+                    if (loginCaj.date > item.FechaINI && loginCaj.date < item.FechaFIN)
                     {
                         decimal porcentaje = (decimal)(item.Porcentaje * 0.01);
                         descuente = producto.Costo * porcentaje;
