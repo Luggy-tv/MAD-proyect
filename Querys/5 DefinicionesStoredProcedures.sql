@@ -587,6 +587,7 @@ BEGIN
 	if @op = 'i'
 	select IDCajero_Caja ,CajeroFK,CajaFK from Usuario_Caja;
 END
+GO
 
 ----------------------------------------------------------SP_GetProductosEnPuntoDeReorden
 IF OBJECT_ID('sp_GetProductosEnPuntoDeReorden')IS NOT NULL
@@ -734,5 +735,3 @@ BEGIN
 		where IDRecibo like CONCAT('%',@IDRecibo,'%');
 END
 GO
-
-

@@ -191,7 +191,7 @@ namespace MAD3_ventanas
             dt.Columns.Add("Nombre      ");
             dt.Columns.Add("Existencias ");
             dt.Columns.Add("Costo       ");
-            dt.Columns.Add("CantProd    ");
+            dt.Columns.Add("Cantidad de producto a comprar");
             dt.Columns.Add("Precio productos");
             dt.Columns.Add("Descuento Aplicado");
 
@@ -201,9 +201,9 @@ namespace MAD3_ventanas
 
                 row["IDProducto  "] = item.IDProducto;
                 row["Nombre      "] = item.Nombre;
-                row["Existencias "] = item.Costo;
-                row["Costo       "] = item.Nombre;
-                row["CantProd    "] = item.CantProd;
+                row["Existencias "] = item.Existencias;
+                row["Costo       "] = item.Costo;
+                row["Cantidad de producto a comprar"] = item.CantProd;
                 row["Precio productos"] = item.PrecioProds;
                 row["Descuento Aplicado"] = item.descuento;
 
@@ -236,6 +236,11 @@ namespace MAD3_ventanas
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

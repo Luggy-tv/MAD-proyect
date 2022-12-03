@@ -33,8 +33,8 @@ namespace MAD3_ventanas.Administrador
 
             decimal Costo = 0;
             decimal PrecioUnitario = 0;
-            int Existencias = 0;
-            int PuntoDeReorden = 0;
+            decimal Existencias = 0;
+            decimal PuntoDeReorden = 0;
 
             ObjetoDB.Departamento departamento = comboBox1.SelectedItem as ObjetoDB.Departamento;
             ObjetoDB.UnidadDeMedida unidadDeMedida = comboBox2.SelectedItem as ObjetoDB.UnidadDeMedida;
@@ -77,10 +77,10 @@ namespace MAD3_ventanas.Administrador
 
             if (val1 == true && val2 == true && val3 == true)
             {
-                Costo = decimal.Parse(textBox5.Text);
-                PrecioUnitario = decimal.Parse(textBox10.Text);
-                Existencias = int.Parse(textBox4.Text);
-                PuntoDeReorden = int.Parse(textBox6.Text);
+                Costo =             decimal.Parse(textBox5.Text);
+                PrecioUnitario =    decimal.Parse(textBox10.Text);
+                Existencias =       decimal.Parse(textBox4.Text);
+                PuntoDeReorden =    decimal.Parse(textBox6.Text);
 
                 if (Costo < PrecioUnitario)
                 {
@@ -94,8 +94,8 @@ namespace MAD3_ventanas.Administrador
 
                 if (val4 == true)
                 {
-                    DialogResult dr = MessageBox.Show("¿Desea agregar estos datos?",
-                    "Agregar productos", MessageBoxButtons.YesNo);
+                    DialogResult dr = MessageBox.Show("¿Desea editar estos datos?",
+                    "Editar productos", MessageBoxButtons.YesNo);
                     switch (dr)
                     {
                         case DialogResult.Yes:
@@ -148,6 +148,7 @@ namespace MAD3_ventanas.Administrador
 
                     break;
             }
+            
         }
         private void GestProdEditar_Load(object sender, EventArgs e)//Cargar ventana
         {
