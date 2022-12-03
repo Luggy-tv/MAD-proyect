@@ -27,14 +27,19 @@ namespace MAD3_ventanas.Administrador
         {
             bool comp = false;
             string op = "e";
-            short IDProducto = 10000;
+            int IDProducto ;
             string Nombre = textBox2.Text;
             string Descripcion = textBox3.Text;
 
-            decimal Costo = 0;
-            decimal PrecioUnitario = 0;
-            decimal Existencias = 0;
-            decimal PuntoDeReorden = 0;
+            decimal Costo ;
+            decimal PrecioUnitario ;
+            decimal Existencias ;
+            decimal PuntoDeReorden ;
+
+
+            ObjetoDB.Producto producto = comboBox3.SelectedItem as ObjetoDB.Producto;
+
+            IDProducto = producto.IDProducto;
 
             ObjetoDB.Departamento departamento = comboBox1.SelectedItem as ObjetoDB.Departamento;
             ObjetoDB.UnidadDeMedida unidadDeMedida = comboBox2.SelectedItem as ObjetoDB.UnidadDeMedida;

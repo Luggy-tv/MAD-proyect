@@ -60,15 +60,7 @@ namespace MAD3_ventanas
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        }//Regresar
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
@@ -81,7 +73,7 @@ namespace MAD3_ventanas
             {
                 e.Handled = true;
             }
-        }
+        }//Validacion de solo numeros en cantidad a pagar 
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
@@ -94,7 +86,7 @@ namespace MAD3_ventanas
             {
                 e.Handled = true;
             }
-        }
+        }//Validacion de solo numeros en cantidad a pagar
         private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
@@ -107,7 +99,7 @@ namespace MAD3_ventanas
             {
                 e.Handled = true;
             }
-        }
+        }//Validacion de solo numeros en cantidad a pagar
         private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
@@ -120,16 +112,18 @@ namespace MAD3_ventanas
             {
                 e.Handled = true;
             }
-        }
+        }//Validacion de solo numeros en cantidad a pagar
         private void button1_Click(object sender, EventArgs e)
         {
             ObjetoDB.ReciboDeVenta reciboDeVenta = new ObjetoDB.ReciboDeVenta();
+           
             //ventas.productosEnVentasLista;
 
             //DateTime localDate = DateTime.Now;
             //textBox4.Text = loginCaj.loggedUser.IdUser;
             //textBox6.Text = loginCaj.loggedUCaja.ToString();
             //textBox5.Text = localDate.ToString();
+
             bool comp=false;
             decimal cant1 = 0;
             decimal cant2 = 0;
@@ -186,11 +180,14 @@ namespace MAD3_ventanas
 
                     });
                 }
+
+
                 decimal pagoTot = cant1 + cant2 + cant3 + cant4;
+
                 if(pagoTot>= ventas.ptotalVenta)
                 {
-                    DialogResult dr = MessageBox.Show("¿Desea emitjr recibo?",
-                         "Agregar departamento", MessageBoxButtons.YesNo);
+                    DialogResult dr = MessageBox.Show("¿Desea emitir recibo?",
+                         "Emitir recibo", MessageBoxButtons.YesNo);
                     switch (dr)
                     {
                         case DialogResult.Yes:
@@ -209,6 +206,11 @@ namespace MAD3_ventanas
                                 string op = "i";
                                 comp = objBD.GestDetalleProd(op, reciboDeVenta.IDRecibo, item.IDProducto, item.CantProd);
                             }
+
+                            var opc = "i";
+                            var idventa = 0;
+
+                            comp = objBD.GestVenta(opc, idventa, loginCaj.currentLogin.IDCajero_Caja, reciboDeVenta.IDRecibo, loginCaj.currentLogin.fecha);
 
                             if (comp)
                             {
@@ -235,9 +237,16 @@ namespace MAD3_ventanas
                 MessageBox.Show("Favor de llenar los campos", "Accion Imposible", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
            
-        }
-
+        }//pagar
         private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }

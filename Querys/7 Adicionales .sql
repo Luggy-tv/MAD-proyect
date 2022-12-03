@@ -30,4 +30,7 @@ EXEC sp_GestionarCaja @op='i';
 --SELECT * FROM OpcionDePago;
 --SELECT * FROM UnidadDeMedida;
 --Select * from Caja
+--Select * from [dbo].[ReciboDeVenta]
+
+--Select * from [dbo].[DatosDeTienda]
 

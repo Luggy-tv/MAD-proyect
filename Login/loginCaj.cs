@@ -18,6 +18,7 @@ namespace MAD3_ventanas
         public static DateTime          date;
 
         public static ObjetoDB.CurrentLogin currentLogin;
+
         public loginCaj()
         {
             InitializeComponent();
@@ -28,7 +29,6 @@ namespace MAD3_ventanas
             prelogin prelogin = new prelogin();
             prelogin.Show();
         }
-
         private void Ingresar_Click(object sender, EventArgs e)//INGRESAR
         {
             ObjetoDB.Caja seleccion = comboBox1.SelectedItem as ObjetoDB.Caja;
@@ -65,8 +65,11 @@ namespace MAD3_ventanas
                             loggedUser = getUserFromString(IDusuario, listUsuarios);
                             loggedUCaja = numCaja;
                             date = dateTimePicker1.Value;
+               
 
-                            bool comp = objBD.GestLogin(op, loggedUser.IDUsuario, loggedUCaja, date);
+                            List< ObjetoDB.CurrentLogin> listalogins = objBD.ConsultaLogin(op, loggedUser.IDUsuario, loggedUCaja, date);
+
+                            currentLogin = listalogins.First();
 
                             this.Close();
                             mainmenuCAJ mainmenuCAJ = new mainmenuCAJ();
@@ -76,11 +79,12 @@ namespace MAD3_ventanas
                     }
                     else
                     {
-                        MessageBox.Show("La contraseña es incorrecta");
+                       MessageBox.Show("Contraseña incorrecta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                else {
-                    MessageBox.Show("El usuario no existe");
+                else
+                {
+                    MessageBox.Show("Usuario no Existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
     
@@ -136,7 +140,6 @@ namespace MAD3_ventanas
             }
             return exists;
         }
-
         public ObjetoDB.Usuario getUserFromString(string user, List<ObjetoDB.Usuario> listaUsuarios)
         {
             var usuario = new ObjetoDB.Usuario();

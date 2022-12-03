@@ -14,6 +14,7 @@ namespace MAD3_ventanas
     public partial class ventas : Form
     {
         public static List<ObjetoDB.ProductosEnVenta> productosEnVentasLista = new List<ObjetoDB.ProductosEnVenta>();
+
         public DataTable productosEnVentasTabla= null;
         public decimal subtotal             = 0;
         public decimal total                = 0;

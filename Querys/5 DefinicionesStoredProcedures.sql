@@ -571,15 +571,15 @@ GO
 IF OBJECT_ID('sp_LoginCajeroACaja')IS NOT NULL
 	DROP PROCEDURE sp_LoginCajeroACaja;
 GO
-Create procedure sp_LoginCajeroACaja(@op char(1),
-	@UsuarioFK	smallint=null,
-	@CajaFk		tinyint =null,
-	@fecha		datetime=null
+Create procedure sp_LoginCajeroACaja(	@op		char(1),
+										@UsuarioFK	smallint=null,
+										@CajaFk		tinyint =null,
+										@fecha		datetime=null
 )AS
 BEGIN
 	if @op='i'
 	Insert into Usuario_Caja(CajeroFK,CajaFK,Fecha) Values(@UsuarioFK,@CajaFk,@fecha);
-	select IDCajero_Caja ,CajeroFK,CajaFK,Fecha from Usuario_Caja where IDCajero_Caja=@@IDENTITY;
+	select IDCajero_Caja ,CajeroFK,CajaFK,fecha from Usuario_Caja where IDCajero_Caja=@@IDENTITY;
 
 	if @op = 'l'
 	select IDCajero_Caja ,CajeroFK,CajaFK,Fecha from Usuario_Caja where IDCajero_Caja=@@IDENTITY;
@@ -587,11 +587,6 @@ BEGIN
 	if @op = 'i'
 	select IDCajero_Caja ,CajeroFK,CajaFK from Usuario_Caja;
 END
-GO
-
-----------------------------------------------------------SP_GetProductosEnPuntoDeReorden
-IF OBJECT_ID('sp_GetProductosEnPuntoDeReorden')IS NOT NULL
-	DROP PROCEDURE sp_GetProductosEnPuntoDeReorden;
 GO
 -----------------------------------------------------------SP_ProductosEnPuntoDeReorden
 IF OBJECT_ID('sp_GetProductosEnPuntoDeReorden')IS NOT NULL
@@ -688,27 +683,28 @@ END
 GO
 ----------------------------------------------------------SP_GestionarVentas
 
---IF OBJECT_ID('SP_GestionarVentas')IS NOT NULL
---	Drop procedure SP_GestionarVentas;
---GO
---Create procedure SP_GestionarVentas(@op char(1)
---											,@FKReciboVenta int		=NULL
---											,@FCajeroLoginFK int	=NULL
---											,@FkProducto int =null
+IF OBJECT_ID('SP_GestionarVentas')IS NOT NULL
+	Drop procedure SP_GestionarVentas;
+GO
+Create procedure SP_GestionarVentas(		@op char(1)
+											,@FKReciboVenta		int			=NULL
+											,@CajeroLoginFK 	int			=NULL
+											,@ReciboVentaFK		int			=null
+											,@Fecha				datetime	=NULL
 
---)AS
---BEGIN
---	declare @completed bit;
+)AS
+BEGIN
 
---	IF @op= 'i'
---	begin
---		Insert into DetalleProductos(ReciboVentaFK,ProductoFK,CantProd) VALUES (@FKReciboVenta,@FkProducto,@CantidadDeProducto);
---		update Producto set Existencias = Existencias-@CantidadDeProducto where Producto.IDProducto=@FkProducto;
---	end
---	IF @op='s'
---		Select IDRecVent_Prod,ReciboVentaFK,ProductoFK,CantProd  from DetalleProductos;
---END
---GO
+	IF @op= 'i'
+	begin
+		Insert into LogVenta(Cajero_CajaFK,ReciboVentaFK,Fecha) VALUES (@CajeroLoginFK,@ReciboVentaFK,@Fecha);
+	end
+
+	IF @op='s'
+		Select  IDLogVenta,Cajero_CajaFK,ReciboVentaFK,Fecha from LogVenta;
+
+END
+GO
 
 ----------------------------------------------------------Sp_ReporteDeVentas
 IF OBJECT_ID('sp_ConsultaRecibos')IS NOT NULL
@@ -722,16 +718,39 @@ BEGIN
 	if @op='C'
 	--DECLARE @IDRecibo int
 	--SET @IDRecibo= 4
-		SELECT rv.IDRecibo[Numero de recibo]
-		,rv.Subtotal
-		,rv.Total
-		,p.Nombre
-		, dpr.CantProd [Cantidad de productos]
-		from ReciboDeVenta as rv 
-		left join DetallePago as DPa on rv.IDRecibo=dpa.FkRecVenta 
-		left join DetalleProductos as DPr on rv.IDRecibo = dpr.ReciboVentaFK  
-		left join Producto as p on dpr.ProductoFK=p.IDProducto
-		left join OpcionDePago as op on dpa.FKOpPago = op.IDOpcionDePago
+		SELECT 
+		 rv.IDRecibo																as [Numero de recibo]
+		,CASE when ven.IDLogVenta IS NOT NULL then 
+			 CONCAT(usr.nombres,' ',usr.apellidoPat,' ',usr.apellidoMat) 
+		 else 
+			 'Cajero no identificado' 
+		 end																		as [Nombre del cajero]
+		,CASE when ven.IDLogVenta IS NOT NULL then 
+			 format(ven.Fecha,'dd MMMM yyyy hh:mm:ss','es-es') 
+		 else 
+			 'Fecha no identificada' 
+		 end																		as [Fecha de Venta]
+		,CASE when ven.IDLogVenta IS NOT NULL then 
+			 convert(varchar(19),caja.IDCaja)
+		 else 
+			 'Caja no identificada' 
+		 end																		as [Caja de la venta]
+		,p.Nombre																	as [Nombre Del Producto]
+		,dpr.CantProd																as [Cantidad de productos]
+		,convert( varchar,cast(dpr.CantProd*p.costo as money))						as [Precio de Producto]
+		,format(rv.Subtotal,'c','en-us')											as [Subtotal]
+		,format(rv.Total,'c','en-us')												as [Total]
+		from ReciboDeVenta			as rv 
+		left join DetallePago		as DPa on rv.IDRecibo=dpa.FkRecVenta 
+		left join DetalleProductos	as DPr on rv.IDRecibo = dpr.ReciboVentaFK  
+		left join Producto			as p on dpr.ProductoFK=p.IDProducto
+		left join OpcionDePago		as op on dpa.FKOpPago = op.IDOpcionDePago
+		left join LogVenta			as ven on rv.idrecibo=ven.ReciboVentaFK
+		left join Usuario_Caja		as logcaj on ven.Cajero_CajaFK=logcaj.IDCajero_Caja
+		left join Usuario			as usr on logcaj.CajeroFK=usr.IDUsuario
+		left join Caja				as caja on logcaj.CajaFK=caja.IDCaja
 		where IDRecibo like CONCAT('%',@IDRecibo,'%');
+
 END
 GO
+

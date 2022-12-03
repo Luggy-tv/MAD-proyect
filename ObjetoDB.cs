@@ -13,9 +13,11 @@ namespace MAD3_ventanas
 
 		public class CurrentLogin
         {
-			public Int16 IDLogin { get; set; }
-			public Int16 FKCajero { get; set; }
-			public byte FKCaja { get; set; }
+			public Int16 IDCajero_Caja { get; set; }
+			public Int16 CajeroFK { get; set; }
+			public byte CajaFK { get; set; }
+			public DateTime fecha { get; set; }
+
         }
 		public class DatosDeTienda
 		{
@@ -82,11 +84,11 @@ namespace MAD3_ventanas
 		}
 		public class ReciboDeVenta
 		{
-			[Mapping(ColumnName = "IDRecibo")]
+			//[Mapping(ColumnName = "IDRecibo")]
 			public int IDRecibo { get; set; }
-			[Mapping(ColumnName = "Total")]
+			//[Mapping(ColumnName = "Total")]
 			public decimal Total { get; set; }
-			[Mapping(ColumnName = "Subtotal")]
+			//[Mapping(ColumnName = "Subtotal")]
 			public decimal Subtotal { get; set; }
 		}
 		public class Devolucion

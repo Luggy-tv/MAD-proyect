@@ -277,7 +277,7 @@ namespace MAD3_ventanas.Administrador
             this.button3.Location = new System.Drawing.Point(429, 15);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(96, 21);
-            this.button3.TabIndex = 5;
+            this.button3.TabIndex = 10;
             this.button3.Text = "Eliminar producto";
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -288,7 +288,7 @@ namespace MAD3_ventanas.Administrador
             this.comboBox3.Location = new System.Drawing.Point(152, 16);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(271, 21);
-            this.comboBox3.TabIndex = 4;
+            this.comboBox3.TabIndex = 11;
             this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
             // dataGridView1
@@ -299,7 +299,7 @@ namespace MAD3_ventanas.Administrador
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridView1.Size = new System.Drawing.Size(504, 82);
-            this.dataGridView1.TabIndex = 7;
+            this.dataGridView1.TabIndex = 30;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // label7

@@ -49,3 +49,5 @@ GO
 CREATE VIEW v_Descuentos as
 	SELECT IDDescuento,D.Nombre [Descuento],Porcentaje,FechaINI,FechaFIN,P.Nombre [Producto] FROM Descuento AS D LEFT JOIN Producto AS p ON d.ProductoFK=P.IDProducto WHere Estado=1; 
 GO
+
+
