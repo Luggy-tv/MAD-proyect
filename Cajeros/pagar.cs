@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Printing;
 
 namespace MAD3_ventanas
 {
@@ -190,7 +191,7 @@ namespace MAD3_ventanas
                 if(pagoTot>= ventas.ptotalVenta)
                 {
                     DialogResult dr = MessageBox.Show("¿Desea emitjr recibo?",
-                         "Agregar departamento", MessageBoxButtons.YesNo);
+                         "Emitir recibo", MessageBoxButtons.YesNo);
                     switch (dr)
                     {
                         case DialogResult.Yes:
@@ -213,7 +214,19 @@ namespace MAD3_ventanas
                             if (comp)
                             {
                                 MessageBox.Show("Compra realizada cambio de :" + (pagoTot- ventas.ptotalVenta).ToString(), "Gracias por comprar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                //HACER PRINTDOCUMENT AQUÍ (TENTATIVO, PUEDE CAMBIAR
+
+                                printDocument1 = new PrintDocument();
+                                PrinterSettings ps = new PrinterSettings();
+                                printDocument1.PrinterSettings = ps;
+                                printDocument1.PrintPage += Imprimir;
+                                printDocument1.Print();
+
+
                                 this.Close();
+
+                               
                             }
 
                             break;
@@ -239,6 +252,18 @@ namespace MAD3_ventanas
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
+
+        }
+
+        private void Imprimir(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            Font font = new Font("Arial", 12);
+            int ancho = 150;
+            int y = 20;
+
+            e.Graphics.DrawString("----- VELPONCH ------", font, Brushes.Gray, new RectangleF(0, y + 20, ancho, 20));
+
+
 
         }
     }
