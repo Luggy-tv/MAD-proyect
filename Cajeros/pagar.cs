@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Printing;
 
 namespace MAD3_ventanas
 {
@@ -130,43 +131,104 @@ namespace MAD3_ventanas
             //textBox4.Text = loginCaj.loggedUser.IdUser;
             //textBox6.Text = loginCaj.loggedUCaja.ToString();
             //textBox5.Text = localDate.ToString();
-
+            bool comp=false;
             decimal cant1 = 0;
             decimal cant2 = 0;
             decimal cant3 = 0;
             decimal cant4 = 0;
+            var seleccion = comboBox1.SelectedItem as ObjetoDB.OpcionDePago;
+            var seleccion2 = comboBox1.SelectedItem as ObjetoDB.OpcionDePago;
+            var seleccion3= comboBox1.SelectedItem as ObjetoDB.OpcionDePago;
+            var seleccion4 = comboBox1.SelectedItem as ObjetoDB.OpcionDePago;
 
-           
 
             List<ObjetoDB.DetallePago> listaDPagos = new List<ObjetoDB.DetallePago>();
 
-            if (textBox1.Text != "") { 
-
+            if (textBox1.Text != "") {
+                
                 cant1 = decimal.Parse(textBox1.Text);
+                listaDPagos.Add(new ObjetoDB.DetallePago
+                {
+                    FKOpPago = seleccion.IDOpcionDePago,
+                    Cantidad = cant1
+
+                }) ;
+                
 
                 if (checkBox1.CheckState == CheckState.Checked)
                 {
                     cant2 = decimal.Parse(textBox2.Text);
+                    listaDPagos.Add(new ObjetoDB.DetallePago
+                    {
+                        FKOpPago = seleccion2.IDOpcionDePago,
+                        Cantidad = cant2
+
+                    });
+
+                    
                 }
                 if (checkBox2.CheckState == CheckState.Checked)
                 {
                     cant3 = decimal.Parse(textBox3.Text);
+                    listaDPagos.Add(new ObjetoDB.DetallePago
+                    {
+                        FKOpPago = seleccion3.IDOpcionDePago,
+                        Cantidad = cant3
+
+                    });
                 }
                 if (checkBox3.CheckState == CheckState.Checked)
                 {
                     cant4 = decimal.Parse(textBox4.Text);
+                    listaDPagos.Add(new ObjetoDB.DetallePago
+                    {
+                        FKOpPago = seleccion4.IDOpcionDePago,
+                        Cantidad = cant4
+
+                    });
                 }
                 decimal pagoTot = cant1 + cant2 + cant3 + cant4;
                 if(pagoTot>= ventas.ptotalVenta)
                 {
                     DialogResult dr = MessageBox.Show("¿Desea emitjr recibo?",
-                         "Agregar departamento", MessageBoxButtons.YesNo);
+                         "Emitir recibo", MessageBoxButtons.YesNo);
                     switch (dr)
                     {
                         case DialogResult.Yes:
                             var objBD = new EnlaceDB();
-                            //reciboDeVenta = objBD.ConsultaUltimoreciboDeVenta(reciboDeVenta.IDRecibo,); // falta llenar variables
-                            
+                            reciboDeVenta = objBD.ConsultaUltimoreciboDeVental(reciboDeVenta.IDRecibo, ventas.ptotalVenta, ventas.subtotalVenta).First<ObjetoDB.ReciboDeVenta>();
+                            foreach(var items in listaDPagos)
+                            {
+                                string op = "i";
+                                comp = objBD.GestDetallePago(op,
+                                     reciboDeVenta.IDRecibo,
+                                     items.FKOpPago,
+                                     items.Cantidad);
+                            }
+                            foreach(var item in ventas.productosEnVentasLista)
+                            {
+                                string op = "i";
+                                comp = objBD.GestDetalleProd(op, reciboDeVenta.IDRecibo, item.IDProducto, item.CantProd);
+                            }
+
+                            if (comp)
+                            {
+                                MessageBox.Show("Compra realizada cambio de :" + (pagoTot- ventas.ptotalVenta).ToString(), "Gracias por comprar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                //HACER PRINTDOCUMENT AQUÍ (TENTATIVO, PUEDE CAMBIAR
+
+                                printDocument1 = new PrintDocument();
+                                PrinterSettings ps = new PrinterSettings();
+                                printDocument1.PrinterSettings = ps;
+                                printDocument1.PrintPage += Imprimir;
+                                printDocument1.Print();
+
+
+                                this.Close();
+
+                               
+                            }
+
                             break;
                         case DialogResult.No:
 
@@ -190,6 +252,18 @@ namespace MAD3_ventanas
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
+
+        }
+
+        private void Imprimir(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            Font font = new Font("Arial", 12);
+            int ancho = 150;
+            int y = 20;
+
+            e.Graphics.DrawString("----- VELPONCH ------", font, Brushes.Gray, new RectangleF(0, y + 20, ancho, 20));
+
+
 
         }
     }

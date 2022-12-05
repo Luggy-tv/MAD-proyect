@@ -10,6 +10,13 @@ namespace MAD3_ventanas
 	{
 		//Smallmoney es decimal
 		//smalldatetime es datetime en c#
+
+		public class CurrentLogin
+        {
+			public Int16 IDLogin { get; set; }
+			public Int16 FKCajero { get; set; }
+			public byte FKCaja { get; set; }
+        }
 		public class DatosDeTienda
 		{
 			public byte IDTienda { get; set; }
@@ -124,7 +131,7 @@ namespace MAD3_ventanas
 		{
 			public int IDDetallePago { get; set; }
 			public int FkRecVenta { get; set; }
-			public byte FKOpPago { get; set; }
+			public byte		FKOpPago { get; set; }
 			public decimal Cantidad { get; set; }
 		}
 
