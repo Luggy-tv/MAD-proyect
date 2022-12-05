@@ -118,8 +118,6 @@ BEGIN
 		CONSTRAINT FK_UNIDADMEDIDA
 			FOREIGN KEY (UnidadMedidaFK) REFERENCES UnidadDeMedida(IDUnidadDeMedida)
 	);
-
-
 ------------------------------------------------------------Descuento
 	IF OBJECT_ID(N'dbo.Descuento')IS NOT NULL
 		DROP TABLE dbo.Descuento;
@@ -178,6 +176,9 @@ BEGIN
 		CONSTRAINT FK_CAJEROCAJA_CAJA
 			FOREIGN KEY (CajaFK) REFERENCES Caja(IDCaja)
 	);
+
+	--alter table dbo.usuario_caja add fecha smalldatetime
+	--sp_help usuario_caja
 -------------------------------------------------------------Recibo de venta - producto
 	IF OBJECT_ID(N'dbo.DetalleProductos')IS NOT NULL
 		DROP TABLE dbo.DetalleProductos;

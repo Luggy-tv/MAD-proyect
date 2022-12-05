@@ -144,6 +144,7 @@ namespace MAD3_ventanas.Administrador
             this.button1.TabIndex = 10;
             this.button1.Text = "Ver";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
@@ -160,6 +161,7 @@ namespace MAD3_ventanas.Administrador
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(200, 20);
             this.textBox1.TabIndex = 0;
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
             // dataGridView1
             // 
