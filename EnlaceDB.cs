@@ -295,6 +295,8 @@ namespace MAD3_ventanas
                 var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
                 parametro1.Value = "s";
                 var dataReader = _comandosql.ExecuteReader();
+
+
                 lista = GetList<ObjetoDB.Producto_En_Recibo>(dataReader);
             }
             catch (SqlException e)

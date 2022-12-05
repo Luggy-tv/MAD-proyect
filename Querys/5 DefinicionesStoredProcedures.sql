@@ -567,7 +567,7 @@ BEGIN
 					SELECT COUNT(IDNotaCredito)		[COUNT] FROM NotaCredito;
 END
 GO
----------------------------------------------------------------------------------------------------------SP_LoginCaJACajero
+---------------------------------------------------------------------------------------------------------SP_LoginCajaCajero
 IF OBJECT_ID('sp_LoginCajeroACaja')IS NOT NULL
 	DROP PROCEDURE sp_LoginCajeroACaja;
 GO
@@ -738,20 +738,17 @@ GO
 IF OBJECT_ID('SP_BuscarProductoEnRecibo')IS NOT NULL
 	DROP PROCEDURE SP_BuscarProductoEnRecibo;
 GO
-Create Procedure SP_BuscarProductoEnRecibo( @op Char(1)
-											,@IDRecibo INT=NULL
-)
+Create Procedure SP_BuscarProductoEnRecibo( @op Char(1))
 AS
 BEGIN
 	if @op='s'
 		SELECT 
-			[Numero de recibo],
-			[Codigo de Producto],
-			[Nombre de Producto],
-			[Cantidad en recibo],
-			[Reembolsable]
-		from v_BuscarProductoEnRecibo				
-		where [Numero de recibo] = @IDRecibo;
+			[Numero de recibo]   as IDRecibo,
+			[Codigo de Producto] as ProductoFK,
+			[Nombre de Producto] as NombreProd,
+			[Cantidad en recibo] as CantProd,
+			[Reembolsable]		 as Reembolsable
+		from v_BuscarProductoEnRecibo
 
 END
 GO
@@ -809,3 +806,5 @@ BEGIN
 	END
 END
 GO
+
+select * from v_Descuentos

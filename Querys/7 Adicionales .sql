@@ -20,3 +20,5 @@ EXEC sp_GestionarTienda  @op='i',@NombreTienda	='Tienda Velponch',@Sucursal= 3,@
 EXEC sp_GestionarCaja @op='i';
 EXEC sp_GestionarCaja @op='i';
 EXEC sp_GestionarCaja @op='i';
+
+select * from v_ReciboDeVenta

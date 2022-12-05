@@ -214,7 +214,6 @@ namespace MAD3_ventanas
 
             return dt;
         }
-
         private decimal CheckDescuentoForProd(ObjetoDB.Producto producto)
         {
             decimal descuente = 0;
@@ -236,17 +235,14 @@ namespace MAD3_ventanas
             }
             return descuente;
         }
-
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
         }
-
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
-
         private void textBox6_TextChanged(object sender, EventArgs e)
         {
 

@@ -26,7 +26,7 @@ namespace MAD3_ventanas.Administrador
         private void button1_Click(object sender, EventArgs e)
         {
             var objBD = new EnlaceDB();
-            bool reciboExist = false, productExistsInRecibo = false, productIsReembolsable = false ;
+            //bool reciboExist = false, productExistsInRecibo = false, productIsReembolsable = false,isProductAmmountCorrect=false ;
 
             var seleccion = comboBox1.SelectedItem as ObjetoDB.Producto;
 
@@ -34,48 +34,60 @@ namespace MAD3_ventanas.Administrador
             ListaProductoEnRecibos = null;
             ListaProductoEnRecibos = objBD.ConsultaProductoEnRecibos();
 
-            ObjetoDB.Producto_En_Recibo producto = new ObjetoDB.Producto_En_Recibo();
-            producto = null;
+            ObjetoDB.Producto_En_Recibo productoEnRecibo = new ObjetoDB.Producto_En_Recibo();
+            productoEnRecibo = null;
 
 
-            if (textBox2.Text.Length ==0  || int.Parse(textBox2.Text) <= 0|| int.Parse(textBox2.Text)>= 2000000|| textBox1.Text.Length == 0 || int.Parse(textBox1.Text) <= 0)
+            if (textBox2.Text.Length ==0  || int.Parse(textBox2.Text) <= 0|| int.Parse(textBox2.Text)>= 2000000|| textBox1.Text.Length == 0 || decimal.Parse(textBox1.Text) <= 0)
             {
                 MessageBox.Show("Favor de llenar la informacion correspondiente",
                    "Datos pendientes", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                reciboExist = CheckIfReciboExists(ListaProductoEnRecibos, int.Parse(textBox1.Text));
-                if (reciboExist)
+           
+                if (CheckIfReciboExists(ListaProductoEnRecibos, int.Parse(textBox2.Text)))
                 {
-                    producto = GetProducto_En_ReciboFromList(ListaProductoEnRecibos, int.Parse(textBox1.Text));
-                    productExistsInRecibo = CheckIfProductExistsInRecibo(producto, seleccion);
+                   
+                    if (CheckIfProductExistsInRecibo(ListaProductoEnRecibos,int.Parse(textBox2.Text), seleccion))
+                    {
+
+                        productoEnRecibo = GetProducto_En_ReciboFromList(ListaProductoEnRecibos, int.Parse(textBox2.Text), seleccion);
+
+                        if (CheckIfProductIsReembolsable(productoEnRecibo, seleccion))
+                        {
+
+                            if (CheckIfProductAmmountIsCorrect(productoEnRecibo, decimal.Parse(textBox1.Text)))
+                            {
+                               
+                                MessageBox.Show("Carita feliz",
+                            ":)", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                MessageBox.Show("La cantidad de producto especificada no es la existente en el recibo, favor de verificar o llamar a seguridad",
+                        "Datos incorrectos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Lamento decirle que el producto que esta seleccionando no es reembolsable",
+                         "Producto no reembolsable", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Producto no existe en el recibo, verificar los datos ingresados",
+                     "Datos incorrectos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
                 {
                     MessageBox.Show("Recibo no existe en la base de datos, verificar los datos ingresados",
                   "Datos incorrectos", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                if (productExistsInRecibo)
-                {
-                    
-                    productIsReembolsable = CheckIfProductIsReembolsable(producto, seleccion);
-                }
-                else
-                {
-                    MessageBox.Show("Producto no existe en el recibo, verificar los datos ingresados",
-                 "Datos incorrectos", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                if (productIsReembolsable)
-                {
-                    MessageBox.Show("Carita feliz",
-                ":)", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("Lamento decirle que el producto que esta seleccionando no es reembolsable",
-                 "Producto no reembolsable", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+               
+                
             }
 
 
@@ -99,7 +111,7 @@ namespace MAD3_ventanas.Administrador
             listProductos = objBD.ConsultaProductos();
             ListaProductoEnRecibos = objBD.ConsultaProductoEnRecibos();
 
-            if (listProductos.Count() == 0)
+            if (ListaProductoEnRecibos.Count() == 0)
             {
                 MessageBox.Show("No se encuentran recibos en la base de datos, favor de realizar una venta",
                    "Datos pendientes", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -152,13 +164,20 @@ namespace MAD3_ventanas.Administrador
 
             return flag;
         }
-        private bool CheckIfProductExistsInRecibo(ObjetoDB.Producto_En_Recibo producto_En_Recibo, ObjetoDB.Producto producto)
+        private bool CheckIfProductExistsInRecibo(List<ObjetoDB.Producto_En_Recibo> _ListaProductoEnRecibos, int _idRecibo, ObjetoDB.Producto producto)
         {
             bool flag = false;
-            if (producto_En_Recibo.ProductoFK == producto.IDProducto)
+            foreach (var item in _ListaProductoEnRecibos)
             {
-                flag = true;
+                if (item.IDRecibo == _idRecibo)
+                {
+                    if (item.ProductoFK == producto.IDProducto)
+                    {
+                        flag = true;
+                    }
+                }
             }
+           
             return flag;
         }
         private bool CheckIfProductIsReembolsable(ObjetoDB.Producto_En_Recibo producto_En_Recibo, ObjetoDB.Producto producto)
@@ -170,19 +189,28 @@ namespace MAD3_ventanas.Administrador
             }
             return flag;
         }
-        private ObjetoDB.Producto_En_Recibo GetProducto_En_ReciboFromList(List<ObjetoDB.Producto_En_Recibo> _ListaProductoEnRecibos, int _idRecibo)
+        private ObjetoDB.Producto_En_Recibo GetProducto_En_ReciboFromList(List<ObjetoDB.Producto_En_Recibo> _ListaProductoEnRecibos, int _idRecibo, ObjetoDB.Producto producto)
         {
             ObjetoDB.Producto_En_Recibo prod =null;
 
             foreach (var item in _ListaProductoEnRecibos)
             {
-                if (item.IDRecibo == _idRecibo)
+                if (item.IDRecibo == _idRecibo && item.ProductoFK == producto.IDProducto)
                 {
                     prod=item;
                 }
             }
 
             return prod; 
+        }
+        private bool CheckIfProductAmmountIsCorrect(ObjetoDB.Producto_En_Recibo producto_En_Recibo, decimal _cantidadProducto)
+        {
+            bool flag = false;
+            if(producto_En_Recibo.CantProd>= _cantidadProducto)
+            {
+                flag = true;
+            }
+            return flag;
         }
     }
 }
