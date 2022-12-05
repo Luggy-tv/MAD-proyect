@@ -19,7 +19,7 @@ namespace MAD3_ventanas
         public decimal subtotal             = 0;
         public decimal total                = 0;
         public decimal cantidadDescontada   = 0;
-        public int cantidadDeProductos      = 0;
+        //public int cantidadDeProductos      = 0;
 
         public static decimal ptotalVenta  =0 ;
         public static decimal subtotalVenta = 0 ;
@@ -125,6 +125,7 @@ namespace MAD3_ventanas
         private void button2_Click(object sender, EventArgs e)//BOTON INGRESAR
         {
             var seleccion = comboBox1.SelectedItem as ObjetoDB.Producto;
+
             if (textBox2.Text == "" || decimal.Parse(textBox2.Text)<=0)
             {
                 MessageBox.Show("Favor de agregar la cantidad de producto correcta", "Accion Imposible", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -167,7 +168,7 @@ namespace MAD3_ventanas
                     textBox1.Text = "-$"+ cantidadDescontada.ToString();
                     textBox8.Text = "$"+ total.ToString();
                     
-                    cantidadDeProductos++;
+                    //cantidadDeProductos++;
 
                     textBox2.Clear();
                 }
@@ -218,6 +219,7 @@ namespace MAD3_ventanas
         {
             decimal descuente = 0;
             List<ObjetoDB.Descuento> listaDescuentos = null;
+            
             var objBD = new EnlaceDB();
             listaDescuentos = objBD.ConsultaDescuentos();
 
@@ -232,7 +234,6 @@ namespace MAD3_ventanas
                     }
                 }
             }
-            
             return descuente;
         }
 

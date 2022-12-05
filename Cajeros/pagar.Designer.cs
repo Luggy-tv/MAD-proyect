@@ -331,9 +331,9 @@ namespace MAD3_ventanas
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(117, 363);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(87, 13);
+            this.label9.Size = new System.Drawing.Size(73, 13);
             this.label9.TabIndex = 22;
-            this.label9.Text = "Saldo pendiente:";
+            this.label9.Text = "Total a pagar:";
             // 
             // pagar
             // 

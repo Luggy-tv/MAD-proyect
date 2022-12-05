@@ -116,7 +116,9 @@ namespace MAD3_ventanas
         private void button1_Click(object sender, EventArgs e)
         {
             ObjetoDB.ReciboDeVenta reciboDeVenta = new ObjetoDB.ReciboDeVenta();
+
             bool comp=false;
+
             decimal cant1 = 0;
             decimal cant2 = 0;
             decimal cant3 = 0;
@@ -142,30 +144,39 @@ namespace MAD3_ventanas
                 
                 if (checkBox1.CheckState == CheckState.Checked)
                 {
-                    cant2 = decimal.Parse(textBox2.Text);
-                    listaDPagos.Add(new ObjetoDB.DetallePago
+                    if (textBox2.Text.Length != 0)
                     {
-                        FKOpPago = seleccion2.IDOpcionDePago,
-                        Cantidad = cant2
-                    });
+                        cant2 = decimal.Parse(textBox2.Text);
+                        listaDPagos.Add(new ObjetoDB.DetallePago
+                        {
+                            FKOpPago = seleccion2.IDOpcionDePago,
+                            Cantidad = cant2
+                        });
+                    }
                 }
                 if (checkBox2.CheckState == CheckState.Checked)
                 {
-                    cant3 = decimal.Parse(textBox3.Text);
-                    listaDPagos.Add(new ObjetoDB.DetallePago
+                    if (textBox3.Text.Length != 0)
                     {
-                        FKOpPago = seleccion3.IDOpcionDePago,
-                        Cantidad = cant3
-                    });
+                        cant3 = decimal.Parse(textBox3.Text);
+                        listaDPagos.Add(new ObjetoDB.DetallePago
+                        {
+                            FKOpPago = seleccion3.IDOpcionDePago,
+                            Cantidad = cant3
+                        });
+                    }
                 }
                 if (checkBox3.CheckState == CheckState.Checked)
                 {
-                    cant4 = decimal.Parse(textBox4.Text);
-                    listaDPagos.Add(new ObjetoDB.DetallePago
+                    if (textBox4.Text.Length != 0)
                     {
-                        FKOpPago = seleccion4.IDOpcionDePago,
-                        Cantidad = cant4
-                    });
+                        cant4 = decimal.Parse(textBox4.Text);
+                        listaDPagos.Add(new ObjetoDB.DetallePago
+                        {
+                            FKOpPago = seleccion4.IDOpcionDePago,
+                            Cantidad = cant4
+                        });
+                    }
                 }
 
                 decimal pagoTot = cant1 + cant2 + cant3 + cant4;
@@ -177,20 +188,18 @@ namespace MAD3_ventanas
                     switch (dr)
                     {
                         case DialogResult.Yes:
+
                             var objBD = new EnlaceDB();
                             
                             reciboDeVenta = objBD.ConsultaUltimoreciboDeVental(reciboDeVenta.IDRecibo, ventas.ptotalVenta, ventas.subtotalVenta).First<ObjetoDB.ReciboDeVenta>();
                             
-                            foreach(var items in listaDPagos)
+                            foreach(var items in listaDPagos)//Aqui es para pasar la lista de opciones de pago actuales a la base_De_Datos_Uno_Por_uno. la_lista_de_productos_es_listaDPagos
                             {
                                 string op = "i";
-                                comp = objBD.GestDetallePago(op,
-                                     reciboDeVenta.IDRecibo,
-                                     items.FKOpPago,
-                                     items.Cantidad);
+                                comp = objBD.GestDetallePago(op,reciboDeVenta.IDRecibo,items.FKOpPago,items.Cantidad);
                             }
                             
-                            foreach(var item in ventas.productosEnVentasLista)
+                            foreach(var item in ventas.productosEnVentasLista) //Aqui es para pasar la lista de productos actuales a la base_De_Datos_Uno_Por_uno. la_lista_de_productos_es_productosEnVentasLista
                             {
                                 string op = "i";
                                 comp = objBD.GestDetalleProd(op, reciboDeVenta.IDRecibo, item.IDProducto, item.CantProd);
@@ -199,7 +208,7 @@ namespace MAD3_ventanas
                             var opc = "i";
                             var idventa = 0;
 
-
+                            
                             DateTime horaDeVenta = loginCaj.currentLogin.fecha;
                             TimeSpan ts = new TimeSpan(DateTime.Now.Hour,DateTime.Now.Minute,DateTime.Now.Second);
                             horaDeVenta = horaDeVenta.Date + ts;
@@ -208,7 +217,10 @@ namespace MAD3_ventanas
 
                             if (comp)
                             {
-                                MessageBox.Show("Compra realizada cambio de :" + (pagoTot- ventas.ptotalVenta).ToString(), "Gracias por comprar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show("Compra realizada cambio de :$ " + (pagoTot- ventas.ptotalVenta).ToString(), "Gracias por comprar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+
                                 this.Close();
                             }
 

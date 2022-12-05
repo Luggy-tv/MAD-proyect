@@ -34,8 +34,28 @@ namespace MAD3_ventanas.Administrador
         }//REGRESAR MAIN MENU
         private void Devoluciones_Load(object sender, EventArgs e)
         {
-
             var objBD = new EnlaceDB();
+
+            List<ObjetoDB.Producto> listProductos = new List<ObjetoDB.Producto>();
+            listProductos = null;
+            listProductos = objBD.ConsultaProductos();
+
+            List
+
+            if (listProductos.Count() == 0)
+            {
+                MessageBox.Show("No se encuentran recibos en la base de datos, favor de realizar una venta",
+                   "Datos pendientes", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                mainmenuCAJ mainmenuCAJ = new mainmenuCAJ();
+                mainmenuCAJ.Show();
+            }
+            else
+            {
+                comboBox1.DataSource = listProductos;
+                comboBox1.ValueMember = "IDProducto";
+                comboBox1.DisplayMember = "Nombre";
+            }
         }
 
        
