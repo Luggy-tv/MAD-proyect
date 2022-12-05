@@ -776,7 +776,7 @@ IF OBJECT_ID('sp_GestionarDevolucion')IS NOT NULL
 GO
 Create procedure sp_GestionarDevolucion(	@op char(1),
 											@ProductoFK int		= NULL,
-											@cantidad smallint	= NULL,
+											@cantidad decimal	= NULL,
 											@merma bit			=null
 											)
 AS
@@ -785,6 +785,10 @@ BEGIN
 	BEGIN
 		Insert into Devolucion(Cantidad,Merma,ProductoFK) VALUES (@cantidad,@merma,@ProductoFK)
 		Select IDDevolucion,Cantidad,Merma,ProductoFK from Devolucion where  IDDevolucion= @@IDENTITY;
+		if @merma=0
+			update Producto set
+				Existencias = Existencias + @cantidad
+			where IDProducto=@ProductoFK;
 	END
 END
 GO
@@ -806,5 +810,3 @@ BEGIN
 	END
 END
 GO
-
-select * from v_Descuentos

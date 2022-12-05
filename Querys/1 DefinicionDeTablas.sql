@@ -153,7 +153,7 @@ BEGIN
 	CREATE TABLE  dbo.Devolucion(
 		IDDevolucion			INT				IDENTITY(1000000,1)
 		,ProductoFK				INT				 NOT NULL
-		,Cantidad				SMALLINT		 NOT NULL
+		,Cantidad				decimal	(7,3)	 NOT NULL
 		,Merma					BIT				 NOT NULL
 		CONSTRAINT PK_DEVOLUCION
 			PRIMARY KEY (IDDevolucion),

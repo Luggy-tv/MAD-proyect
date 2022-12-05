@@ -21,4 +21,5 @@ EXEC sp_GestionarCaja @op='i';
 EXEC sp_GestionarCaja @op='i';
 EXEC sp_GestionarCaja @op='i';
 
+select * from v_Descuentos
 select * from v_ReciboDeVenta
