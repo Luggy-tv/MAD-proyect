@@ -716,27 +716,41 @@ Create Procedure sp_ConsultaRecibos( @op Char(1)
 AS
 BEGIN
 	if @op='C'
-	--DECLARE @IDRecibo int
-	--SET @IDRecibo= 4
 		SELECT 
 		 rv.IDRecibo																as [Numero de recibo]
-		,CASE when ven.IDLogVenta IS NOT NULL then 
-			 CONCAT(usr.nombres,' ',usr.apellidoPat,' ',usr.apellidoMat) 
-		 else 
-			 'Cajero no identificado' 
+		,CASE 
+			when ven.IDLogVenta IS NOT NULL then 
+				CONCAT(usr.nombres,' ',usr.apellidoPat,' ',usr.apellidoMat) 
+			else 
+				'Cajero no identificado' 
 		 end																		as [Nombre del cajero]
-		,CASE when ven.IDLogVenta IS NOT NULL then 
-			 format(ven.Fecha,'dd MMMM yyyy hh:mm:ss','es-es') 
-		 else 
-			 'Fecha no identificada' 
+		,CASE 
+			when ven.IDLogVenta IS NOT NULL then 
+				format(ven.Fecha,'dd MMMM yyyy hh:mm:ss','es-es') 
+			else 
+				'Fecha no identificada' 
 		 end																		as [Fecha de Venta]
-		,CASE when ven.IDLogVenta IS NOT NULL then 
-			 convert(varchar(19),caja.IDCaja)
-		 else 
-			 'Caja no identificada' 
+		,CASE 
+			when ven.IDLogVenta IS NOT NULL then 
+				convert(varchar(19),caja.IDCaja)
+			else 
+				'Caja no identificada' 
 		 end																		as [Caja de la venta]
 		,p.Nombre																	as [Nombre Del Producto]
 		,dpr.CantProd																as [Cantidad de productos]
+		,CASE 
+			WHEN ven.Fecha BETWEEN descu.FechaINI AND descu.FechaFIN THEN
+				descu.Nombre
+			ELSE
+				'No hay descuento aplicado'											
+		end																			AS [Descuento Aplicado]
+		,CASE 
+			WHEN ven.Fecha BETWEEN descu.FechaINI AND descu.FechaFIN THEN
+				
+				convert(varchar, -dbo.fn_GetProductDiscount(p.Costo,descu.Porcentaje))
+			else
+				'No hay descuento aplicado'
+		 end																		AS [Cantidad Descontada]
 		,convert( varchar,cast(dpr.CantProd*p.costo as money))						as [Precio de Producto]
 		,format(rv.Subtotal,'c','en-us')											as [Subtotal]
 		,format(rv.Total,'c','en-us')												as [Total]
@@ -749,8 +763,10 @@ BEGIN
 		left join Usuario_Caja		as logcaj on ven.Cajero_CajaFK=logcaj.IDCajero_Caja
 		left join Usuario			as usr on logcaj.CajeroFK=usr.IDUsuario
 		left join Caja				as caja on logcaj.CajaFK=caja.IDCaja
+		left join Descuento			as descu on descu.ProductoFK=p.IDProducto
 		where IDRecibo like CONCAT('%',@IDRecibo,'%');
 
 END
 GO
+
 

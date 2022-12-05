@@ -125,7 +125,7 @@ namespace MAD3_ventanas
         private void button2_Click(object sender, EventArgs e)//BOTON INGRESAR
         {
             var seleccion = comboBox1.SelectedItem as ObjetoDB.Producto;
-            if (textBox2.Text == "" || decimal.Parse(textBox2.Text)<=0|| decimal.Parse(textBox2.Text)>seleccion.Existencias)
+            if (textBox2.Text == "" || decimal.Parse(textBox2.Text)<=0)
             {
                 MessageBox.Show("Favor de agregar la cantidad de producto correcta", "Accion Imposible", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
@@ -213,13 +213,13 @@ namespace MAD3_ventanas
 
             return dt;
         }
+
         private decimal CheckDescuentoForProd(ObjetoDB.Producto producto)
         {
             decimal descuente = 0;
             List<ObjetoDB.Descuento> listaDescuentos = null;
             var objBD = new EnlaceDB();
             listaDescuentos = objBD.ConsultaDescuentos();
-            //DateTime localDate = DateTime.Now;
 
             foreach ( var item in listaDescuentos)
             {
@@ -242,6 +242,11 @@ namespace MAD3_ventanas
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
         {
 
         }

@@ -210,7 +210,12 @@ namespace MAD3_ventanas
                             var opc = "i";
                             var idventa = 0;
 
-                            comp = objBD.GestVenta(opc, idventa, loginCaj.currentLogin.IDCajero_Caja, reciboDeVenta.IDRecibo, loginCaj.currentLogin.fecha);
+
+                            DateTime horaDeVenta = loginCaj.currentLogin.fecha;
+                            TimeSpan ts = new TimeSpan(DateTime.Now.Hour,DateTime.Now.Minute,DateTime.Now.Second);
+                            horaDeVenta = horaDeVenta.Date + ts;
+
+                            comp = objBD.GestVenta(opc, idventa, loginCaj.currentLogin.IDCajero_Caja, reciboDeVenta.IDRecibo, horaDeVenta);
 
                             if (comp)
                             {

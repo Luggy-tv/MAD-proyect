@@ -167,6 +167,7 @@ namespace MAD3_ventanas
             this.textBox6.ReadOnly = true;
             this.textBox6.Size = new System.Drawing.Size(85, 20);
             this.textBox6.TabIndex = 13;
+            this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
             // label5
             // 
