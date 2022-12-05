@@ -75,13 +75,6 @@ namespace MAD3_ventanas
 			public DateTime FechaFIN	{ get; set; }
 			public int ProductoFK		{ get; set; }
 		}
-		public class NotaCredito
-		{
-			public int IDNotaCredito { get; set; }
-			public decimal Cantidad { get; set; }
-			public decimal Subtotal { get; set; }
-			public int NumReciboFK { get; set; }
-		}
 		public class ReciboDeVenta
 		{
 			//[Mapping(ColumnName = "IDRecibo")]
@@ -90,13 +83,6 @@ namespace MAD3_ventanas
 			public decimal Total { get; set; }
 			//[Mapping(ColumnName = "Subtotal")]
 			public decimal Subtotal { get; set; }
-		}
-		public class Devolucion
-		{
-			public int IDDevolucion { get; set; }
-			public int ProductoFK { get; set; }
-			public short Cantidad { get; set; }
-			public bool Merma { get; set; }
 		}
 		public class DetalleProductos
 		{
@@ -136,7 +122,6 @@ namespace MAD3_ventanas
 			public byte		FKOpPago { get; set; }
 			public decimal Cantidad { get; set; }
 		}
-
         public class Inventario
         {
             public string DepartamentoID { get; set; }
@@ -145,7 +130,36 @@ namespace MAD3_ventanas
 			public bool merma { get; set; }
 
         }
+		
+		public class NotaCredito
+		{
+			public int IDNotaCredito { get; set; }
+			public decimal Cantidad { get; set; }
+			public decimal Subtotal { get; set; }
+			public int NumReciboFK { get; set; }
+		}
+		public class Devolucion
+		{
+			public int IDDevolucion { get; set; }
+			public int ProductoFK { get; set; }
+			public short Cantidad { get; set; }
+			public bool Merma { get; set; }
+		}
+		public class NotaCred_Devol
+		{
+			public int IDNotaCred_Devol { get; set; }
+			public int NotaCreditoFK { get; set; }
+			public int DevolucionFK { get; set; }
+			public DateTime Fecha { get; set; }
+		}
+		public class Producto_En_Recibo
+        {
+			public int IDRecibo { get; set; }
+			public int ProductoFK { get; set; }
+			public string NombreProd { get; set; }
+			public decimal CantProd { get; set; }
+			public bool Reembolsable { get; set; }
+		}
 
-
-    }
+	}
 }

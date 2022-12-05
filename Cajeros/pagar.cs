@@ -116,23 +116,16 @@ namespace MAD3_ventanas
         private void button1_Click(object sender, EventArgs e)
         {
             ObjetoDB.ReciboDeVenta reciboDeVenta = new ObjetoDB.ReciboDeVenta();
-           
-            //ventas.productosEnVentasLista;
-
-            //DateTime localDate = DateTime.Now;
-            //textBox4.Text = loginCaj.loggedUser.IdUser;
-            //textBox6.Text = loginCaj.loggedUCaja.ToString();
-            //textBox5.Text = localDate.ToString();
-
             bool comp=false;
             decimal cant1 = 0;
             decimal cant2 = 0;
             decimal cant3 = 0;
             decimal cant4 = 0;
-            var seleccion = comboBox1.SelectedItem as ObjetoDB.OpcionDePago;
-            var seleccion2 = comboBox1.SelectedItem as ObjetoDB.OpcionDePago;
-            var seleccion3= comboBox1.SelectedItem as ObjetoDB.OpcionDePago;
-            var seleccion4 = comboBox1.SelectedItem as ObjetoDB.OpcionDePago;
+
+            var seleccion   = comboBox1.SelectedItem as ObjetoDB.OpcionDePago;
+            var seleccion2  = comboBox2.SelectedItem as ObjetoDB.OpcionDePago;
+            var seleccion3  = comboBox3.SelectedItem as ObjetoDB.OpcionDePago;
+            var seleccion4  = comboBox4.SelectedItem as ObjetoDB.OpcionDePago;
 
 
             List<ObjetoDB.DetallePago> listaDPagos = new List<ObjetoDB.DetallePago>();
@@ -147,7 +140,6 @@ namespace MAD3_ventanas
 
                 }) ;
                 
-
                 if (checkBox1.CheckState == CheckState.Checked)
                 {
                     cant2 = decimal.Parse(textBox2.Text);
@@ -155,10 +147,7 @@ namespace MAD3_ventanas
                     {
                         FKOpPago = seleccion2.IDOpcionDePago,
                         Cantidad = cant2
-
                     });
-
-                    
                 }
                 if (checkBox2.CheckState == CheckState.Checked)
                 {
@@ -167,7 +156,6 @@ namespace MAD3_ventanas
                     {
                         FKOpPago = seleccion3.IDOpcionDePago,
                         Cantidad = cant3
-
                     });
                 }
                 if (checkBox3.CheckState == CheckState.Checked)
@@ -177,10 +165,8 @@ namespace MAD3_ventanas
                     {
                         FKOpPago = seleccion4.IDOpcionDePago,
                         Cantidad = cant4
-
                     });
                 }
-
 
                 decimal pagoTot = cant1 + cant2 + cant3 + cant4;
 
@@ -192,7 +178,9 @@ namespace MAD3_ventanas
                     {
                         case DialogResult.Yes:
                             var objBD = new EnlaceDB();
+                            
                             reciboDeVenta = objBD.ConsultaUltimoreciboDeVental(reciboDeVenta.IDRecibo, ventas.ptotalVenta, ventas.subtotalVenta).First<ObjetoDB.ReciboDeVenta>();
+                            
                             foreach(var items in listaDPagos)
                             {
                                 string op = "i";
@@ -201,6 +189,7 @@ namespace MAD3_ventanas
                                      items.FKOpPago,
                                      items.Cantidad);
                             }
+                            
                             foreach(var item in ventas.productosEnVentasLista)
                             {
                                 string op = "i";
@@ -252,6 +241,10 @@ namespace MAD3_ventanas
 
         }
         private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

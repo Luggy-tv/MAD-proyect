@@ -131,9 +131,9 @@ namespace MAD3_ventanas
             }
             else {
                 decimal cant = decimal.Parse(textBox2.Text);
-                if (seleccion.Existencias <= 0)
+                if (seleccion.Existencias <= 0|| decimal.Parse(textBox2.Text) > seleccion.Existencias)
                 {
-                    MessageBox.Show("No se puede agregar producto ya que no tiene existencias", "Accion Imposible", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show("No se puede agregar producto ya que no tiene existencias suficientes", "Accion Imposible", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
                 else
                 {

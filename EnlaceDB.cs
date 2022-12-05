@@ -23,13 +23,7 @@ namespace MAD3_ventanas
         //
         static private DataTable _tabla = new DataTable();
         static private DataSet _DS = new DataSet();
-        public DataTable obtenertabla
-        {
-            get
-            {
-                return _tabla;
-            }
-        }
+
         private static void conectar()
         {
             //string cnn = ConfigurationManager.AppSettings["desarrollo1"];
@@ -41,120 +35,6 @@ namespace MAD3_ventanas
         {
             _conexion.Close();
         }
-        /*
-       public bool Autentificar(string us, string ps)
-       {
-           bool isValid = false;
-           try
-           {
-               conectar();
-               string qry = "SP_ValidaUser";
-               _comandosql = new SqlCommand(qry, _conexion);
-               _comandosql.CommandType = CommandType.StoredProcedure;
-               _comandosql.CommandTimeout = 9000;
-
-               var parametro1 = _comandosql.Parameters.Add("@u", SqlDbType.Char, 20);
-               parametro1.Value = us;
-               var parametro2 = _comandosql.Parameters.Add("@p", SqlDbType.Char, 20);
-               parametro2.Value = ps;
-
-               _adaptador.SelectCommand = _comandosql;
-               _adaptador.Fill(_tabla);
-
-               if (_tabla.Rows.Count > 0)
-               {
-                   isValid = true;
-               }
-
-           }
-           catch (SqlException e)
-           {
-               isValid = false;
-           }
-           finally
-           {
-               desconectar();
-           }
-
-           return isValid;
-       }
-
-
-
-       public DataTable ConsultaTabla(string SP)
-       {
-           var msg = "";
-           DataTable tabla = new DataTable();
-           try
-           {
-               conectar();
-               string qry = SP;
-               _comandosql = new SqlCommand(qry, _conexion);
-               _comandosql.CommandType = CommandType.StoredProcedure;
-               _comandosql.CommandTimeout = 1200;
-
-               var parametro1 = _comandosql.Parameters.Add("@Accion", SqlDbType.Char, 1);
-               parametro1.Value = "*";
-
-               _adaptador.SelectCommand = _comandosql;
-               _adaptador.Fill(tabla);
-
-           }
-           catch (SqlException e)
-           {
-               msg = "Excepción de base de datos: \n";
-               msg += e.Message;
-               MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-           }
-           finally
-           {
-               desconectar();
-           }
-
-           return tabla;
-       }
-
-       public DataTable get_Deptos(string opc)
-       {
-           var msg = "";
-           DataTable tabla = new DataTable();
-           try
-           {
-               conectar();
-               string qry = "sp_Gestiona_Deptos"; //nombre del stored procedure
-               _comandosql = new SqlCommand(qry, _conexion);
-               _comandosql.CommandType = CommandType.StoredProcedure; // Hay tres tipos de comandos: SP, tabla o text(query, cualquier clausula del DML). 
-                                                                      // -> Para este proyecto siempre debe ser un Stored Procedure     
-               _comandosql.CommandTimeout = 1200; //Tiempo antes de determinar error
-
-
-               //Los parámtros deben llamarse exactamente igual que en SP
-               var parametro1 = _comandosql.Parameters.Add("@Opc", SqlDbType.Char, 1); //Orden: (Nombre, tipo de dato, longitud)
-               parametro1.Value = opc; //Qué valor le voy a mandar. Se inicializa en el primer string (en el public)
-
-
-               _adaptador.SelectCommand = _comandosql;
-
-               _adaptador.Fill(tabla);
-
-           }
-           catch (SqlException e)
-           {
-               msg = "Excepción de base de datos: \n";
-               msg += e.Message;
-               MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-           }
-           finally
-           {
-               desconectar();
-           }
-
-           return tabla;
-       }
-
-       */
-        //GESTIONAR DEPARTAMENTO (AGREGAR) ------------------------------------------------------------------------------------------------
-        //---------------------------------------------------------------------------------------------------------------------------------
         public List<ObjetoDB.Departamento> ConsultaDepartamentos()
         {
             var msg = "";
@@ -169,10 +49,9 @@ namespace MAD3_ventanas
                 var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
                 parametro1.Value = "s";
                 var dataReader = _comandosql.ExecuteReader();
-                //dataReader = dataReader;
+               
                 lista = GetList<ObjetoDB.Departamento>(dataReader);
-                //_adaptador.SelectCommand = _comandosql;
-                //_adaptador.Fill(tabla);
+              
             }
             catch (SqlException e)
             {
@@ -401,8 +280,6 @@ namespace MAD3_ventanas
 
             return lista;
         }   
-
-        //////////////////////////////////////////////////////////////////////////////////////////////////
         public List<ObjetoDB.Inventario> ConsultaInventario()
         {
             var msg = "";
@@ -418,8 +295,6 @@ namespace MAD3_ventanas
                 parametro1.Value = "s";
                 var dataReader = _comandosql.ExecuteReader();
                 lista = GetList<ObjetoDB.Inventario>(dataReader);
-                //_adaptador.SelectCommand = _comandosql;
-                //_adaptador.Fill(tabla);
             }
             catch (SqlException e)
             {
@@ -687,7 +562,6 @@ namespace MAD3_ventanas
             }
             return lista;
         }
-
         public bool GestLogin(string op, Int16 IDUsuario, byte caja, DateTime date)
         {
             var msg = "";
@@ -1090,10 +964,7 @@ namespace MAD3_ventanas
 
             return add;
         }
-        public bool GestDetallePago(string      op          ,
-                                     int        FkRecVent   ,
-                                     byte        FKOpPago,
-                                     decimal Cantidad)
+        public bool GestDetallePago(string op,int FkRecVent,byte FKOpPago,decimal Cantidad)
         {
             var msg = "";
             var add = true;
@@ -1184,7 +1055,6 @@ namespace MAD3_ventanas
             }
             return list;
         }
-
-    }//FIN public class EnlaceDB
-}//FIN namespace MAD3_ventanas 
+    }  
+}      
 
