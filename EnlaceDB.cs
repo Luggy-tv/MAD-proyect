@@ -279,7 +279,38 @@ namespace MAD3_ventanas
             }
 
             return lista;
-        }   
+        }
+
+        public List<ObjetoDB.Producto_En_Recibo> ConsultaProductoEnRecibos()
+        {
+            var msg = "";
+            List<ObjetoDB.Producto_En_Recibo> lista = new List<ObjetoDB.Producto_En_Recibo>();
+            try
+            {
+                conectar();
+                string qry = "SP_BuscarProductoEnRecibo";
+                _comandosql = new SqlCommand(qry, _conexion);
+                _comandosql.CommandType = CommandType.StoredProcedure;
+                _comandosql.CommandTimeout = 1200;
+                var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
+                parametro1.Value = "s";
+                var dataReader = _comandosql.ExecuteReader();
+                lista = GetList<ObjetoDB.Producto_En_Recibo>(dataReader);
+            }
+            catch (SqlException e)
+            {
+                msg = "Excepción de base de datos: \n";
+                msg += e.Message;
+                MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            finally
+            {
+                desconectar();
+            }
+
+            return lista;
+        }
+
         public List<ObjetoDB.Inventario> ConsultaInventario()
         {
             var msg = "";
