@@ -714,6 +714,16 @@ namespace MAD3_ventanas
             return tabla;
 
         }
+
+
+
+
+
+
+
+
+
+
         public List<ObjetoDB.CurrentLogin> ConsultaLogin(string op, Int16 IDUsuario, byte caja, DateTime date)
         {
             var msg = "";
