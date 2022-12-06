@@ -68,15 +68,7 @@ namespace MAD3_ventanas
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        }//Regresar
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
@@ -89,7 +81,7 @@ namespace MAD3_ventanas
             {
                 e.Handled = true;
             }
-        }
+        }//Validacion de solo numeros en cantidad a pagar 
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
@@ -102,7 +94,7 @@ namespace MAD3_ventanas
             {
                 e.Handled = true;
             }
-        }
+        }//Validacion de solo numeros en cantidad a pagar
         private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
@@ -115,7 +107,7 @@ namespace MAD3_ventanas
             {
                 e.Handled = true;
             }
-        }
+        }//Validacion de solo numeros en cantidad a pagar
         private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
@@ -128,29 +120,22 @@ namespace MAD3_ventanas
             {
                 e.Handled = true;
             }
-        }
-
-
-
-
+        }//Validacion de solo numeros en cantidad a pagar
         private void button1_Click(object sender, EventArgs e)
         {
-            
-            //ventas.productosEnVentasLista;
+            ObjetoDB.ReciboDeVenta reciboDeVenta = new ObjetoDB.ReciboDeVenta();
 
-            //DateTime localDate = DateTime.Now;
-            //textBox4.Text = loginCaj.loggedUser.IdUser;
-            //textBox6.Text = loginCaj.loggedUCaja.ToString();
-            //textBox5.Text = localDate.ToString();
             bool comp=false;
+
             decimal cant1 = 0;
             decimal cant2 = 0;
             decimal cant3 = 0;
             decimal cant4 = 0;
-            var seleccion = comboBox1.SelectedItem as ObjetoDB.OpcionDePago;
-            var seleccion2 = comboBox1.SelectedItem as ObjetoDB.OpcionDePago;
-            var seleccion3= comboBox1.SelectedItem as ObjetoDB.OpcionDePago;
-            var seleccion4 = comboBox1.SelectedItem as ObjetoDB.OpcionDePago;
+
+            var seleccion   = comboBox1.SelectedItem as ObjetoDB.OpcionDePago;
+            var seleccion2  = comboBox2.SelectedItem as ObjetoDB.OpcionDePago;
+            var seleccion3  = comboBox3.SelectedItem as ObjetoDB.OpcionDePago;
+            var seleccion4  = comboBox4.SelectedItem as ObjetoDB.OpcionDePago;
 
 
             List<ObjetoDB.DetallePago> listaDPagos = new List<ObjetoDB.DetallePago>();
@@ -165,62 +150,79 @@ namespace MAD3_ventanas
 
                 }) ;
                 
-
                 if (checkBox1.CheckState == CheckState.Checked)
                 {
-                    cant2 = decimal.Parse(textBox2.Text);
-                    listaDPagos.Add(new ObjetoDB.DetallePago
+                    if (textBox2.Text.Length != 0)
                     {
-                        FKOpPago = seleccion2.IDOpcionDePago,
-                        Cantidad = cant2
-
-                    });
-
-                    
+                        cant2 = decimal.Parse(textBox2.Text);
+                        listaDPagos.Add(new ObjetoDB.DetallePago
+                        {
+                            FKOpPago = seleccion2.IDOpcionDePago,
+                            Cantidad = cant2
+                        });
+                    }
                 }
                 if (checkBox2.CheckState == CheckState.Checked)
                 {
-                    cant3 = decimal.Parse(textBox3.Text);
-                    listaDPagos.Add(new ObjetoDB.DetallePago
+                    if (textBox3.Text.Length != 0)
                     {
-                        FKOpPago = seleccion3.IDOpcionDePago,
-                        Cantidad = cant3
-
-                    });
+                        cant3 = decimal.Parse(textBox3.Text);
+                        listaDPagos.Add(new ObjetoDB.DetallePago
+                        {
+                            FKOpPago = seleccion3.IDOpcionDePago,
+                            Cantidad = cant3
+                        });
+                    }
                 }
                 if (checkBox3.CheckState == CheckState.Checked)
                 {
-                    cant4 = decimal.Parse(textBox4.Text);
-                    listaDPagos.Add(new ObjetoDB.DetallePago
+                    if (textBox4.Text.Length != 0)
                     {
-                        FKOpPago = seleccion4.IDOpcionDePago,
-                        Cantidad = cant4
-
-                    });
+                        cant4 = decimal.Parse(textBox4.Text);
+                        listaDPagos.Add(new ObjetoDB.DetallePago
+                        {
+                            FKOpPago = seleccion4.IDOpcionDePago,
+                            Cantidad = cant4
+                        });
+                    }
                 }
+
                 decimal pagoTot = cant1 + cant2 + cant3 + cant4;
+
                 if(pagoTot>= ventas.ptotalVenta)
                 {
-                    DialogResult dr = MessageBox.Show("¿Desea emitjr recibo?",
                          "Emitir recibo", MessageBoxButtons.YesNo);
+                    DialogResult dr = MessageBox.Show("¿Desea emitir recibo?",
                     switch (dr)
                     {
                         case DialogResult.Yes:
+
                             var objBD = new EnlaceDB();
-                            reciboDeVenta = objBD.ConsultaUltimoreciboDeVental(reciboDeVenta.IDRecibo, ventas.ptotalVenta, ventas.subtotalVenta).First<ObjetoDB.ReciboDeVenta>();
-                            foreach(var items in listaDPagos)
+                            var ops = "i";
+                            
+                            reciboDeVenta = objBD.ConsultaReciboDeVenta(ops, reciboDeVenta.IDRecibo, ventas.ptotalVenta, ventas.subtotalVenta).First<ObjetoDB.ReciboDeVenta>();
+                            
+                            foreach(var items in listaDPagos)//Aqui es para pasar la lista de opciones de pago actuales a la base_De_Datos_Uno_Por_uno. la_lista_de_productos_es_listaDPagos
                             {
                                 string op = "i";
-                                comp = objBD.GestDetallePago(op,
-                                     reciboDeVenta.IDRecibo,
-                                     items.FKOpPago,
-                                     items.Cantidad);
+                                comp = objBD.GestDetallePago(op,reciboDeVenta.IDRecibo,items.FKOpPago,items.Cantidad);
                             }
-                            foreach(var item in ventas.productosEnVentasLista)
+                            
+                            foreach(var item in ventas.productosEnVentasLista) //Aqui es para pasar la lista de productos actuales a la base_De_Datos_Uno_Por_uno. la_lista_de_productos_es_productosEnVentasLista
                             {
                                 string op = "i";
                                 comp = objBD.GestDetalleProd(op, reciboDeVenta.IDRecibo, item.IDProducto, item.CantProd);
                             }
+
+                            var opc = "i";
+                            var idventa = 0;
+
+                            
+                            DateTime horaDeVenta = loginCaj.currentLogin.fecha;
+                            TimeSpan ts = new TimeSpan(DateTime.Now.Hour,DateTime.Now.Minute,DateTime.Now.Second);
+                            horaDeVenta = horaDeVenta.Date + ts;
+
+                            comp = objBD.GestVenta(opc, idventa, loginCaj.currentLogin.IDCajero_Caja, reciboDeVenta.IDRecibo, horaDeVenta);
 
                             if (comp)
                             {
@@ -259,9 +261,16 @@ namespace MAD3_ventanas
                 MessageBox.Show("Favor de llenar los campos", "Accion Imposible", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
            
-        }
-
+        }//pagar
         private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -286,6 +295,10 @@ namespace MAD3_ventanas
 
             e.Graphics.DrawString("Recibo #"+reciboDeVenta.IDRecibo, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
 
+
+        }
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }

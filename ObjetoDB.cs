@@ -13,9 +13,11 @@ namespace MAD3_ventanas
 
 		public class CurrentLogin
         {
-			public Int16 IDLogin { get; set; }
-			public Int16 FKCajero { get; set; }
-			public byte FKCaja { get; set; }
+			public Int16 IDCajero_Caja { get; set; }
+			public Int16 CajeroFK { get; set; }
+			public byte CajaFK { get; set; }
+			public DateTime fecha { get; set; }
+
         }
 		public class DatosDeTienda
 		{
@@ -72,28 +74,14 @@ namespace MAD3_ventanas
 			public DateTime FechaFIN	{ get; set; }
 			public int ProductoFK		{ get; set; }
 		}
-		public class NotaCredito
-		{
-			public int IDNotaCredito { get; set; }
-			public decimal Cantidad { get; set; }
-			public decimal Subtotal { get; set; }
-			public int NumReciboFK { get; set; }
-		}
 		public class ReciboDeVenta
 		{
-			[Mapping(ColumnName = "IDRecibo")]
+			//[Mapping(ColumnName = "IDRecibo")]
 			public int IDRecibo { get; set; }
-			[Mapping(ColumnName = "Total")]
+			//[Mapping(ColumnName = "Total")]
 			public decimal Total { get; set; }
-			[Mapping(ColumnName = "Subtotal")]
+			//[Mapping(ColumnName = "Subtotal")]
 			public decimal Subtotal { get; set; }
-		}
-		public class Devolucion
-		{
-			public int IDDevolucion { get; set; }
-			public int ProductoFK { get; set; }
-			public short Cantidad { get; set; }
-			public bool Merma { get; set; }
 		}
 		public class DetalleProductos
 		{
@@ -141,7 +129,36 @@ namespace MAD3_ventanas
 			public bool merma { get; set; }
 
         }
+		
+		public class NotaCredito
+		{
+			public int IDNotaCredito { get; set; }
+			public decimal Cantidad { get; set; }
+			public decimal Subtotal { get; set; }
+			public int NumReciboFK { get; set; }
+		}
+		public class Devolucion
+		{
+			public int IDDevolucion { get; set; }
+			public int ProductoFK { get; set; }
+			public decimal Cantidad { get; set; }
+			public bool Merma { get; set; }
+		}
+		public class NotaCred_Devol
+		{
+			public int IDNotaCred_Devol { get; set; }
+			public int NotaCreditoFK { get; set; }
+			public int DevolucionFK { get; set; }
+			public DateTime Fecha { get; set; }
+		}
+		public class Producto_En_Recibo
+        {
+			public int IDRecibo { get; set; }
+			public int ProductoFK { get; set; }
+			public string NombreProd { get; set; }
+			public decimal CantProd { get; set; }
+			public bool Reembolsable { get; set; }
+		}
 
-
-    }
+	}
 }

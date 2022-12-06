@@ -98,6 +98,7 @@ namespace MAD3_ventanas
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridView1.Size = new System.Drawing.Size(633, 201);
             this.dataGridView1.TabIndex = 4;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // comboBox1
             // 
@@ -166,6 +167,7 @@ namespace MAD3_ventanas
             this.textBox6.ReadOnly = true;
             this.textBox6.Size = new System.Drawing.Size(85, 20);
             this.textBox6.TabIndex = 13;
+            this.textBox6.TextChanged += new System.EventHandler(this.textBox6_TextChanged);
             // 
             // label5
             // 

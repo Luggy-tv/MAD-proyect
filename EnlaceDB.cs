@@ -16,20 +16,14 @@ namespace MAD3_ventanas
     public class EnlaceDB
     {
         static private string _aux { set; get; }
-        //
+
         static private SqlConnection _conexion;
         static private SqlDataAdapter _adaptador = new SqlDataAdapter();
         static private SqlCommand _comandosql = new SqlCommand();
-        //
+
         static private DataTable _tabla = new DataTable();
         static private DataSet _DS = new DataSet();
-        public DataTable obtenertabla
-        {
-            get
-            {
-                return _tabla;
-            }
-        }
+
         private static void conectar()
         {
             //string cnn = ConfigurationManager.AppSettings["desarrollo1"];
@@ -41,122 +35,6 @@ namespace MAD3_ventanas
         {
             _conexion.Close();
         }
-
-
-        /*
-       public bool Autentificar(string us, string ps)
-       {
-           bool isValid = false;
-           try
-           {
-               conectar();
-               string qry = "SP_ValidaUser";
-               _comandosql = new SqlCommand(qry, _conexion);
-               _comandosql.CommandType = CommandType.StoredProcedure;
-               _comandosql.CommandTimeout = 9000;
-
-               var parametro1 = _comandosql.Parameters.Add("@u", SqlDbType.Char, 20);
-               parametro1.Value = us;
-               var parametro2 = _comandosql.Parameters.Add("@p", SqlDbType.Char, 20);
-               parametro2.Value = ps;
-
-               _adaptador.SelectCommand = _comandosql;
-               _adaptador.Fill(_tabla);
-
-               if (_tabla.Rows.Count > 0)
-               {
-                   isValid = true;
-               }
-
-           }
-           catch (SqlException e)
-           {
-               isValid = false;
-           }
-           finally
-           {
-               desconectar();
-           }
-
-           return isValid;
-       }
-
-
-
-       public DataTable ConsultaTabla(string SP)
-       {
-           var msg = "";
-           DataTable tabla = new DataTable();
-           try
-           {
-               conectar();
-               string qry = SP;
-               _comandosql = new SqlCommand(qry, _conexion);
-               _comandosql.CommandType = CommandType.StoredProcedure;
-               _comandosql.CommandTimeout = 1200;
-
-               var parametro1 = _comandosql.Parameters.Add("@Accion", SqlDbType.Char, 1);
-               parametro1.Value = "*";
-
-               _adaptador.SelectCommand = _comandosql;
-               _adaptador.Fill(tabla);
-
-           }
-           catch (SqlException e)
-           {
-               msg = "Excepción de base de datos: \n";
-               msg += e.Message;
-               MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-           }
-           finally
-           {
-               desconectar();
-           }
-
-           return tabla;
-       }
-
-       public DataTable get_Deptos(string opc)
-       {
-           var msg = "";
-           DataTable tabla = new DataTable();
-           try
-           {
-               conectar();
-               string qry = "sp_Gestiona_Deptos"; //nombre del stored procedure
-               _comandosql = new SqlCommand(qry, _conexion);
-               _comandosql.CommandType = CommandType.StoredProcedure; // Hay tres tipos de comandos: SP, tabla o text(query, cualquier clausula del DML). 
-                                                                      // -> Para este proyecto siempre debe ser un Stored Procedure     
-               _comandosql.CommandTimeout = 1200; //Tiempo antes de determinar error
-
-
-               //Los parámtros deben llamarse exactamente igual que en SP
-               var parametro1 = _comandosql.Parameters.Add("@Opc", SqlDbType.Char, 1); //Orden: (Nombre, tipo de dato, longitud)
-               parametro1.Value = opc; //Qué valor le voy a mandar. Se inicializa en el primer string (en el public)
-
-
-               _adaptador.SelectCommand = _comandosql;
-
-               _adaptador.Fill(tabla);
-
-           }
-           catch (SqlException e)
-           {
-               msg = "Excepción de base de datos: \n";
-               msg += e.Message;
-               MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-           }
-           finally
-           {
-               desconectar();
-           }
-
-           return tabla;
-       }
-
-       */
-        //GESTIONAR DEPARTAMENTO (AGREGAR) ------------------------------------------------------------------------------------------------
-        //---------------------------------------------------------------------------------------------------------------------------------
         public List<ObjetoDB.Departamento> ConsultaDepartamentos()
         {
             var msg = "";
@@ -171,10 +49,9 @@ namespace MAD3_ventanas
                 var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
                 parametro1.Value = "s";
                 var dataReader = _comandosql.ExecuteReader();
-                //dataReader = dataReader;
+               
                 lista = GetList<ObjetoDB.Departamento>(dataReader);
-                //_adaptador.SelectCommand = _comandosql;
-                //_adaptador.Fill(tabla);
+              
             }
             catch (SqlException e)
             {
@@ -203,8 +80,7 @@ namespace MAD3_ventanas
                 parametro1.Value = "s";
                 var dataReader = _comandosql.ExecuteReader();
                 lista = GetList<ObjetoDB.UnidadDeMedida>(dataReader);
-                //_adaptador.SelectCommand = _comandosql;
-                //_adaptador.Fill(tabla);
+              
             }
             catch (SqlException e)
             {
@@ -371,7 +247,7 @@ namespace MAD3_ventanas
             }
 
             return lista;
-        }//Agregado
+        } 
         public List<ObjetoDB.Producto> ConsultaProductos()
         {
             var msg = "";
@@ -402,9 +278,38 @@ namespace MAD3_ventanas
             }
 
             return lista;
-        }//Agregado
+        }
+        public List<ObjetoDB.Producto_En_Recibo> ConsultaProductoEnRecibos()
+        {
+            var msg = "";
+            List<ObjetoDB.Producto_En_Recibo> lista = new List<ObjetoDB.Producto_En_Recibo>();
+            try
+            {
+                conectar();
+                string qry = "SP_BuscarProductoEnRecibo";
+                _comandosql = new SqlCommand(qry, _conexion);
+                _comandosql.CommandType = CommandType.StoredProcedure;
+                _comandosql.CommandTimeout = 1200;
+                var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
+                parametro1.Value = "s";
+                var dataReader = _comandosql.ExecuteReader();
 
-        //////////////////////////////////////////////////////////////////////////////////////////////////
+
+                lista = GetList<ObjetoDB.Producto_En_Recibo>(dataReader);
+            }
+            catch (SqlException e)
+            {
+                msg = "Excepción de base de datos: \n";
+                msg += e.Message;
+                MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            finally
+            {
+                desconectar();
+            }
+
+            return lista;
+        }
         public List<ObjetoDB.Inventario> ConsultaInventario()
         {
             var msg = "";
@@ -420,8 +325,6 @@ namespace MAD3_ventanas
                 parametro1.Value = "s";
                 var dataReader = _comandosql.ExecuteReader();
                 lista = GetList<ObjetoDB.Inventario>(dataReader);
-                //_adaptador.SelectCommand = _comandosql;
-                //_adaptador.Fill(tabla);
             }
             catch (SqlException e)
             {
@@ -435,7 +338,7 @@ namespace MAD3_ventanas
             }
 
             return lista;
-        }//Agregado
+        } 
         public List<ObjetoDB.OpcionDePago> ConsultaOpcionDePago()
         {
             var msg = "";
@@ -466,50 +369,8 @@ namespace MAD3_ventanas
             }
 
             return lista;
-        }//Agregado
-        public ObjetoDB.ReciboDeVenta ConsultaUltimoreciboDeVenta(int IDRecibo  , decimal Total , decimal Subtotal)
- {                 
-     var msg = "";
-            ObjetoDB.ReciboDeVenta obj = new ObjetoDB.ReciboDeVenta();
-            //ObjetoDB.ReciboDeVenta obj2 = new ObjetoDB.ReciboDeVenta();
-            try
-            {
-                conectar();
-                string qry = "sp_GestionarReciboDeVenta";
-                _comandosql = new SqlCommand(qry, _conexion);
-                _comandosql.CommandType = CommandType.StoredProcedure;
-                _comandosql.CommandTimeout = 1200;
-                var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
-                parametro1.Value = "i";
-                var parametro2 = _comandosql.Parameters.Add("@idRecibo", SqlDbType.Int, 4);
-                parametro2.Value = IDRecibo; 
-                var parametro3 = _comandosql.Parameters.Add("@Total", SqlDbType.SmallMoney, 17);
-                parametro3.Value = Total; 
-                var parametro4 = _comandosql.Parameters.Add("@SubTotal", SqlDbType.SmallMoney, 17);
-                parametro4.Value = Subtotal; 
-                var dataReader = _comandosql.ExecuteReader();
-
-                //T MapToClass<T>(SqlDataReader reader)
-                obj = MapToClass<ObjetoDB.ReciboDeVenta>(dataReader);
-
-                //obj2.IDRecibo = dataReader.
-                //_adaptador.SelectCommand = _comandosql;
-                //_adaptador.Fill(tabla);
-            }
-            catch (SqlException e)
-            {
-                msg = "Excepción de base de datos: \n";
-                msg += e.Message;
-                MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
-            finally
-            {
-                desconectar();
-            }
-
-            return obj;
-        }//Agregado
-        public List<ObjetoDB.ReciboDeVenta> ConsultaUltimoreciboDeVental(int IDRecibo   , decimal Total  , decimal Subtotal)
+        } 
+        public List<ObjetoDB.ReciboDeVenta> ConsultaReciboDeVenta(string op,int IDRecibo, decimal Total, decimal Subtotal)
         {
             var msg = "";
             List<ObjetoDB.ReciboDeVenta> obj = new List<ObjetoDB.ReciboDeVenta>();
@@ -522,21 +383,15 @@ namespace MAD3_ventanas
                 _comandosql.CommandType = CommandType.StoredProcedure;
                 _comandosql.CommandTimeout = 1200;
                 var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
-                parametro1.Value = "i";
+                parametro1.Value =op;
                 var parametro2 = _comandosql.Parameters.Add("@idRecibo", SqlDbType.Int, 4);
                 parametro2.Value = IDRecibo;
-                var parametro3 = _comandosql.Parameters.Add("@Total", SqlDbType.SmallMoney, 17);
+                var parametro3 = _comandosql.Parameters.Add("@Total", SqlDbType.SmallMoney, 4);
                 parametro3.Value = Total;
-                var parametro4 = _comandosql.Parameters.Add("@SubTotal", SqlDbType.SmallMoney, 17);
+                var parametro4 = _comandosql.Parameters.Add("@SubTotal", SqlDbType.SmallMoney, 4);
                 parametro4.Value = Subtotal;
                 var dataReader = _comandosql.ExecuteReader();
-
-                //T MapToClass<T>(SqlDataReader reader)
                 obj = GetList<ObjetoDB.ReciboDeVenta>(dataReader);
-
-                //obj2.IDRecibo = dataReader.
-                //_adaptador.SelectCommand = _comandosql;
-                //_adaptador.Fill(tabla);
             }
             catch (SqlException e)
             {
@@ -550,7 +405,123 @@ namespace MAD3_ventanas
             }
 
             return obj;
-        }//Agregado
+        }  
+        public List<ObjetoDB.NotaCredito> ConsultaNotaCredito(string op, int NumReciboFK, decimal Cantidad, decimal Subtotal)
+        {
+            var msg = "";
+            List<ObjetoDB.NotaCredito> obj = new List<ObjetoDB.NotaCredito>();
+            //ObjetoDB.ReciboDeVenta obj2 = new ObjetoDB.ReciboDeVenta();
+            try
+            {
+                conectar();
+                string qry = "sp_GestionarNotaDeCredito";
+                _comandosql = new SqlCommand(qry, _conexion);
+                _comandosql.CommandType = CommandType.StoredProcedure;
+                _comandosql.CommandTimeout = 1200;
+                var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
+                parametro1.Value = op;
+                var parametro2 = _comandosql.Parameters.Add("@Total", SqlDbType.SmallMoney, 4);
+                parametro2.Value = Cantidad;
+                var parametro3 = _comandosql.Parameters.Add("@SubTotal", SqlDbType.SmallMoney, 4);
+                parametro3.Value = Subtotal;
+                var parametro4 = _comandosql.Parameters.Add("@ReciboFK", SqlDbType.Int, 4);
+                parametro4.Value = NumReciboFK;
+                var dataReader = _comandosql.ExecuteReader();
+                
+                obj = GetList<ObjetoDB.NotaCredito>(dataReader);
+
+            }
+            catch (SqlException e)
+            {
+                msg = "Excepción de base de datos: \n";
+                msg += e.Message;
+                MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            finally
+            {
+                desconectar();
+            }
+
+            return obj;
+        }
+        public List<ObjetoDB.Devolucion> ConsultaDevolucion(string op,int proudctoFK,decimal cantidad,bool merma)
+        {
+            var msg = "";
+            List<ObjetoDB.Devolucion> obj = new List<ObjetoDB.Devolucion>();
+
+            try
+            {
+                conectar();
+                string qry = "sp_GestionarDevolucion";
+                _comandosql = new SqlCommand(qry, _conexion);
+                _comandosql.CommandType = CommandType.StoredProcedure;
+                _comandosql.CommandTimeout = 1200;
+                var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
+                parametro1.Value = op;
+                var parametro2 = _comandosql.Parameters.Add("@ProductoFK", SqlDbType.Int, 4);
+                parametro2.Value = proudctoFK;
+                var parametro3 = _comandosql.Parameters.Add("@cantidad", SqlDbType.Decimal, 4);
+                parametro3.Value = cantidad;
+                var parametro4 = _comandosql.Parameters.Add("@merma", SqlDbType.Bit, 4);
+                parametro4.Value = merma;
+
+                var dataReader = _comandosql.ExecuteReader();
+
+                obj = GetList<ObjetoDB.Devolucion>(dataReader);
+
+            }
+            catch (SqlException e)
+            {
+                msg = "Excepción de base de datos: \n";
+                msg += e.Message;
+                MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            finally
+            {
+                desconectar();
+            }
+
+            return obj;
+        }
+        public List<ObjetoDB.NotaCred_Devol> ConsultaNotaCreditoYDevolucion(string op,int IdNotaCredito_Devol, int notaCreditoFK, int Devolucion, DateTime fecha)
+        {
+            var msg = "";
+            List<ObjetoDB.NotaCred_Devol> obj = new List<ObjetoDB.NotaCred_Devol>();
+            try
+            {
+                conectar();
+                string qry = "Sp_Header_NotaCreditoYDevolucion";
+                _comandosql = new SqlCommand(qry, _conexion);
+                _comandosql.CommandType = CommandType.StoredProcedure;
+                _comandosql.CommandTimeout = 1200;
+                var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
+                parametro1.Value = op;
+                var parametro2 = _comandosql.Parameters.Add("@IDNotaCred_Devol", SqlDbType.Int, 4);
+                parametro2.Value = IdNotaCredito_Devol;
+                var parametro3 = _comandosql.Parameters.Add("@notaCreditoFK", SqlDbType.Int, 4);
+                parametro3.Value = notaCreditoFK;
+                var parametro4 = _comandosql.Parameters.Add("@Devolucion", SqlDbType.Int, 4);
+                parametro4.Value = Devolucion;
+                var parametro5 = _comandosql.Parameters.Add("@fecha", SqlDbType.SmallDateTime, 4);
+                parametro5.Value = fecha;
+                var dataReader = _comandosql.ExecuteReader();
+
+                obj = GetList<ObjetoDB.NotaCred_Devol>(dataReader);
+
+            }
+            catch (SqlException e)
+            {
+                msg = "Excepción de base de datos: \n";
+                msg += e.Message;
+                MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            finally
+            {
+                desconectar();
+            }
+
+            return obj;
+        }
         public DataTable ConsultaTablaDatosDeTienda()
         {
             var msg = "";
@@ -563,11 +534,11 @@ namespace MAD3_ventanas
                 _comandosql = new SqlCommand(qry, _conexion);
                 _comandosql.CommandType = CommandType.StoredProcedure; // Hay tres tipos de comandos: SP, tabla o text(query, cualquier clausula del DML). 
                                                                        // -> Para este proyecto siempre debe ser un Stored Procedure     
-                _comandosql.CommandTimeout = 1200; //Tiempo antes de determinar error
-
-
-                //Los parámtros deben llamarse exactamente igual que en SP
+                _comandosql.CommandTimeout = 1200;                     //Tiempo antes de determinar error
+                                                                       //Los parámtros deben llamarse exactamente igual que en SP
                 var parametro1 = _comandosql.Parameters.Add("@Op", SqlDbType.Char, 1); //Orden: (Nombre, tipo de dato, longitud)
+
+
                 parametro1.Value = opc; //Qué valor le voy a mandar. Se inicializa en el primer string (en el public)
                 _adaptador.SelectCommand = _comandosql;
                 _adaptador.Fill(tabla);
@@ -691,7 +662,7 @@ namespace MAD3_ventanas
             return tabla;
 
         }
-        List<ObjetoDB.CurrentLogin> ConsultaLogin(string op, Int16 IDUsuario, byte caja, DateTime date)
+        public List<ObjetoDB.CurrentLogin> ConsultaLogin(string op, Int16 IDUsuario, byte caja, DateTime date)
         {
             var msg = "";
             bool add;
@@ -729,7 +700,6 @@ namespace MAD3_ventanas
             {
                 desconectar();
             }
-
             return lista;
         }
         public bool GestLogin(string op, Int16 IDUsuario, byte caja, DateTime date)
@@ -773,53 +743,49 @@ namespace MAD3_ventanas
 
             return add;
         }
+        public bool GestVenta(string op, int idVenta ,Int16 IDLoginCaja, int IDReciboVenta, DateTime date)
+        {
+            var msg = "";
+            var add = true;
+            try
+            {
+                conectar();
+                string qry = "SP_GestionarVentas";
+                _comandosql = new SqlCommand(qry, _conexion);
+                _comandosql.CommandType = CommandType.StoredProcedure;
+                _comandosql.CommandTimeout = 1200;
 
+                var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
+                parametro1.Value = op;
+                var parametro2 = _comandosql.Parameters.Add("@FKReciboVenta", SqlDbType.Int, 4);
+                parametro2.Value = idVenta;
+                var parametro3 = _comandosql.Parameters.Add("@CajeroLoginFK", SqlDbType.SmallInt, 2);
+                parametro3.Value =IDLoginCaja;
+                var parametro4 = _comandosql.Parameters.Add("@ReciboVentaFK", SqlDbType.Int, 4);
+                parametro4.Value = IDReciboVenta;
+                var parametro5 = _comandosql.Parameters.Add("@Fecha", SqlDbType.DateTime, 8);
+                parametro5.Value = date;
 
-        //public bool GestVenta(string op, Int16 IDLoginCaja,int IDReciboVenta,DateTime date)
-        //{
-        //    var msg = "";
-        //    var add = true;
-        //    try
-        //    {
-        //        conectar();
-        //        string qry = "sp_LoginCajeroACaja";
-        //        _comandosql = new SqlCommand(qry, _conexion);
-        //        _comandosql.CommandType = CommandType.StoredProcedure;
-        //        _comandosql.CommandTimeout = 1200;
+                _adaptador.InsertCommand = _comandosql;
 
-        //        var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
-        //        parametro1.Value = op;
-        //        var parametro2 = _comandosql.Parameters.Add("@UsuarioFK", SqlDbType.SmallInt, 16);
-        //        parametro2.Value = IDUsuario;
-        //        var parametro3 = _comandosql.Parameters.Add("@CajaFk", SqlDbType.TinyInt, 30);
-        //        parametro3.Value = caja;
-        //        var parametro4 = _comandosql.Parameters.Add("@fecha", SqlDbType.SmallDateTime, 4);
-        //        parametro4.Value = date;
+                _comandosql.ExecuteNonQuery();
 
+            }
+            catch (SqlException e)
+            {
+                add = false;
+                msg = "Excepción de base de datos: \n";
+                msg += e.Message;
+                MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            finally
+            {
+                desconectar();
+            }
 
-        //        _adaptador.InsertCommand = _comandosql;
-
-        //        _comandosql.ExecuteNonQuery();
-
-        //    }
-        //    catch (SqlException e)
-        //    {
-        //        add = false;
-        //        msg = "Excepción de base de datos: \n";
-        //        msg += e.Message;
-        //        MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-        //    }
-        //    finally
-        //    {
-        //        desconectar();
-        //    }
-
-        //    return add;
-        //}
-        public bool GestDept(string op               , 
-                             Int16 IDDepartamento    ,
-                             string nombreDept       , 
-                             bool reembolsable       ) 
+            return add;
+        }
+        public bool GestDept(string op  ,Int16 IDDepartamento, string nombreDept,  bool reembolsable ) 
         {
             var msg = "";
             var add = true;
@@ -861,17 +827,7 @@ namespace MAD3_ventanas
 
             return add;
         }
-        public bool GestUsuarios(string op           ,
-                                 Int16 IDUsuario     , 
-                                 string contraseña   , 
-                                 string nombres      ,
-                                 string apellidoPat  ,
-                                 string apellidoMat  ,
-                                 string CURP         , 
-                                 DateTime fechaNac   ,
-                                 string numNomina    , 
-                                 string email        ,
-                                 bool esAdmin            ) 
+        public bool GestUsuarios(string op  , Int16 IDUsuario ,string contraseña , string nombres , string apellidoPat  , string apellidoMat  , string CURP  ,DateTime fechaNac , string numNomina , string email , bool esAdmin ) 
         {
             var msg = "";
             var add = true;
@@ -926,16 +882,7 @@ namespace MAD3_ventanas
 
             return add;
         }
-        public bool GestProd(string     op              ,
-                             int        IDProducto	    , 
-                             string     Nombre		    , 
-                             string     Descripcion	    , 
-                             decimal    Costo			, 
-                             decimal    PrecioUnitario  ,
-                             decimal        Existencias	    , 
-                             decimal    PuntoDeReorden  , 
-                             short      DepartamentoFK  , 
-                             short      UnidadMedidaFK  )
+        public bool GestProd(string op  , int IDProducto, string     Nombre, string  Descripcion,decimal Costo, decimal    PrecioUnitario  , decimal   Existencias,decimal PuntoDeReorden  ,  short DepartamentoFK  ,  short      UnidadMedidaFK  )
         {
             var msg = "";
             var add = true;
@@ -987,14 +934,7 @@ namespace MAD3_ventanas
 
             return add;
         }
-        public bool GestTienda(string op             ,
-                               string NombreTienda   ,
-                               byte Sucursal         ,
-                               string RFC            ,
-                               string Domicilio      ,
-                               string CodigoPostal   ,
-                               string email          ,
-                               string numTel           )
+        public bool GestTienda(string op,string NombreTienda,byte Sucursal,string RFC,string Domicilio,string CodigoPostal,string email,string numTel)
         {
 
 
@@ -1043,10 +983,7 @@ namespace MAD3_ventanas
 
             return add;
         }
-        public bool GestCajas(
-                               string op    ,
-                               byte IDCaja,
-                               bool disponible)
+        public bool GestCajas(string op,  byte IDCaja,   bool disponible)
         {
             var msg = "";
             var add = true;
@@ -1083,13 +1020,7 @@ namespace MAD3_ventanas
 
             return add;
         }
-        public bool GestDescuento(string op
-                                  ,int IDDescuento
-                                  ,string Nombre		
-                                  ,byte Porcentaje		
-                                  ,DateTime FechaINI	
-                                  ,DateTime FechaFIN	
-                                  ,int ProductoFK     )
+        public bool GestDescuento(string op ,int IDDescuento ,string Nombre	,byte Porcentaje,DateTime FechaINI,DateTime FechaFIN,int ProductoFK)
         {
             var msg = "";
             var add = true;
@@ -1134,10 +1065,7 @@ namespace MAD3_ventanas
 
             return add;
         }//Agregado
-        public bool GestDetalleProd(string op,
-                                     int FkRecVent,
-                                     int FkProd,
-                                     decimal CantProd)
+        public bool GestDetalleProd(string op, int FkRecVent, int FkProd,  decimal CantProd)
         {
             var msg = "";
             var add = true;
@@ -1176,11 +1104,7 @@ namespace MAD3_ventanas
 
             return add;
         }
-       
-        public bool GestDetallePago(string      op          ,
-                                     int        FkRecVent   ,
-                                     byte        FKOpPago,
-                                     decimal Cantidad)
+        public bool GestDetallePago(string op,int FkRecVent,byte FKOpPago,decimal Cantidad)
         {
             var msg = "";
             var add = true;
@@ -1271,27 +1195,6 @@ namespace MAD3_ventanas
             }
             return list;
         }
-        T MapToClass<T>(SqlDataReader reader) where T : class
-        {
-            T returnedObject = Activator.CreateInstance<T>();
-            PropertyInfo[] modelProperties = returnedObject.GetType().GetProperties();
-            for (int i = 0; i < modelProperties.Length; i++)
-            {
-                MappingAttribute[] attributes = modelProperties[i].GetCustomAttributes<MappingAttribute>(true).ToArray();
+    }  
+}      
 
-                if (attributes.Length > 0 && attributes[0].ColumnName != null)
-                    modelProperties[i].SetValue(returnedObject, Convert.ChangeType(reader[attributes[0].ColumnName], modelProperties[i].PropertyType), null);
-            }
-            return returnedObject;
-        }
-
-    }//FIN public class EnlaceDB
-}//FIN namespace MAD3_ventanas 
-
-
-[AttributeUsage(AttributeTargets.Property, Inherited = true)]
-[Serializable]
-public class MappingAttribute : Attribute
-{
-    public string ColumnName = null;
-}

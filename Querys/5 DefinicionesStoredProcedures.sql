@@ -1,5 +1,5 @@
 USE Tienda01;
-
+GO
     /*
 	DROPS ALL SP
 	
@@ -12,16 +12,14 @@ USE Tienda01;
 
 	*/
 
-
-	SELECT * FROM Caja;
-	-------------------------------------------------------SP_INSERTAR_ADMINISTRADOR
+	-----------------------------------------------------------------------------------------------------SP_Gestionar_Usuario
 IF OBJECT_ID('sp_GestionarUsuario') IS NOT NULL
 	DROP PROCEDURE sp_GestionarUsuario;
 GO
 Create Procedure sp_GestionarUsuario(
 	 @op			CHAR(1)
 	,@IDUsuario		SMALLINT		 = NULL
-	,@contraseña	VARCHAR(20)		 = NULL
+	,@contraseï¿½a	VARCHAR(20)		 = NULL
 	,@nombres		VARCHAR(30)		 = NULL
 	,@apellidoPat	VARCHAR(30)		 = NULL
 	,@apellidoMat	VARCHAR(30)		 = NULL
@@ -37,11 +35,11 @@ Create Procedure sp_GestionarUsuario(
 	--se guarda la fecha del servidor como la fecha de alta.
 
 	--E Sobre escribe todos los datos modificables siendo estos:
-	-- Contraseña, Numero nomina, fecha nacimiento
+	-- Contraseï¿½a, Numero nomina, fecha nacimiento
 
 	--D Dar de baja logica al Administrador convirtiendo estatus de 1 a 0
 
-	--S muestra un select de los Usuaros en base a la vista v_UsuariosActivos
+	--S muestra un select de los Usuaros en base
 )
 AS
 BEGIN
@@ -50,14 +48,14 @@ BEGIN
 
 		IF @op='I'
 		BEGIN
-			INSERT INTO Usuario(contraseña,nombres,apellidoPat,apellidoMat,CURP,fechNac,numNomina,email,fechaAlta,esAdmin)
-				VALUES(@contraseña,@nombres,@apellidoPat,@apellidoMat,@CURP,@fechNac,@numNomina,@email,@hoy,@esAdmin);
+			INSERT INTO Usuario(contraseï¿½a,nombres,apellidoPat,apellidoMat,CURP,fechNac,numNomina,email,fechaAlta,esAdmin)
+				VALUES(@contraseï¿½a,@nombres,@apellidoPat,@apellidoMat,@CURP,@fechNac,@numNomina,@email,@hoy,@esAdmin);
 		END
 
 		IF @op='E'
 		BEGIN
 			UPDATE Usuario SET		
-				 contraseña			  =ISNULL(@contraseña	,contraseña	 )
+				 contraseï¿½a			  =ISNULL(@contraseï¿½a	,contraseï¿½a	 )
 				,nombres			  =ISNULL(@nombres		,nombres	 )
 				,apellidoPat		  =ISNULL(@apellidoPat	,apellidoPat )
 				,apellidoMat		  =ISNULL(@apellidoMat	,apellidoMat )
@@ -78,7 +76,7 @@ BEGIN
 		IF @op='S'
 		BEGIN
 			SELECT	IDUsuario	
-					,contraseña	
+					,contraseï¿½a	
 					,nombres	
 					,apellidoPat
 					,apellidoMat
@@ -88,11 +86,11 @@ BEGIN
 					,email		
 					,fechaAlta	
 					,esAdmin	
-					from Usuario where Estatus =1;
+					from v_UsuariosActivos;
 		END
 END
 GO
-	-------------------------------------------------------SP_INSERTAR_OPCION_DE_PAGO
+	-----------------------------------------------------------------------------------------------------SP_Gestionar_OPCION_DE_PAGO
 IF OBJECT_ID('sp_GestionarOpcionDePago')IS NOT NULL
 	DROP PROCEDURE sp_GestionarOpcionDePago;
 GO
@@ -131,11 +129,11 @@ BEGIN
 		WHERE IDOpcionDePago=@IDOpcionDePago;
 
 	IF @op ='S'
-		SELECT IDOpcionDePago,Nombre From OpcionDePago where Estatus=1;
+		SELECT IDOpcionDePago,Nombre From v_OpcionesDePagoActivas;
 		
 END
 GO
-	-------------------------------------------------------SP_INSERTAR_UNIDAD_DE_MEDIDA
+	-----------------------------------------------------------------------------------------------------SP_Gestionar_UNIDAD_DE_MEDIDA
 IF OBJECT_ID('sp_GestionarUnidadDeMedida') IS NOT NULL
 	DROP PROCEDURE sp_GestionarUnidadDeMedida;
 GO
@@ -175,10 +173,10 @@ BEGIN
 		WHERE	IDUnidadDeMedida=@IDUnidadMedida;
 
 	IF @op= 'S'
-		SELECT	IDUnidadDeMedida,Nombre,Descripcion from UnidadDeMedida where Estatus=1;
+		SELECT	IDUnidadDeMedida,Nombre,Descripcion from v_UnidadDeMedidasActivas;
 END			  
 GO
------------------------------------------------------------SP_INSERTAR_CAJA
+---------------------------------------------------------------------------------------------------------SP_Gestionar_CAJA
 IF OBJECT_ID('sp_GestionarCaja')IS NOT NULL
 	DROP PROCEDURE sp_GestionarCaja;
 GO
@@ -217,7 +215,7 @@ BEGIN
 
 END
 GO
------------------------------------------------------------SP_Gestionar_Tienda
+---------------------------------------------------------------------------------------------------------SP_Gestionar_Tienda
 IF OBJECT_ID('sp_GestionarTienda')IS NOT NULL
 	DROP PROCEDURE sp_GestionarTienda;
 GO
@@ -276,7 +274,7 @@ BEGIN
 
 END
 GO
------------------------------------------------------------SP_INSERTAR_DEPARTAMENTO (FALTA VALIDAR QUE NO SE PUEDA ELIMINAR UN DEPARTAMENTO QUE TENGA PRODUCTOS
+---------------------------------------------------------------------------------------------------------SP_Gestionar_DEPARTAMENTO
 IF OBJECT_ID('sp_GestionarDepartamento')IS NOT NULL
 	DROP PROCEDURE sp_GestionarDepartamento;
 GO
@@ -330,7 +328,7 @@ BEGIN
 	END
 END
 GO
------------------------------------------------------------SP_INSERTAR_PRODUCTO
+---------------------------------------------------------------------------------------------------------SP_Gestionar_PRODUCTO
 IF OBJECT_ID('sp_GestionarProducto')IS NOT NULL
 	DROP PROCEDURE sp_GestionarProducto;
 GO
@@ -414,7 +412,7 @@ BEGIN
 		SELECT p.IDProducto,p.Nombre,p.Descripcion,p.Costo,p.PrecioUnitario,p.FechaAlta,p.Existencias,p.PuntoDeReorden,p.DepartamentoFK,p.UnidadMedidaFK from Producto as P LEFT JOIN Departamento AS D on p.DepartamentoFK= d.IDDepartamento Where p.Estatus=1 AND d.Estatus=1;
 END
 GO
----------------------------------------------------------------------------------------------------SP_GESTIONAR_INVENTARIO
+--------------------------------------------------------------------------------------------------------SP_GESTIONAR_INVENTARIO
 --IF OBJECT_ID('sp_GestionarInventario')IS NOT NULL
 --	DROP PROCEDURE sp_GestionarInventario;
 --GO
@@ -541,7 +539,7 @@ BEGIN
 	SELECT D.IDDescuento,D.Nombre,D.Porcentaje,D.FechaINI,D.FechaFIN,D.ProductoFK from Descuento AS D LEFT JOIN Producto AS P ON D.ProductoFK=P.IDProducto WHERE D.Estado =1 AND P.Estatus=1;
 END
 GO
------------------------------------------------------------SP_GET_COUNT
+---------------------------------------------------------------------------------------------------------SP_GET_COUNT
 IF OBJECT_ID('sp_GetCountTable')IS NOT NULL
 	DROP PROCEDURE sp_GetCountTable;
 GO
@@ -569,19 +567,19 @@ BEGIN
 					SELECT COUNT(IDNotaCredito)		[COUNT] FROM NotaCredito;
 END
 GO
------------------------------------------------------------SP_LoginCaJACajero
+---------------------------------------------------------------------------------------------------------SP_LoginCajaCajero
 IF OBJECT_ID('sp_LoginCajeroACaja')IS NOT NULL
 	DROP PROCEDURE sp_LoginCajeroACaja;
 GO
-Create procedure sp_LoginCajeroACaja(@op char(1),
-	@UsuarioFK	smallint=null,
-	@CajaFk		tinyint =null,
-	@fecha		datetime=null
+Create procedure sp_LoginCajeroACaja(	@op		char(1),
+										@UsuarioFK	smallint=null,
+										@CajaFk		tinyint =null,
+										@fecha		datetime=null
 )AS
 BEGIN
 	if @op='i'
 	Insert into Usuario_Caja(CajeroFK,CajaFK,Fecha) Values(@UsuarioFK,@CajaFk,@fecha);
-	select IDCajero_Caja ,CajeroFK,CajaFK,Fecha from Usuario_Caja where IDCajero_Caja=@@IDENTITY;
+	select IDCajero_Caja ,CajeroFK,CajaFK,fecha from Usuario_Caja where IDCajero_Caja=@@IDENTITY;
 
 	if @op = 'l'
 	select IDCajero_Caja ,CajeroFK,CajaFK,Fecha from Usuario_Caja where IDCajero_Caja=@@IDENTITY;
@@ -589,12 +587,8 @@ BEGIN
 	if @op = 'i'
 	select IDCajero_Caja ,CajeroFK,CajaFK from Usuario_Caja;
 END
-
-----------------------------------------------------------SP_GetProductosEnPuntoDeReorden
-IF OBJECT_ID('sp_GetProductosEnPuntoDeReorden')IS NOT NULL
-	DROP PROCEDURE sp_GetProductosEnPuntoDeReorden;
 GO
------------------------------------------------------------SP_ProductosEnPuntoDeReorden
+---------------------------------------------------------------------------------------------------------SP_ProductosEnPuntoDeReorden
 IF OBJECT_ID('sp_GetProductosEnPuntoDeReorden')IS NOT NULL
 	DROP PROCEDURE sp_GetProductosEnPuntoDeReorden;
 GO
@@ -607,7 +601,7 @@ BEGIN
 		SELECT 'No hay ningun Producto en punto de reorden'[Mensaje]
 END
 GO
-----------------------------------------------------------SP_BusquedaRapida
+--------------------------------------------------------------------------------------------------------SP_BusquedaRapida
 IF OBJECT_ID('sp_BusquedaRapida')IS NOT NULL
 	DROP PROCEDURE sp_BusquedaRapida;
 GO
@@ -628,7 +622,7 @@ BEGIN
 		SELECT IDProducto,Nombre,Costo,Departamento,[Unidad De Medida] from v_Productos where IDProducto like CONCAT('%',@IDProducto,'%');
 END
 GO
-----------------------------------------------------------SP_GestionarReciboVenta
+--------------------------------------------------------------------------------------------------------SP_GestionarReciboVenta
 IF OBJECT_ID('sp_GestionarReciboDeVenta')IS NOT NULL
 	Drop procedure sp_GestionarReciboDeVenta;
 GO
@@ -649,7 +643,7 @@ BEGIN
 		Select IDRecibo,Total,Subtotal from ReciboDeVenta where IDRecibo =@idrecibo;
 END
 GO
----------------------------------------------------------SP_GestionarDetalleDePago
+-------------------------------------------------------------------------------------------------------SP_GestionarDetalleDePago
 IF OBJECT_ID('SP_GestionarDetalleDePago')IS NOT NULL
 	Drop procedure SP_GestionarDetalleDePago;
 GO
@@ -666,7 +660,7 @@ BEGIN
 		Select IDDetallePago,FkRecVenta,FkRecVenta,Cantidad  from DetallePago;
 END
 GO
----------------------------------------------------------SP_GestionarDetalleProductos
+-------------------------------------------------------------------------------------------------------SP_GestionarDetalleProductos
 IF OBJECT_ID('SP_GestionarDetalleProductos')IS NOT NULL
 	Drop procedure SP_GestionarDetalleProductos;
 GO
@@ -687,31 +681,30 @@ BEGIN
 		Select IDRecVent_Prod,ReciboVentaFK,ProductoFK,CantProd  from DetalleProductos;
 END
 GO
-----------------------------------------------------------SP_GestionarVentas
+--------------------------------------------------------------------------------------------------------SP_GestionarVentas
+IF OBJECT_ID('SP_GestionarVentas')IS NOT NULL
+	Drop procedure SP_GestionarVentas;
+GO
+Create procedure SP_GestionarVentas(		@op char(1)
+											,@FKReciboVenta		int			=NULL
+											,@CajeroLoginFK 	int			=NULL
+											,@ReciboVentaFK		int			=null
+											,@Fecha				datetime	=NULL
 
---IF OBJECT_ID('SP_GestionarVentas')IS NOT NULL
---	Drop procedure SP_GestionarVentas;
---GO
---Create procedure SP_GestionarVentas(@op char(1)
---											,@FKReciboVenta int		=NULL
---											,@FCajeroLoginFK int	=NULL
---											,@FkProducto int =null
+)AS
+BEGIN
 
---)AS
---BEGIN
---	declare @completed bit;
+	IF @op= 'i'
+	begin
+		Insert into LogVenta(Cajero_CajaFK,ReciboVentaFK,Fecha) VALUES (@CajeroLoginFK,@ReciboVentaFK,@Fecha);
+	end
 
---	IF @op= 'i'
---	begin
---		Insert into DetalleProductos(ReciboVentaFK,ProductoFK,CantProd) VALUES (@FKReciboVenta,@FkProducto,@CantidadDeProducto);
---		update Producto set Existencias = Existencias-@CantidadDeProducto where Producto.IDProducto=@FkProducto;
---	end
---	IF @op='s'
---		Select IDRecVent_Prod,ReciboVentaFK,ProductoFK,CantProd  from DetalleProductos;
---END
---GO
+	IF @op='s'
+		Select  IDLogVenta,Cajero_CajaFK,ReciboVentaFK,Fecha from LogVenta;
 
-----------------------------------------------------------Sp_ReporteDeVentas
+END
+GO
+--------------------------------------------------------------------------------------------------------Sp_ReporteDeVentas
 IF OBJECT_ID('sp_ConsultaRecibos')IS NOT NULL
 	DROP PROCEDURE sp_ConsultaRecibos;
 GO
@@ -721,20 +714,101 @@ Create Procedure sp_ConsultaRecibos( @op Char(1)
 AS
 BEGIN
 	if @op='C'
-	--DECLARE @IDRecibo int
-	--SET @IDRecibo= 4
-		SELECT rv.IDRecibo[Numero de recibo]
-		,rv.Subtotal
-		,rv.Total
-		,p.Nombre
-		, dpr.CantProd [Cantidad de productos]
-		from ReciboDeVenta as rv 
-		left join DetallePago as DPa on rv.IDRecibo=dpa.FkRecVenta 
-		left join DetalleProductos as DPr on rv.IDRecibo = dpr.ReciboVentaFK  
-		left join Producto as p on dpr.ProductoFK=p.IDProducto
-		left join OpcionDePago as op on dpa.FKOpPago = op.IDOpcionDePago
-		where IDRecibo like CONCAT('%',@IDRecibo,'%');
+	Select 
+		 [Numero de recibo]
+		,[Nombre del cajero]
+		,[Fecha de Venta]
+		,[Caja de la venta]
+		,[Nombre Del Producto]
+		,[Precio de Producto]
+		,[Cantidad de productos]
+		,[Descuento Aplicado]
+		,[Cantidad Descontada]
+		,[Opcion de pago]
+		,[Cantidad de pago]
+		,[Subtotal]
+		,[Total]
+	 from 
+		v_ReciboDeVenta as Recibo 
+	where 
+		[Numero de recibo] like CONCAT('%',@IDRecibo,'%');
 END
 GO
-
-
+--------------------------------------------------------------------------------------------------------SP_BuscarProductoEnRecibo
+IF OBJECT_ID('SP_BuscarProductoEnRecibo')IS NOT NULL
+	DROP PROCEDURE SP_BuscarProductoEnRecibo;
+GO
+Create Procedure SP_BuscarProductoEnRecibo( @op Char(1))
+AS
+BEGIN
+	if @op='s'
+		SELECT 
+			[Numero de recibo]   as IDRecibo,
+			[Codigo de Producto] as ProductoFK,
+			[Nombre de Producto] as NombreProd,
+			[Cantidad en recibo] as CantProd,
+			[Reembolsable]		 as Reembolsable
+		from v_BuscarProductoEnRecibo
+END
+GO
+---------------------------------------------------------------------------------------------------------SP_Gestionar_NotaDeCredito
+IF OBJECT_ID('sp_GestionarNotaDeCredito')IS NOT NULL
+	DROP PROCEDURE sp_GestionarNotaDeCredito;
+GO
+Create procedure sp_GestionarNotaDeCredito(	@op char(1)
+											,@Total		smallmoney	=NULL
+											,@SubTotal	smallmoney  =NULL
+											,@ReciboFK	int			=NULL
+											)
+AS
+BEGIN
+	if @op='i'
+	BEGIN
+		Insert into NotaCredito(Cantidad,Subtotal,NumReciboFK) VALUES (@Total,@SubTotal,@ReciboFK)
+		Select IDNotaCredito,Cantidad,Subtotal,NumReciboFK from NotaCredito where  [IDNotaCredito] = @@IDENTITY;
+	END
+END
+GO
+--------------------------------------------------------------------------------------------------------SP_Gestionar_Devolucion
+IF OBJECT_ID('sp_GestionarDevolucion')IS NOT NULL
+	DROP PROCEDURE sp_GestionarDevolucion;
+GO
+Create procedure sp_GestionarDevolucion(	@op char(1),
+											@ProductoFK int		= NULL,
+											@cantidad decimal	= NULL,
+											@merma bit			=null
+											)
+AS
+BEGIN
+	if @op='i'
+	BEGIN
+		Insert into Devolucion(Cantidad,Merma,ProductoFK) VALUES (@cantidad,@merma,@ProductoFK)
+		Select IDDevolucion,Cantidad,Merma,ProductoFK from Devolucion where  IDDevolucion= @@IDENTITY;
+		if @merma=0
+			update Producto set
+				Existencias = Existencias + @cantidad
+			where IDProducto=@ProductoFK;
+	END
+END
+GO
+--------------------------------------------------------------------------------------------------------SP_Header_NotaCreditoYDevolucion
+IF OBJECT_ID('Sp_Header_NotaCreditoYDevolucion')IS NOT NULL
+	DROP PROCEDURE Sp_Header_NotaCreditoYDevolucion;
+GO
+Create procedure Sp_Header_NotaCreditoYDevolucion(	@op char(1),
+													@IDNotaCred_Devol int=NULL,
+													@notaCreditoFK int	 = NULL,
+													@Devolucion int		 = NULL,
+													@fecha Smalldatetime = NULL
+													)
+AS
+BEGIN
+	if @op='i'
+	BEGIN
+		Insert into NotaCred_Devol(NotaCreditoFK,DevolucionFK,Fecha) VALUES (@notaCreditoFK,@Devolucion,@fecha)
+		Select IDNotaCred_Devol,NotaCreditoFK,DevolucionFK,Fecha from NotaCred_Devol where  IDNotaCred_Devol= @@IDENTITY;
+	END
+	if @op='s'
+		Select IDNotaCred_Devol,NotaCreditoFK,DevolucionFK,Fecha from NotaCred_Devol
+END
+GO
