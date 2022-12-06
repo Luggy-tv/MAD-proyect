@@ -24,6 +24,10 @@ namespace MAD3_ventanas
         static private DataTable _tabla = new DataTable();
         static private DataSet _DS = new DataSet();
 
+
+
+
+
         private static void conectar()
         {
             //string cnn = ConfigurationManager.AppSettings["desarrollo1"];
@@ -528,7 +532,6 @@ namespace MAD3_ventanas
 
             return obj;
         }
-        
         public DataTable ConsultaTablaDatosDeTienda()
         {
             var msg = "";
@@ -670,7 +673,6 @@ namespace MAD3_ventanas
             return tabla;
 
         }
-
         public DataTable ConsultaReciboPorFecha(string opc, byte caja, DateTime dateTime)
         {
             var msg = "";
