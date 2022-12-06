@@ -127,6 +127,7 @@ Create view v_ReciboDeVenta as
 		,format(DetallePago.Cantidad,'c','en-us')	AS [Cantidad de pago]
 		,format(Recibo.Subtotal,'c','en-us')		AS [Subtotal]
 		,format(Recibo.Total,'c','en-us')			AS [Total]
+		,Venta.Fecha								as [FechaDVenta]
 		from 
 		ReciboDeVenta			as Recibo 
 		left join DetallePago		as DetallePago	on Recibo.IDRecibo			= DetallePago.FkRecVenta 
@@ -139,6 +140,7 @@ Create view v_ReciboDeVenta as
 		left join Caja				as Caja			on LogUsuCaja.CajaFK		= Caja.IDCaja
 		left join Descuento			as Descu		on descu.ProductoFK			= Prod.IDProducto
 GO
+select *from v_ReciboDeVenta
 -------------------------------------------------------Vista de Busqueda de producto en recibo
 IF OBJECT_ID('v_BuscarProductoEnRecibo')IS NOT NULL
 	DROP view v_BuscarProductoEnRecibo;
@@ -155,21 +157,24 @@ CREATE VIEW v_BuscarProductoEnRecibo as
 	left join Producto				as Producto		on DetalleProd.ProductoFK=Producto.IDProducto
 	left join Departamento			as Departamento on Producto.DepartamentoFK=Departamento.IDDepartamento
 GO
+
 -------------------------------------------------------Vista de NotadeCredito y Devoluciones
 IF OBJECT_ID('v_NotaCreditoYDevol')IS NOT NULL
 	DROP view v_NotaCreditoYDevol;
 GO
 CREATE VIEW v_NotaCreditoYDevol as
 	select 
-		NotaCred.IDNotaCredito		as [Numero De Nota De Credito],
-		ReciboVent.IDRecibo			as [Recibo De Compra],
-		NotaCred.Cantidad			as [Total del Recibo],
-		Prod.IDProducto				as [Codigo del Producto],
-		Prod.Nombre					as [Producto Devuelto],
-		Devol.Cantidad				as [Cantidad de Productos devueltos],
-		Devol.Merma					as [Es Merma],
-		Dpto.Reembolsable			as [Es Reembolsable],
-		NotCreddevol.fecha			as [Fecha de devolucion]
+		NotaCred.IDNotaCredito										as [Numero De Nota De Credito],
+		ReciboVent.IDRecibo											as [Recibo De Compra],
+		format(NotaCred.Subtotal,'c','en-us')						as [Subtotal del Recibo],
+		format(NotaCred.Cantidad,'c','en-us')						as [Total del Recibo],
+		Prod.IDProducto												as [Codigo del Producto],
+		Prod.Nombre													as [Producto Devuelto],
+		Devol.Cantidad												as [Cantidad de Productos devueltos],
+		Devol.Merma													as [Es Merma],
+		Dpto.Reembolsable											as [Es Reembolsable],
+		format(NotCreddevol.fecha,'dd MMMM yyyy hh:mm:ss','es-es')	as [Fecha de devolucion],
+		NotCreddevol.fecha											as [FechaDDvolucion]
 	from NotaCred_Devol		as NotCredDevol
 	left join NotaCredito	as NotaCred		on NotaCred.IDNotaCredito	=NotCredDevol.NotaCreditoFK
 	left join Devolucion	as Devol		on Devol.IDDevolucion		=NotCredDevol.NotaCreditoFK
@@ -198,4 +203,4 @@ GO
 --truncate table devolucion
 --truncate table	NotaCredito
 --truncate table	NotaCred_Devol
-
+select * from v_NotaCreditoYDevol

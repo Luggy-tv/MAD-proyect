@@ -776,7 +776,7 @@ BEGIN
 			[Numero De Nota De Credito] as IDNotaCred_Devol,
 			[Recibo De Compra]			as NotaCreditoFK,
 			[Codigo del Producto]		as DevolucionFK,
-			[Fecha]						as Fecha
+			[Fecha de devolucion]		as Fecha
 		from v_NotaCreditoYDevol where @notaCreditoFK = [Recibo De Compra];
 END	
 GO	
@@ -813,15 +813,18 @@ BEGIN
 		Else
 			SELECT 'No hay Recibos con ese Numero de Recibo'[Mensaje];
 	END
-
 	if @op='D'
 	BEGIN
-	
-		IF EXISTS (Select [Numero de recibo] from v_ReciboDeVenta where cast(v_ReciboDeVenta.[Fecha de Venta] as smalldatetime) =@fecha )
+	 --declare @fecha smalldatetime	
+	 --declare @IdCaja tinyint	
+	 --set @fecha ='2022-12-24'	
+	 --set @IdCaja =1
+	 --Select [Numero de recibo] from v_ReciboDeVenta where cast(v_ReciboDeVenta.FechaDVenta as date) = cast(@fecha as date)	AND [Caja de la venta]=@IdCaja
+		IF EXISTS (Select [Numero de recibo] from v_ReciboDeVenta where cast(v_ReciboDeVenta.FechaDVenta as date) = cast(@fecha as date) AND [Caja de la venta]=@IdCaja )
 			Select 
 				[Numero de recibo],
 				MAX([Nombre del cajero])				as [Nombre del cajero],
-				MAX([Fecha de Venta])					as [Fecha de Venta],
+				format (MAX(FechaDVenta),'dd MMMM yyyy hh:mm:ss','es-es') 						as [Fecha de Venta],
 				MAX([Caja de la venta])					as [Caja de la Venta],
 				COUNT(Distinct[Cantidad de productos])	as [Productos en recibo],
 				COUNT([Opcion de pago])					as [Opciones de pago],
@@ -830,11 +833,64 @@ BEGIN
 			from 
 				v_ReciboDeVenta as Recibo 
 			where 
-				CAst([Fecha de Venta]  as date) = cast(@fecha as date) AND [Caja de la venta]=@IdCaja
+				cast(FechaDVenta as date) = cast(@fecha as date) AND [Caja de la venta]=@IdCaja
 			group by [Numero de recibo];
 		Else
-			SELECT 'No hay Recibos con ese Numero de Recibo'[Mensaje];
+			SELECT 'No hay Recibos con ese fecha o caja'[Mensaje];
 		
+	END
+
+END
+GO
+
+IF OBJECT_ID('sp_ConsultaNotasDeCredito')IS NOT NULL
+	DROP PROCEDURE sp_ConsultaNotasDeCredito;
+GO
+Create Procedure sp_ConsultaNotasDeCredito( @op Char(1)
+											,@IDNotaCredito INT		=NULL
+											,@fecha smalldatetime	=NULL
+											,@IdCaja tinyint		=NULL
+									
+)
+AS
+BEGIN
+	if @op='N'
+	BEGIN
+	--declare @IDNotaCredito INT	
+	--set @IDNotaCredito =1000000
+		IF EXISTS (Select [Numero De Nota De Credito] from v_NotaCreditoYDevol where [Numero De Nota De Credito] = @IDNotaCredito)
+			Select 
+				[Numero De Nota De Credito],
+				MAX([Fecha de devolucion])				as [Fecha de Devolucion],
+				MAX(Distinct [Producto Devuelto])		as [Producto regresado],
+				MAX([Cantidad de Productos devueltos])  as [Cantidad de Productos devueltos],
+				MAX([Subtotal del Recibo])				as [Subtotal de Nota],
+				MAX([Total del Recibo])					as [Total de Nota]
+			from 
+				v_NotaCreditoYDevol as NotaCreditoYDevolucion 
+			where 
+				[Numero De Nota De Credito] = @IDNotaCredito
+			group by [Numero De Nota De Credito];
+		Else
+			SELECT 'No hay notas con ese Numero de nota'[Mensaje];
+	END
+	if @op='D'
+	BEGIN
+	 		IF EXISTS (Select [Numero De Nota De Credito] from v_NotaCreditoYDevol where cast([FechaDDvolucion] as date) = cast(@fecha as date))
+			Select 
+				[Numero De Nota De Credito],
+				MAX([Fecha de devolucion])				as [Fecha de Devolucion],
+				MAX(Distinct [Producto Devuelto])		as [Producto regresado],
+				MAX([Cantidad de Productos devueltos])  as [Cantidad de Productos devueltos],
+				MAX([Subtotal del Recibo])				as [Subtotal de Nota],
+				MAX([Total del Recibo])					as [Total de Nota]
+			from 
+				v_NotaCreditoYDevol as NotaCreditoYDevolucion 
+			where 
+				cast([FechaDDvolucion] as date) = cast(@fecha as date)
+			group by [Numero De Nota De Credito];
+		Else
+			SELECT 'No hay notas en esa fecha'[Mensaje];
 	END
 
 END
