@@ -96,7 +96,7 @@ namespace MAD3_ventanas.Administrador
             this.button2.Location = new System.Drawing.Point(417, 201);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(96, 37);
-            this.button2.TabIndex = 49;
+            this.button2.TabIndex = 9;
             this.button2.Text = "Ingresar";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
@@ -108,7 +108,7 @@ namespace MAD3_ventanas.Administrador
             this.button1.Location = new System.Drawing.Point(315, 201);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(96, 37);
-            this.button1.TabIndex = 48;
+            this.button1.TabIndex = 8;
             this.button1.Text = "Cancelar";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -118,7 +118,7 @@ namespace MAD3_ventanas.Administrador
             this.textBox4.Location = new System.Drawing.Point(289, 151);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(100, 20);
-            this.textBox4.TabIndex = 47;
+            this.textBox4.TabIndex = 6;
             // 
             // label10
             // 
@@ -134,7 +134,7 @@ namespace MAD3_ventanas.Administrador
             this.textBox3.Location = new System.Drawing.Point(9, 151);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(224, 20);
-            this.textBox3.TabIndex = 45;
+            this.textBox3.TabIndex = 1;
             // 
             // label9
             // 
@@ -214,7 +214,7 @@ namespace MAD3_ventanas.Administrador
             this.comboBox2.Location = new System.Drawing.Point(289, 51);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(224, 21);
-            this.comboBox2.TabIndex = 36;
+            this.comboBox2.TabIndex = 3;
             // 
             // comboBox1
             // 
@@ -222,35 +222,35 @@ namespace MAD3_ventanas.Administrador
             this.comboBox1.Location = new System.Drawing.Point(9, 201);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(224, 21);
-            this.comboBox1.TabIndex = 35;
+            this.comboBox1.TabIndex = 2;
             // 
             // textBox6
             // 
             this.textBox6.Location = new System.Drawing.Point(413, 151);
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(100, 20);
-            this.textBox6.TabIndex = 34;
+            this.textBox6.TabIndex = 7;
             // 
             // textBox10
             // 
             this.textBox10.Location = new System.Drawing.Point(413, 101);
             this.textBox10.Name = "textBox10";
             this.textBox10.Size = new System.Drawing.Size(100, 20);
-            this.textBox10.TabIndex = 33;
+            this.textBox10.TabIndex = 5;
             // 
             // textBox5
             // 
             this.textBox5.Location = new System.Drawing.Point(289, 101);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(100, 20);
-            this.textBox5.TabIndex = 32;
+            this.textBox5.TabIndex = 4;
             // 
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(9, 101);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(224, 20);
-            this.textBox2.TabIndex = 31;
+            this.textBox2.TabIndex = 0;
             // 
             // textBox1
             // 
@@ -277,7 +277,7 @@ namespace MAD3_ventanas.Administrador
             this.button3.Location = new System.Drawing.Point(429, 15);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(96, 21);
-            this.button3.TabIndex = 5;
+            this.button3.TabIndex = 10;
             this.button3.Text = "Eliminar producto";
             this.button3.UseVisualStyleBackColor = false;
             this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -288,7 +288,7 @@ namespace MAD3_ventanas.Administrador
             this.comboBox3.Location = new System.Drawing.Point(152, 16);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(271, 21);
-            this.comboBox3.TabIndex = 4;
+            this.comboBox3.TabIndex = 11;
             this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
             // dataGridView1
@@ -299,7 +299,7 @@ namespace MAD3_ventanas.Administrador
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
             this.dataGridView1.Size = new System.Drawing.Size(504, 82);
-            this.dataGridView1.TabIndex = 7;
+            this.dataGridView1.TabIndex = 30;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // label7

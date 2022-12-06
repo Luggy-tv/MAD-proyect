@@ -14,11 +14,12 @@ namespace MAD3_ventanas
     public partial class ventas : Form
     {
         public static List<ObjetoDB.ProductosEnVenta> productosEnVentasLista = new List<ObjetoDB.ProductosEnVenta>();
+
         public DataTable productosEnVentasTabla= null;
         public decimal subtotal             = 0;
         public decimal total                = 0;
         public decimal cantidadDescontada   = 0;
-        public int cantidadDeProductos      = 0;
+        //public int cantidadDeProductos      = 0;
 
         public static decimal ptotalVenta  =0 ;
         public static decimal subtotalVenta = 0 ;
@@ -124,15 +125,16 @@ namespace MAD3_ventanas
         private void button2_Click(object sender, EventArgs e)//BOTON INGRESAR
         {
             var seleccion = comboBox1.SelectedItem as ObjetoDB.Producto;
-            if (textBox2.Text == "" || decimal.Parse(textBox2.Text)<=0|| decimal.Parse(textBox2.Text)>seleccion.Existencias)
+
+            if (textBox2.Text == "" || decimal.Parse(textBox2.Text)<=0)
             {
                 MessageBox.Show("Favor de agregar la cantidad de producto correcta", "Accion Imposible", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
             else {
                 decimal cant = decimal.Parse(textBox2.Text);
-                if (seleccion.Existencias <= 0)
+                if (seleccion.Existencias <= 0|| decimal.Parse(textBox2.Text) > seleccion.Existencias)
                 {
-                    MessageBox.Show("No se puede agregar producto ya que no tiene existencias", "Accion Imposible", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    MessageBox.Show("No se puede agregar producto ya que no tiene existencias suficientes", "Accion Imposible", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
                 else
                 {
@@ -166,7 +168,7 @@ namespace MAD3_ventanas
                     textBox1.Text = "-$"+ cantidadDescontada.ToString();
                     textBox8.Text = "$"+ total.ToString();
                     
-                    cantidadDeProductos++;
+                    //cantidadDeProductos++;
 
                     textBox2.Clear();
                 }
@@ -191,7 +193,7 @@ namespace MAD3_ventanas
             dt.Columns.Add("Nombre      ");
             dt.Columns.Add("Existencias ");
             dt.Columns.Add("Costo       ");
-            dt.Columns.Add("CantProd    ");
+            dt.Columns.Add("Cantidad de producto a comprar");
             dt.Columns.Add("Precio productos");
             dt.Columns.Add("Descuento Aplicado");
 
@@ -201,9 +203,9 @@ namespace MAD3_ventanas
 
                 row["IDProducto  "] = item.IDProducto;
                 row["Nombre      "] = item.Nombre;
-                row["Existencias "] = item.Costo;
-                row["Costo       "] = item.Nombre;
-                row["CantProd    "] = item.CantProd;
+                row["Existencias "] = item.Existencias;
+                row["Costo       "] = item.Costo;
+                row["Cantidad de producto a comprar"] = item.CantProd;
                 row["Precio productos"] = item.PrecioProds;
                 row["Descuento Aplicado"] = item.descuento;
 
@@ -216,9 +218,9 @@ namespace MAD3_ventanas
         {
             decimal descuente = 0;
             List<ObjetoDB.Descuento> listaDescuentos = null;
+            
             var objBD = new EnlaceDB();
             listaDescuentos = objBD.ConsultaDescuentos();
-            //DateTime localDate = DateTime.Now;
 
             foreach ( var item in listaDescuentos)
             {
@@ -231,11 +233,17 @@ namespace MAD3_ventanas
                     }
                 }
             }
-            
             return descuente;
         }
-
         private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+        private void textBox6_TextChanged(object sender, EventArgs e)
         {
 
         }

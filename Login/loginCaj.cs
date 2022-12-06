@@ -15,9 +15,10 @@ namespace MAD3_ventanas
     {
        public static ObjetoDB.Usuario   loggedUser;
        public static byte               loggedUCaja;
-        public static DateTime date;
+        public static DateTime          date;
 
         public static ObjetoDB.CurrentLogin currentLogin;
+
         public loginCaj()
         {
             InitializeComponent();
@@ -28,9 +29,7 @@ namespace MAD3_ventanas
             prelogin prelogin = new prelogin();
             prelogin.Show();
         }
-
-
-        private void Ingresar_Click(object sender, EventArgs e)
+        private void Ingresar_Click(object sender, EventArgs e)//INGRESAR
         {
             ObjetoDB.Caja seleccion = comboBox1.SelectedItem as ObjetoDB.Caja;
 
@@ -39,59 +38,60 @@ namespace MAD3_ventanas
             listUsuarios = null;
             listUsuarios = objBD.ConsultaUsuarios();
             string op = "i";
-
             string IDusuario = textBox1.Text;
             string contraseña = textBox2.Text;
             byte numCaja = seleccion.IDCaja;
-            
-
-           
-
             if (IDusuario == "" || contraseña == "")
             {
                 MessageBox.Show("Llenar todos los campos");
             }
-
             else
             {
                 bool userIsValid = false, passIsVal = false, login = false;
 
                 userIsValid = userExists(IDusuario,listUsuarios);
-            
+
                 if (userIsValid)
                 {
-                     passIsVal = passIsValid(IDusuario, contraseña,listUsuarios);
+                    passIsVal = passIsValid(IDusuario, contraseña, listUsuarios);
+
+                    if (userIsValid && passIsVal)
+                    {
+                        login = true;
+
+                        if (login)
+                        {
+
+                            loggedUser = getUserFromString(IDusuario, listUsuarios);
+                            loggedUCaja = numCaja;
+                            date = dateTimePicker1.Value;
+               
+
+                            List< ObjetoDB.CurrentLogin> listalogins = objBD.ConsultaLogin(op, loggedUser.IDUsuario, loggedUCaja, date);
+
+                            currentLogin = listalogins.First();
+
+                            this.Close();
+                            mainmenuCAJ mainmenuCAJ = new mainmenuCAJ();
+                            mainmenuCAJ.Show();
+
+                        }
+                    }
+                    else
+                    {
+                       MessageBox.Show("Contraseña incorrecta", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Usuario no Existe", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                 }
     
-                 if (userIsValid && passIsVal)
-                 {
-                     login = true;
-                 }
-
-                else
-                 {
-                     MessageBox.Show("La contraseña es incorrecta");
-                 }
-
-                 if (login) {
-
-                    loggedUser = getUserFromString(IDusuario, listUsuarios);
-                    loggedUCaja = numCaja;
-                    date = dateTimePicker1.Value;
-
-                    bool comp = objBD.GestLogin(op, loggedUser.IDUsuario, loggedUCaja, date);
-
-                     this.Close();
-                     mainmenuCAJ mainmenuCAJ = new mainmenuCAJ();
-                     mainmenuCAJ.Show();
-
-                 }
+                 
             }
 
         }
-
-
-
         private void loginCaj_Load(object sender, EventArgs e)
         {
             var objBD = new EnlaceDB();
@@ -140,7 +140,6 @@ namespace MAD3_ventanas
             }
             return exists;
         }
-
         public ObjetoDB.Usuario getUserFromString(string user, List<ObjetoDB.Usuario> listaUsuarios)
         {
             var usuario = new ObjetoDB.Usuario();

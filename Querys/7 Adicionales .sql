@@ -21,13 +21,5 @@ EXEC sp_GestionarCaja @op='i';
 EXEC sp_GestionarCaja @op='i';
 EXEC sp_GestionarCaja @op='i';
 
-
-
---yyyy-mm-dd
-
---SELECT * FROM Usuario;
---SELECT * FROM Producto;
---SELECT * FROM OpcionDePago;
---SELECT * FROM UnidadDeMedida;
---Select * from Caja
-
+select * from v_Descuentos
+select * from v_ReciboDeVenta
