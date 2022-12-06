@@ -51,6 +51,10 @@ namespace MAD3_ventanas.Administrador
 
         private void button2_Click(object sender, EventArgs e)
         {
+            this.Close();
+            mainmenuADM1 mainmenuADM1 = new mainmenuADM1();
+            mainmenuADM1.Show();
+
             //bool comp = false;
             //string op = "i";
             //decimal cantMin = 0;
@@ -112,6 +116,19 @@ namespace MAD3_ventanas.Administrador
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //comboBox1.Enabled = (comboBox2.SelectedIndex == 1);
+           if (comboBox2.SelectedIndex == 1)
+            {
+                comboBox1.Enabled = true;
+            }
+           else
+            {
+                comboBox1.Enabled = false;
+            }
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

@@ -139,6 +139,7 @@ Create view v_ReciboDeVenta as
 		left join Caja				as Caja			on LogUsuCaja.CajaFK		= Caja.IDCaja
 		left join Descuento			as Descu		on descu.ProductoFK			= Prod.IDProducto
 GO
+select *from v_ReciboDeVenta
 -------------------------------------------------------Vista de Busqueda de producto en recibo
 IF OBJECT_ID('v_BuscarProductoEnRecibo')IS NOT NULL
 	DROP view v_BuscarProductoEnRecibo;
@@ -155,6 +156,7 @@ CREATE VIEW v_BuscarProductoEnRecibo as
 	left join Producto				as Producto		on DetalleProd.ProductoFK=Producto.IDProducto
 	left join Departamento			as Departamento on Producto.DepartamentoFK=Departamento.IDDepartamento
 GO
+
 -------------------------------------------------------Vista de NotadeCredito y Devoluciones
 IF OBJECT_ID('v_NotaCreditoYDevol')IS NOT NULL
 	DROP view v_NotaCreditoYDevol;
