@@ -67,7 +67,7 @@ namespace MAD3_ventanas.Administrador
            
                 if (CheckIfReciboExists(ListaProductoEnRecibos, int.Parse(textBox2.Text)))
                 {
-                   
+                        
                     if (CheckIfProductExistsInRecibo(ListaProductoEnRecibos,int.Parse(textBox2.Text), seleccion))
                     {
                         productoEnRecibo = GetProducto_En_ReciboFromList(ListaProductoEnRecibos, int.Parse(textBox2.Text), seleccion);
