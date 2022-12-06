@@ -152,19 +152,21 @@ namespace MAD3_ventanas.Administrador
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToResizeColumns = false;
             this.dataGridView1.AllowUserToResizeRows = false;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridView1.Location = new System.Drawing.Point(273, 12);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
-            this.dataGridView1.Size = new System.Drawing.Size(334, 338);
-            this.dataGridView1.TabIndex = 15;
+            this.dataGridView1.Size = new System.Drawing.Size(574, 345);
+            this.dataGridView1.TabIndex = 8;
             // 
             // button4
             // 
             this.button4.BackColor = System.Drawing.SystemColors.ControlLight;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button4.Location = new System.Drawing.Point(12, 308);
+            this.button4.Location = new System.Drawing.Point(12, 315);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(117, 42);
             this.button4.TabIndex = 6;
@@ -176,7 +178,7 @@ namespace MAD3_ventanas.Administrador
             // 
             this.button3.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button3.Location = new System.Drawing.Point(140, 308);
+            this.button3.Location = new System.Drawing.Point(140, 315);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(117, 42);
             this.button3.TabIndex = 7;
@@ -188,7 +190,7 @@ namespace MAD3_ventanas.Administrador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(619, 369);
+            this.ClientSize = new System.Drawing.Size(859, 369);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.groupBox2);

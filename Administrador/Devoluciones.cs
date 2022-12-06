@@ -57,6 +57,8 @@ namespace MAD3_ventanas.Administrador
             devolucion = null;
             notaCred_Devol = null;
 
+            
+
             if (textBox2.Text.Length ==0  || int.Parse(textBox2.Text) <= 0|| int.Parse(textBox2.Text)>= 2000000|| textBox1.Text.Length == 0 || decimal.Parse(textBox1.Text) <= 0)
             {
                 MessageBox.Show("Favor de llenar la informacion correspondiente",
@@ -64,7 +66,6 @@ namespace MAD3_ventanas.Administrador
             }
             else
             {
-           
                 if (CheckIfReciboExists(ListaProductoEnRecibos, int.Parse(textBox2.Text)))
                 {
                         
@@ -93,7 +94,6 @@ namespace MAD3_ventanas.Administrador
                                             devolucion = objBD.ConsultaDevolucion(op, seleccion.IDProducto, decimal.Parse(textBox1.Text),checkBox1.Checked).First();
 
                                             notaCred_Devol = objBD.ConsultaNotaCreditoYDevolucion(op, dummy2, notaCredito.IDNotaCredito, devolucion.IDDevolucion, localdate).First();
-
 
                                             MessageBox.Show("Nota de Credito generada imprimiendo acontinuacion", "Nota de credito creada", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
