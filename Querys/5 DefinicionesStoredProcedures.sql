@@ -19,7 +19,7 @@ GO
 Create Procedure sp_GestionarUsuario(
 	 @op			CHAR(1)
 	,@IDUsuario		SMALLINT		 = NULL
-	,@contraseña	VARCHAR(20)		 = NULL
+	,@contraseï¿½a	VARCHAR(20)		 = NULL
 	,@nombres		VARCHAR(30)		 = NULL
 	,@apellidoPat	VARCHAR(30)		 = NULL
 	,@apellidoMat	VARCHAR(30)		 = NULL
@@ -35,7 +35,7 @@ Create Procedure sp_GestionarUsuario(
 	--se guarda la fecha del servidor como la fecha de alta.
 
 	--E Sobre escribe todos los datos modificables siendo estos:
-	-- Contraseña, Numero nomina, fecha nacimiento
+	-- Contraseï¿½a, Numero nomina, fecha nacimiento
 
 	--D Dar de baja logica al Administrador convirtiendo estatus de 1 a 0
 
@@ -48,14 +48,14 @@ BEGIN
 
 		IF @op='I'
 		BEGIN
-			INSERT INTO Usuario(contraseña,nombres,apellidoPat,apellidoMat,CURP,fechNac,numNomina,email,fechaAlta,esAdmin)
-				VALUES(@contraseña,@nombres,@apellidoPat,@apellidoMat,@CURP,@fechNac,@numNomina,@email,@hoy,@esAdmin);
+			INSERT INTO Usuario(contraseï¿½a,nombres,apellidoPat,apellidoMat,CURP,fechNac,numNomina,email,fechaAlta,esAdmin)
+				VALUES(@contraseï¿½a,@nombres,@apellidoPat,@apellidoMat,@CURP,@fechNac,@numNomina,@email,@hoy,@esAdmin);
 		END
 
 		IF @op='E'
 		BEGIN
 			UPDATE Usuario SET		
-				 contraseña			  =ISNULL(@contraseña	,contraseña	 )
+				 contraseï¿½a			  =ISNULL(@contraseï¿½a	,contraseï¿½a	 )
 				,nombres			  =ISNULL(@nombres		,nombres	 )
 				,apellidoPat		  =ISNULL(@apellidoPat	,apellidoPat )
 				,apellidoMat		  =ISNULL(@apellidoMat	,apellidoMat )
@@ -76,7 +76,7 @@ BEGIN
 		IF @op='S'
 		BEGIN
 			SELECT	IDUsuario	
-					,contraseña	
+					,contraseï¿½a	
 					,nombres	
 					,apellidoPat
 					,apellidoMat

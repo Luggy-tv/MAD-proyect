@@ -56,6 +56,7 @@ namespace MAD3_ventanas
             this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -335,6 +336,10 @@ namespace MAD3_ventanas
             this.label9.TabIndex = 22;
             this.label9.Text = "Total a pagar:";
             // 
+            // printDocument1
+            // 
+            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.Imprimir);
+            // 
             // pagar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -393,5 +398,6 @@ namespace MAD3_ventanas
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.TextBox textBox5;
         private System.Windows.Forms.Label label9;
+        private System.Drawing.Printing.PrintDocument printDocument1;
     }
 }

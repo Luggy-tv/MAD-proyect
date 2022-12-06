@@ -7,11 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Printing;
+
 
 namespace MAD3_ventanas
 {
+   
     public partial class pagar : Form
     {
+        public ObjetoDB.ReciboDeVenta reciboDeVenta = new ObjetoDB.ReciboDeVenta();
+        public ObjetoDB.DatosDeTienda DatosDeTienda = new ObjetoDB.DatosDeTienda();
+
+                           
+
         public pagar()
         {
             InitializeComponent();
@@ -183,8 +191,8 @@ namespace MAD3_ventanas
 
                 if(pagoTot>= ventas.ptotalVenta)
                 {
-                    DialogResult dr = MessageBox.Show("¿Desea emitir recibo?",
                          "Emitir recibo", MessageBoxButtons.YesNo);
+                    DialogResult dr = MessageBox.Show("¿Desea emitir recibo?",
                     switch (dr)
                     {
                         case DialogResult.Yes:
@@ -218,11 +226,20 @@ namespace MAD3_ventanas
 
                             if (comp)
                             {
-                                MessageBox.Show("Compra realizada cambio de :$ " + (pagoTot- ventas.ptotalVenta).ToString(), "Gracias por comprar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show("Compra realizada cambio de :" + (pagoTot- ventas.ptotalVenta).ToString(), "Gracias por comprar", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                                //HACER PRINTDOCUMENT AQUÍ (TENTATIVO, PUEDE CAMBIAR
+
+                                printDocument1 = new PrintDocument();
+                                PrinterSettings ps = new PrinterSettings();
+                                printDocument1.PrinterSettings = ps;
+                                printDocument1.PrintPage += Imprimir;
+                                printDocument1.Print();
 
 
                                 this.Close();
+
+                               
                             }
 
                             break;
@@ -255,6 +272,29 @@ namespace MAD3_ventanas
         }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void Imprimir(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            var objBD = new EnlaceDB();
+            DatosDeTienda = objBD.ConsultaDatosDeTienda().First<ObjetoDB.DatosDeTienda>();
+
+
+            Font font = new Font("Arial", 12);
+            int ancho = 300;
+            int y = 20;
+
+            e.Graphics.DrawString("       ---VELPONCH---       ", font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString(""+ DatosDeTienda.NombreTienda, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("Sucursal " + DatosDeTienda.Sucursal, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("RFC " + DatosDeTienda.RFC, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("" + DatosDeTienda.Domicilio, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("C.P. " + DatosDeTienda.CodigoPostal, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("Teléfono " + DatosDeTienda.numTel, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+
+            e.Graphics.DrawString("Recibo #"+reciboDeVenta.IDRecibo, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+
 
         }
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
