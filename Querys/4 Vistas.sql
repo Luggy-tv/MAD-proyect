@@ -127,7 +127,8 @@ Create view v_ReciboDeVenta as
 		,format(DetallePago.Cantidad,'c','en-us')	AS [Cantidad de pago]
 		,format(Recibo.Subtotal,'c','en-us')		AS [Subtotal]
 		,format(Recibo.Total,'c','en-us')			AS [Total]
-		from ReciboDeVenta			as Recibo 
+		from 
+		ReciboDeVenta			as Recibo 
 		left join DetallePago		as DetallePago	on Recibo.IDRecibo			= DetallePago.FkRecVenta 
 		left join DetalleProductos	as DetalleProd	on Recibo.IDRecibo			= DetalleProd.ReciboVentaFK  
 		left join Producto			as Prod			on DetalleProd.ProductoFK	= Prod.IDProducto
@@ -166,12 +167,15 @@ CREATE VIEW v_NotaCreditoYDevol as
 		Prod.IDProducto				as [Codigo del Producto],
 		Prod.Nombre					as [Producto Devuelto],
 		Devol.Cantidad				as [Cantidad de Productos devueltos],
-		Devol.Merma					as [Es Merma]
+		Devol.Merma					as [Es Merma],
+		Dpto.Reembolsable			as [Es Reembolsable],
+		NotCreddevol.fecha			as [Fecha de devolucion]
 	from NotaCred_Devol		as NotCredDevol
 	left join NotaCredito	as NotaCred		on NotaCred.IDNotaCredito	=NotCredDevol.NotaCreditoFK
 	left join Devolucion	as Devol		on Devol.IDDevolucion		=NotCredDevol.NotaCreditoFK
 	left join ReciboDeVenta as ReciboVent	on ReciboVent.IDRecibo		=NotaCred.NumReciboFK
 	left join Producto		as Prod			on Prod.IDProducto			=Devol.ProductoFK
+	left join Departamento	as Dpto			on Dpto.IDDepartamento		=Prod.DepartamentoFK
 GO
 
 
@@ -194,3 +198,4 @@ GO
 --truncate table devolucion
 --truncate table	NotaCredito
 --truncate table	NotaCred_Devol
+

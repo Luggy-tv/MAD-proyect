@@ -634,26 +634,69 @@ namespace MAD3_ventanas
             return tabla;
 
         }
-        public DataTable ConsultaRecibo(string opc, int idRecibo)
+        public DataTable ConsultaReciboPorNumero(string opc, int idRecibo)
         {
             var msg = "";
             DataTable tabla = new DataTable();
             try
             {
                 conectar();
-                string qry = "sp_ConsultaRecibos"; //nombre del stored procedure
+                string qry = "sp_ConsultaRecibos";
                 _comandosql = new SqlCommand(qry, _conexion);
-                _comandosql.CommandType = CommandType.StoredProcedure; // Hay tres tipos de comandos: SP, tabla o text(query, cualquier clausula del DML). 
-                                                                       // -> Para este proyecto siempre debe ser un Stored Procedure     
-                _comandosql.CommandTimeout = 1200; //Tiempo antes de determinar error
-                //Los parámtros deben llamarse exactamente igual que en SP
+                _comandosql.CommandType = CommandType.StoredProcedure; 
+                                                                       
+                _comandosql.CommandTimeout = 1200;                     
+                                                                       
                 var parametro1 = _comandosql.Parameters.Add("@Op", SqlDbType.Char, 1);
                 parametro1.Value = opc;
-                var parametro2 = _comandosql.Parameters.Add("@IDProducto", SqlDbType.Int, 4);
+                var parametro2 = _comandosql.Parameters.Add("@IDRecibo", SqlDbType.Int, 4);
                 parametro2.Value = idRecibo;
 
                 _adaptador.SelectCommand = _comandosql;
                 _adaptador.Fill(tabla);
+
+            }
+            catch (SqlException e)
+            {
+                msg = "Excepción de base de datos: \n";
+                msg += e.Message;
+                MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            finally
+            {
+                desconectar();
+            }
+
+            return tabla;
+
+        }
+
+        public DataTable ConsultaReciboPorFecha(string opc, byte caja, DateTime dateTime)
+        {
+            var msg = "";
+            DataTable tabla = new DataTable();
+            int dummy = 100000;
+            try
+            {
+                conectar();
+                string qry = "sp_ConsultaRecibos";
+                _comandosql = new SqlCommand(qry, _conexion);
+                _comandosql.CommandType = CommandType.StoredProcedure;
+
+                _comandosql.CommandTimeout = 1200;
+
+                var parametro1 = _comandosql.Parameters.Add("@Op", SqlDbType.Char, 1);
+                parametro1.Value = opc;
+                var parametro2 = _comandosql.Parameters.Add("@IDRecibo", SqlDbType.Int, 4);
+                parametro2.Value = dummy;
+                var parametro3 = _comandosql.Parameters.Add("@fecha", SqlDbType.SmallDateTime, 15);
+                parametro3.Value = dateTime;
+                var parametro4 = _comandosql.Parameters.Add("@IdCaja", SqlDbType.TinyInt, 4);
+                parametro4.Value = caja;
+
+                _adaptador.SelectCommand = _comandosql;
+                _adaptador.Fill(tabla);
+
             }
             catch (SqlException e)
             {

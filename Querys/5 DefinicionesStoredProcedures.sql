@@ -704,36 +704,6 @@ BEGIN
 
 END
 GO
---------------------------------------------------------------------------------------------------------Sp_ReporteDeVentas
-IF OBJECT_ID('sp_ConsultaRecibos')IS NOT NULL
-	DROP PROCEDURE sp_ConsultaRecibos;
-GO
-Create Procedure sp_ConsultaRecibos( @op Char(1)
-									,@IDRecibo INT=NULL
-)
-AS
-BEGIN
-	if @op='C'
-	Select 
-		 [Numero de recibo]
-		,[Nombre del cajero]
-		,[Fecha de Venta]
-		,[Caja de la venta]
-		,[Nombre Del Producto]
-		,[Precio de Producto]
-		,[Cantidad de productos]
-		,[Descuento Aplicado]
-		,[Cantidad Descontada]
-		,[Opcion de pago]
-		,[Cantidad de pago]
-		,[Subtotal]
-		,[Total]
-	 from 
-		v_ReciboDeVenta as Recibo 
-	where 
-		[Numero de recibo] like CONCAT('%',@IDRecibo,'%');
-END
-GO
 --------------------------------------------------------------------------------------------------------SP_BuscarProductoEnRecibo
 IF OBJECT_ID('SP_BuscarProductoEnRecibo')IS NOT NULL
 	DROP PROCEDURE SP_BuscarProductoEnRecibo;
@@ -793,12 +763,7 @@ GO
 IF OBJECT_ID('Sp_Header_NotaCreditoYDevolucion')IS NOT NULL
 	DROP PROCEDURE Sp_Header_NotaCreditoYDevolucion;
 GO
-Create procedure Sp_Header_NotaCreditoYDevolucion(	@op char(1),
-													@IDNotaCred_Devol int=NULL,
-													@notaCreditoFK int	 = NULL,
-													@Devolucion int		 = NULL,
-													@fecha Smalldatetime = NULL
-													)
+Create procedure Sp_Header_NotaCreditoYDevolucion(	@op char(1),@IDNotaCred_Devol int=NULL,	@notaCreditoFK int	 = NULL,@Devolucion int		 = NULL,@fecha Smalldatetime = NULL	)
 AS
 BEGIN
 	if @op='i'
@@ -806,13 +771,71 @@ BEGIN
 		Insert into NotaCred_Devol(NotaCreditoFK,DevolucionFK,Fecha) VALUES (@notaCreditoFK,@Devolucion,@fecha)
 		Select IDNotaCred_Devol,NotaCreditoFK,DevolucionFK,Fecha from NotaCred_Devol where  IDNotaCred_Devol= @@IDENTITY;
 	END
-	if @op='c'
+	if @op='s'
 		Select				
-			[Recibo De Compra]					,
-			[Total del Recibo]					,
-			[Producto Devuelto]					,
-			[Cantidad de Productos devueltos]	,
-			[Es Merma]
-			from v_NotaCreditoYDevol where @notaCreditoFK = 
+			[Numero De Nota De Credito] as IDNotaCred_Devol,
+			[Recibo De Compra]			as NotaCreditoFK,
+			[Codigo del Producto]		as DevolucionFK,
+			[Fecha]						as Fecha
+		from v_NotaCreditoYDevol where @notaCreditoFK = [Recibo De Compra];
 END	
 GO	
+
+--------------------------------------------------------------------------------------------------------Sp_ReporteDeVentas
+IF OBJECT_ID('sp_ConsultaRecibos')IS NOT NULL
+	DROP PROCEDURE sp_ConsultaRecibos;
+GO
+Create Procedure sp_ConsultaRecibos( @op Char(1)
+									,@IDRecibo INT			=NULL
+									,@fecha smalldatetime	=NULL
+									,@IdCaja tinyint		=NULL
+									
+)
+AS
+BEGIN
+	if @op='N'
+	BEGIN
+		IF EXISTS (Select [Numero de recibo] from v_ReciboDeVenta where [Numero de recibo] = @IDRecibo)
+			Select 
+				[Numero de recibo],
+				MAX([Nombre del cajero])				as [Nombre del cajero],
+				MAX([Fecha de Venta])					as [Fecha de Venta],
+				MAX([Caja de la venta])					as [Caja de la Venta],
+				COUNT(Distinct[Cantidad de productos])	as [Productos en recibo],
+				COUNT([Opcion de pago])					as [Opciones de pago],
+				MAX([Subtotal])							as [Subtotal de Recibo],
+				MAX([Total])							as [Total de Recibo]
+			from 
+				v_ReciboDeVenta as Recibo 
+			where 
+				[Numero de recibo] = @IDRecibo
+			group by [Numero de recibo];
+		Else
+			SELECT 'No hay Recibos con ese Numero de Recibo'[Mensaje];
+	END
+
+	if @op='D'
+	BEGIN
+	
+		IF EXISTS (Select [Numero de recibo] from v_ReciboDeVenta where cast(v_ReciboDeVenta.[Fecha de Venta] as smalldatetime) =@fecha )
+			Select 
+				[Numero de recibo],
+				MAX([Nombre del cajero])				as [Nombre del cajero],
+				MAX([Fecha de Venta])					as [Fecha de Venta],
+				MAX([Caja de la venta])					as [Caja de la Venta],
+				COUNT(Distinct[Cantidad de productos])	as [Productos en recibo],
+				COUNT([Opcion de pago])					as [Opciones de pago],
+				MAX([Subtotal])							as [Subtotal de Recibo],
+				MAX([Total])							as [Total de Recibo]
+			from 
+				v_ReciboDeVenta as Recibo 
+			where 
+				CAst([Fecha de Venta]  as date) = cast(@fecha as date) AND [Caja de la venta]=@IdCaja
+			group by [Numero de recibo];
+		Else
+			SELECT 'No hay Recibos con ese Numero de Recibo'[Mensaje];
+		
+	END
+
+END
+GO
