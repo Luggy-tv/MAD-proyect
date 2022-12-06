@@ -801,7 +801,7 @@ BEGIN
 				MAX([Nombre del cajero])				as [Nombre del cajero],
 				MAX([Fecha de Venta])					as [Fecha de Venta],
 				MAX([Caja de la venta])					as [Caja de la Venta],
-				COUNT(Distinct[Cantidad de productos])	as [Productos en recibo],
+				[Cantidad de productos]					as [Productos en recibo],
 				COUNT([Opcion de pago])					as [Opciones de pago],
 				MAX([Subtotal])							as [Subtotal de Recibo],
 				MAX([Total])							as [Total de Recibo]
@@ -809,40 +809,40 @@ BEGIN
 				v_ReciboDeVenta as Recibo 
 			where 
 				[Numero de recibo] = @IDRecibo
-			group by [Numero de recibo];
+			group by [Numero de recibo],[Cantidad de productos];
 		Else
 			SELECT 'No hay Recibos con ese Numero de Recibo'[Mensaje];
 	END
 	if @op='D'
 	BEGIN
-	 --declare @fecha smalldatetime	
-	 --declare @IdCaja tinyint	
-	 --set @fecha ='2022-12-24'	
-	 --set @IdCaja =1
-	 --Select [Numero de recibo] from v_ReciboDeVenta where cast(v_ReciboDeVenta.FechaDVenta as date) = cast(@fecha as date)	AND [Caja de la venta]=@IdCaja
+
+	declare @fecha datetime
+	declare @IdCaja tinyint
+	set @IdCaja =1
+	set @fecha= GETDATE();
 		IF EXISTS (Select [Numero de recibo] from v_ReciboDeVenta where cast(v_ReciboDeVenta.FechaDVenta as date) = cast(@fecha as date) AND [Caja de la venta]=@IdCaja )
 			Select 
 				[Numero de recibo],
-				MAX([Nombre del cajero])				as [Nombre del cajero],
-				format (MAX(FechaDVenta),'dd MMMM yyyy hh:mm:ss','es-es') 						as [Fecha de Venta],
-				MAX([Caja de la venta])					as [Caja de la Venta],
-				COUNT(Distinct[Cantidad de productos])	as [Productos en recibo],
+				[Nombre del cajero]				as [Nombre del cajero],
+				format (FechaDVenta,'dd MMMM yyyy hh:mm:ss','es-es') 						as [Fecha de Venta],
+				[Caja de la venta]					as [Caja de la Venta],
+				SUM([Cantidad de productos]	)				as [Productos en recibo],
 				COUNT([Opcion de pago])					as [Opciones de pago],
-				MAX([Subtotal])							as [Subtotal de Recibo],
-				MAX([Total])							as [Total de Recibo]
+				[Subtotal]							as [Subtotal de Recibo],
+				[Total]							as [Total de Recibo]
 			from 
 				v_ReciboDeVenta as Recibo 
 			where 
 				cast(FechaDVenta as date) = cast(@fecha as date) AND [Caja de la venta]=@IdCaja
-			group by [Numero de recibo];
+			group by [Numero de recibo],[Cantidad de productos],[Subtotal],[Total],[Caja de la Venta],FechaDVenta,[Nombre del cajero];
 		Else
 			SELECT 'No hay Recibos con ese fecha o caja'[Mensaje];
 		
 	END
 
 END
-GO
-
+GO  
+-------------------------------------------------------------------------------------------------------SP_ConsultaNotasCredito
 IF OBJECT_ID('sp_ConsultaNotasDeCredito')IS NOT NULL
 	DROP PROCEDURE sp_ConsultaNotasDeCredito;
 GO

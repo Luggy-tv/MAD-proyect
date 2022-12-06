@@ -16,7 +16,6 @@ Create view v_Usuarios AS
 			,CASE Estatus WHEN 0 THEN 'Dado de Baja'ELSE 'Activo' END AS[Estado en la empresa]
 			from Usuario;
 GO
-
 IF OBJECT_ID('v_UsuariosActivos') IS NOT NULL
 	DROP View v_UsuariosActivos;
 GO
@@ -104,7 +103,7 @@ Create view v_ReciboDeVenta as
 		 end									AS [Fecha de Venta]
 		,CASE 
 			when Venta.IDLogVenta IS NOT NULL then 
-				convert(varchar(19),caja.IDCaja)
+				convert(varchar,caja.IDCaja)
 			else 
 				'Caja no identificada' 
 		 end									AS [Caja de la venta]
@@ -140,7 +139,6 @@ Create view v_ReciboDeVenta as
 		left join Caja				as Caja			on LogUsuCaja.CajaFK		= Caja.IDCaja
 		left join Descuento			as Descu		on descu.ProductoFK			= Prod.IDProducto
 GO
-select *from v_ReciboDeVenta
 -------------------------------------------------------Vista de Busqueda de producto en recibo
 IF OBJECT_ID('v_BuscarProductoEnRecibo')IS NOT NULL
 	DROP view v_BuscarProductoEnRecibo;
@@ -157,7 +155,6 @@ CREATE VIEW v_BuscarProductoEnRecibo as
 	left join Producto				as Producto		on DetalleProd.ProductoFK=Producto.IDProducto
 	left join Departamento			as Departamento on Producto.DepartamentoFK=Departamento.IDDepartamento
 GO
-
 -------------------------------------------------------Vista de NotadeCredito y Devoluciones
 IF OBJECT_ID('v_NotaCreditoYDevol')IS NOT NULL
 	DROP view v_NotaCreditoYDevol;
@@ -182,25 +179,31 @@ CREATE VIEW v_NotaCreditoYDevol as
 	left join Producto		as Prod			on Prod.IDProducto			=Devol.ProductoFK
 	left join Departamento	as Dpto			on Dpto.IDDepartamento		=Prod.DepartamentoFK
 GO
+------------------------------------------------------Vista para Inventario
 
-
---select* from Devolucion
---select*from NotaCredito
---select*from NotaCred_Devol
-
---alter table NotaCred_Devol
---drop constraint [FK_NotaCredDevol_Devolucion]
---alter table NotaCred_Devol
---drop constraint[FK_NotaCredDevol_NotaCredito]
-
---ALTER  table NotaCred_Devol
---add CONSTRAINT FK_NotaCredDevol_NotaCredito
---	FOREIGN KEY (NotaCreditoFK) REFERENCES NotaCredito(IDNotaCredito)
---ALTER  table NotaCred_Devol
---add CONSTRAINT FK_NotaCredDevol_Devolucion
---	FOREIGN KEY (DevolucionFK) REFERENCES Devolucion(IDDevolucion)
-
---truncate table devolucion
---truncate table	NotaCredito
---truncate table	NotaCred_Devol
-select * from v_NotaCreditoYDevol
+IF OBJECT_ID('v_Inventario')IS NOT NULL
+	DROP view v_Inventario;
+GO
+CREATE VIEW v_Inventario as
+	Select 
+		Dept.nombreDept								as Departamento,
+		Product.Nombre								as Producto,
+		UniMed.Nombre								as [Unidad de Medida],
+		format(Product.PrecioUnitario,'c','en-us')	as Costo,
+		format(Product.Costo,'c','en-us')			as [Precio Unitario],
+		Product.Existencias							as Existencias,
+		CASE
+			WHEN SUM(DetalleProd.CantProd) IS NOT NULL then	
+				convert(varchar,sum( DetalleProd.CantProd))
+			else 'No se ha vendido el producto' 
+		end												as [Unidades Vendidas],
+		Count(Devol.Merma)							as Merma	
+	from Producto				as Product
+	Left Join Departamento		AS Dept				on Dept.IDDepartamento		= Product.DepartamentoFK
+	left join UnidadDeMedida	AS UniMed			on UniMed.IDUnidadDeMedida	= Product.UnidadMedidaFK
+	left join DetalleProductos  AS DetalleProd		on DetalleProd.ProductoFK	= Product.IDProducto
+	Left join ReciboDeVenta		AS RecivoVent		on RecivoVent.IDRecibo		= DetalleProd.ReciboVentaFK
+	left join Devolucion		AS Devol			on Devol.ProductoFK			= Product.IDProducto
+	left join NotaCred_Devol	as notCred			on notCred.DevolucionFK		= Devol.IDDevolucion
+	Group by Dept.nombreDept,Product.Nombre,UniMed.Nombre,Product.PrecioUnitario,Product.Costo,Product.Existencias
+GO
