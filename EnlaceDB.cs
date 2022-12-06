@@ -494,16 +494,22 @@ namespace MAD3_ventanas
                 _comandosql = new SqlCommand(qry, _conexion);
                 _comandosql.CommandType = CommandType.StoredProcedure;
                 _comandosql.CommandTimeout = 1200;
+                
                 var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
                 parametro1.Value = op;
+
                 var parametro2 = _comandosql.Parameters.Add("@IDNotaCred_Devol", SqlDbType.Int, 4);
                 parametro2.Value = IdNotaCredito_Devol;
+  
                 var parametro3 = _comandosql.Parameters.Add("@notaCreditoFK", SqlDbType.Int, 4);
                 parametro3.Value = notaCreditoFK;
+                
                 var parametro4 = _comandosql.Parameters.Add("@Devolucion", SqlDbType.Int, 4);
                 parametro4.Value = Devolucion;
+                
                 var parametro5 = _comandosql.Parameters.Add("@fecha", SqlDbType.SmallDateTime, 4);
                 parametro5.Value = fecha;
+
                 var dataReader = _comandosql.ExecuteReader();
 
                 obj = GetList<ObjetoDB.NotaCred_Devol>(dataReader);
@@ -522,6 +528,7 @@ namespace MAD3_ventanas
 
             return obj;
         }
+        
         public DataTable ConsultaTablaDatosDeTienda()
         {
             var msg = "";

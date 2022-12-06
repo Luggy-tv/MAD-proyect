@@ -19,7 +19,7 @@ GO
 Create Procedure sp_GestionarUsuario(
 	 @op			CHAR(1)
 	,@IDUsuario		SMALLINT		 = NULL
-	,@contraseï¿½a	VARCHAR(20)		 = NULL
+	,@contraseña	VARCHAR(20)		 = NULL
 	,@nombres		VARCHAR(30)		 = NULL
 	,@apellidoPat	VARCHAR(30)		 = NULL
 	,@apellidoMat	VARCHAR(30)		 = NULL
@@ -35,7 +35,7 @@ Create Procedure sp_GestionarUsuario(
 	--se guarda la fecha del servidor como la fecha de alta.
 
 	--E Sobre escribe todos los datos modificables siendo estos:
-	-- Contraseï¿½a, Numero nomina, fecha nacimiento
+	-- Contraseña, Numero nomina, fecha nacimiento
 
 	--D Dar de baja logica al Administrador convirtiendo estatus de 1 a 0
 
@@ -48,14 +48,14 @@ BEGIN
 
 		IF @op='I'
 		BEGIN
-			INSERT INTO Usuario(contraseï¿½a,nombres,apellidoPat,apellidoMat,CURP,fechNac,numNomina,email,fechaAlta,esAdmin)
-				VALUES(@contraseï¿½a,@nombres,@apellidoPat,@apellidoMat,@CURP,@fechNac,@numNomina,@email,@hoy,@esAdmin);
+			INSERT INTO Usuario(contraseña,nombres,apellidoPat,apellidoMat,CURP,fechNac,numNomina,email,fechaAlta,esAdmin)
+				VALUES(@contraseña,@nombres,@apellidoPat,@apellidoMat,@CURP,@fechNac,@numNomina,@email,@hoy,@esAdmin);
 		END
 
 		IF @op='E'
 		BEGIN
 			UPDATE Usuario SET		
-				 contraseï¿½a			  =ISNULL(@contraseï¿½a	,contraseï¿½a	 )
+				 contraseña			  =ISNULL(@contraseña	,contraseña	 )
 				,nombres			  =ISNULL(@nombres		,nombres	 )
 				,apellidoPat		  =ISNULL(@apellidoPat	,apellidoPat )
 				,apellidoMat		  =ISNULL(@apellidoMat	,apellidoMat )
@@ -76,7 +76,7 @@ BEGIN
 		IF @op='S'
 		BEGIN
 			SELECT	IDUsuario	
-					,contraseï¿½a	
+					,contraseña	
 					,nombres	
 					,apellidoPat
 					,apellidoMat
@@ -785,9 +785,7 @@ BEGIN
 		Insert into Devolucion(Cantidad,Merma,ProductoFK) VALUES (@cantidad,@merma,@ProductoFK)
 		Select IDDevolucion,Cantidad,Merma,ProductoFK from Devolucion where  IDDevolucion= @@IDENTITY;
 		if @merma=0
-			update Producto set
-				Existencias = Existencias + @cantidad
-			where IDProducto=@ProductoFK;
+			update Producto set Existencias = Existencias + @cantidad where IDProducto=@ProductoFK;
 	END
 END
 GO
@@ -808,7 +806,13 @@ BEGIN
 		Insert into NotaCred_Devol(NotaCreditoFK,DevolucionFK,Fecha) VALUES (@notaCreditoFK,@Devolucion,@fecha)
 		Select IDNotaCred_Devol,NotaCreditoFK,DevolucionFK,Fecha from NotaCred_Devol where  IDNotaCred_Devol= @@IDENTITY;
 	END
-	if @op='s'
-		Select IDNotaCred_Devol,NotaCreditoFK,DevolucionFK,Fecha from NotaCred_Devol
-END
-GO
+	if @op='c'
+		Select				
+			[Recibo De Compra]					,
+			[Total del Recibo]					,
+			[Producto Devuelto]					,
+			[Cantidad de Productos devueltos]	,
+			[Es Merma]
+			from v_NotaCreditoYDevol where @notaCreditoFK = 
+END	
+GO	

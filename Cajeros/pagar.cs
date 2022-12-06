@@ -191,8 +191,8 @@ namespace MAD3_ventanas
 
                 if(pagoTot>= ventas.ptotalVenta)
                 {
-                         "Emitir recibo", MessageBoxButtons.YesNo);
-                    DialogResult dr = MessageBox.Show("¿Desea emitir recibo?",
+                         
+                    DialogResult dr = MessageBox.Show("¿Desea emitir recibo?","Emitir recibo", MessageBoxButtons.YesNo);
                     switch (dr)
                     {
                         case DialogResult.Yes:
@@ -293,7 +293,7 @@ namespace MAD3_ventanas
             e.Graphics.DrawString("C.P. " + DatosDeTienda.CodigoPostal, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
             e.Graphics.DrawString("Teléfono " + DatosDeTienda.numTel, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
 
-            e.Graphics.DrawString("Recibo #"+reciboDeVenta.IDRecibo, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("Recibo #"+ reciboDeVenta.IDRecibo, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
 
 
         }
