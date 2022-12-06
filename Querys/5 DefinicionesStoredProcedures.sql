@@ -876,7 +876,7 @@ BEGIN
 	END
 	if @op='D'
 	BEGIN
-	 		IF EXISTS (Select [Numero De Nota De Credito] from v_NotaCreditoYDevol where )
+	 		IF EXISTS (Select [Numero De Nota De Credito] from v_NotaCreditoYDevol where cast([FechaDDvolucion] as date) = cast(@fecha as date))
 			Select 
 				[Numero De Nota De Credito],
 				MAX([Fecha de devolucion])				as [Fecha de Devolucion],
@@ -887,13 +887,11 @@ BEGIN
 			from 
 				v_NotaCreditoYDevol as NotaCreditoYDevolucion 
 			where 
-				[Numero De Nota De Credito] = @IDNotaCredito
+				cast([FechaDDvolucion] as date) = cast(@fecha as date)
 			group by [Numero De Nota De Credito];
 		Else
-			SELECT 'No hay notas con ese Numero de nota'[Mensaje];
+			SELECT 'No hay notas en esa fecha'[Mensaje];
 	END
 
 END
 GO
-
---select format (MAX(FechaDVenta),'dd MMMM yyyy hh:mm:ss','es-es') 	 from v_ReciboDeVenta

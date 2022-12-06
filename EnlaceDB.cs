@@ -24,10 +24,6 @@ namespace MAD3_ventanas
         static private DataTable _tabla = new DataTable();
         static private DataSet _DS = new DataSet();
 
-
-
-
-
         private static void conectar()
         {
             //string cnn = ConfigurationManager.AppSettings["desarrollo1"];
@@ -690,6 +686,83 @@ namespace MAD3_ventanas
                 var parametro1 = _comandosql.Parameters.Add("@Op", SqlDbType.Char, 1);
                 parametro1.Value = opc;
                 var parametro2 = _comandosql.Parameters.Add("@IDRecibo", SqlDbType.Int, 4);
+                parametro2.Value = dummy;
+                var parametro3 = _comandosql.Parameters.Add("@fecha", SqlDbType.SmallDateTime, 15);
+                parametro3.Value = dateTime;
+                var parametro4 = _comandosql.Parameters.Add("@IdCaja", SqlDbType.TinyInt, 4);
+                parametro4.Value = caja;
+
+                _adaptador.SelectCommand = _comandosql;
+                _adaptador.Fill(tabla);
+
+            }
+            catch (SqlException e)
+            {
+                msg = "Excepción de base de datos: \n";
+                msg += e.Message;
+                MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            finally
+            {
+                desconectar();
+            }
+
+            return tabla;
+
+        }
+        public DataTable ConsultaNotaPorNumero(string opc, int idNota)
+        {
+            var msg = "";
+            DataTable tabla = new DataTable();
+            try
+            {
+                conectar();
+                string qry = "sp_ConsultaNotasDeCredito";
+                _comandosql = new SqlCommand(qry, _conexion);
+                _comandosql.CommandType = CommandType.StoredProcedure;
+
+                _comandosql.CommandTimeout = 1200;
+
+                var parametro1 = _comandosql.Parameters.Add("@Op", SqlDbType.Char, 1);
+                parametro1.Value = opc;
+                var parametro2 = _comandosql.Parameters.Add("@IDNotaCredito", SqlDbType.Int, 4);
+                parametro2.Value = idNota;
+
+                _adaptador.SelectCommand = _comandosql;
+                _adaptador.Fill(tabla);
+
+            }
+            catch (SqlException e)
+            {
+                msg = "Excepción de base de datos: \n";
+                msg += e.Message;
+                MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            finally
+            {
+                desconectar();
+            }
+
+            return tabla;
+
+        }
+        public DataTable ConsultaNotaPorFecha(string opc, byte caja, DateTime dateTime)
+        {
+            var msg = "";
+            DataTable tabla = new DataTable();
+            int dummy = 100000;
+            try
+            {
+                conectar();
+                string qry = "sp_ConsultaNotasDeCredito";
+                _comandosql = new SqlCommand(qry, _conexion);
+                _comandosql.CommandType = CommandType.StoredProcedure;
+
+                _comandosql.CommandTimeout = 1200;
+
+                var parametro1 = _comandosql.Parameters.Add("@Op", SqlDbType.Char, 1);
+                parametro1.Value = opc;
+                var parametro2 = _comandosql.Parameters.Add("@IDNotaCredito", SqlDbType.Int, 4);
                 parametro2.Value = dummy;
                 var parametro3 = _comandosql.Parameters.Add("@fecha", SqlDbType.SmallDateTime, 15);
                 parametro3.Value = dateTime;

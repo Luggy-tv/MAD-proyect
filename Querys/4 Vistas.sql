@@ -203,4 +203,4 @@ GO
 --truncate table devolucion
 --truncate table	NotaCredito
 --truncate table	NotaCred_Devol
-
+select * from v_NotaCreditoYDevol
