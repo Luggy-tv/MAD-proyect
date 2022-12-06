@@ -9,10 +9,17 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing.Printing;
 
+
 namespace MAD3_ventanas
 {
+   
     public partial class pagar : Form
     {
+        public ObjetoDB.ReciboDeVenta reciboDeVenta = new ObjetoDB.ReciboDeVenta();
+        public ObjetoDB.DatosDeTienda DatosDeTienda = new ObjetoDB.DatosDeTienda();
+
+                           
+
         public pagar()
         {
             InitializeComponent();
@@ -122,9 +129,13 @@ namespace MAD3_ventanas
                 e.Handled = true;
             }
         }
+
+
+
+
         private void button1_Click(object sender, EventArgs e)
         {
-            ObjetoDB.ReciboDeVenta reciboDeVenta = new ObjetoDB.ReciboDeVenta();
+            
             //ventas.productosEnVentasLista;
 
             //DateTime localDate = DateTime.Now;
@@ -257,12 +268,23 @@ namespace MAD3_ventanas
 
         private void Imprimir(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
+            var objBD = new EnlaceDB();
+            DatosDeTienda = objBD.ConsultaDatosDeTienda().First<ObjetoDB.DatosDeTienda>();
+
+
             Font font = new Font("Arial", 12);
-            int ancho = 150;
+            int ancho = 300;
             int y = 20;
 
-            e.Graphics.DrawString("----- VELPONCH ------", font, Brushes.Gray, new RectangleF(0, y + 20, ancho, 20));
+            e.Graphics.DrawString("       ---VELPONCH---       ", font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString(""+ DatosDeTienda.NombreTienda, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("Sucursal " + DatosDeTienda.Sucursal, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("RFC " + DatosDeTienda.RFC, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("" + DatosDeTienda.Domicilio, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("C.P. " + DatosDeTienda.CodigoPostal, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("Teléfono " + DatosDeTienda.numTel, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
 
+            e.Graphics.DrawString("Recibo #"+reciboDeVenta.IDRecibo, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
 
 
         }

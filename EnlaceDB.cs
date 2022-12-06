@@ -41,6 +41,8 @@ namespace MAD3_ventanas
         {
             _conexion.Close();
         }
+
+
         /*
        public bool Autentificar(string us, string ps)
        {
@@ -401,7 +403,6 @@ namespace MAD3_ventanas
 
             return lista;
         }//Agregado
-
 
         //////////////////////////////////////////////////////////////////////////////////////////////////
         public List<ObjetoDB.Inventario> ConsultaInventario()
@@ -1175,6 +1176,7 @@ namespace MAD3_ventanas
 
             return add;
         }
+       
         public bool GestDetallePago(string      op          ,
                                      int        FkRecVent   ,
                                      byte        FKOpPago,
