@@ -7,11 +7,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Printing;
 
 namespace MAD3_ventanas.Administrador
 {
     public partial class Devoluciones : Form
     {
+        public ObjetoDB.DatosDeTienda DatosDeTienda = new ObjetoDB.DatosDeTienda();
+        public ObjetoDB.ReciboDeVenta reciboDeVenta = new ObjetoDB.ReciboDeVenta();
+        public ObjetoDB.NotaCredito notaCredito = new ObjetoDB.NotaCredito();
+        public ObjetoDB.Devolucion devolucion = new ObjetoDB.Devolucion();
+
+
+
         public Devoluciones()
         {
             InitializeComponent();
@@ -25,7 +33,6 @@ namespace MAD3_ventanas.Administrador
         }
         private void button1_Click(object sender, EventArgs e)
         {
-
 
             DateTime localdate;
             localdate = DateTime.Now;
@@ -44,9 +51,7 @@ namespace MAD3_ventanas.Administrador
             List<ObjetoDB.NotaCred_Devol> ListanotaCred_Devols = new List<ObjetoDB.NotaCred_Devol>();
             
             ObjetoDB.Producto_En_Recibo productoEnRecibo = new ObjetoDB.Producto_En_Recibo();
-            ObjetoDB.ReciboDeVenta reciboDeVenta = new ObjetoDB.ReciboDeVenta();
-            ObjetoDB.NotaCredito notaCredito = new ObjetoDB.NotaCredito();
-            ObjetoDB.Devolucion devolucion = new ObjetoDB.Devolucion();
+           
             ObjetoDB.NotaCred_Devol notaCred_Devol = new ObjetoDB.NotaCred_Devol();
 
             ListanotaCred_Devols = null;
@@ -90,12 +95,19 @@ namespace MAD3_ventanas.Administrador
                                             op = "i";
                                             notaCredito = objBD.ConsultaNotaCredito(op, reciboDeVenta.IDRecibo, reciboDeVenta.Total, reciboDeVenta.Subtotal).First();
 
-                                            devolucion = objBD.ConsultaDevolucion(op, seleccion.IDProducto, decimal.Parse(textBox1.Text),checkBox1.Checked).First();
+                                            devolucion = objBD.ConsultaDevolucion(op, seleccion.IDProducto, decimal.Parse(textBox1.Text), checkBox1.Checked).First();
 
                                             notaCred_Devol = objBD.ConsultaNotaCreditoYDevolucion(op, dummy2, notaCredito.IDNotaCredito, devolucion.IDDevolucion, localdate).First();
 
 
                                             MessageBox.Show("Nota de Credito generada imprimiendo acontinuacion", "Nota de credito creada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                            //IMPRESIÓN DE LA NOTA DE CRÉDITO
+                                            printDocument1 = new PrintDocument();
+                                            PrinterSettings ps = new PrinterSettings();
+                                            printDocument1.PrinterSettings = ps;
+                                            printDocument1.PrintPage += Imprimir;
+                                            printDocument1.Print();
 
                                             this.Close();
                                             mainmenuADM1 mainmenuADM1 = new mainmenuADM1();
@@ -269,6 +281,64 @@ namespace MAD3_ventanas.Administrador
                 }
             }
             return flag;
+        }
+
+        private void Imprimir(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            var objBD = new EnlaceDB();
+            DatosDeTienda = objBD.ConsultaDatosDeTienda().First<ObjetoDB.DatosDeTienda>();
+            var seleccion = comboBox1.SelectedItem as ObjetoDB.Producto;
+
+            var total = seleccion.Costo * devolucion.Cantidad;
+
+           
+
+            DateTime localdate;
+            localdate = DateTime.Now;
+
+            Font font = new Font("Lucida Console", 10);
+            int ancho = 600;
+            int y = 20;
+
+                       
+            e.Graphics.DrawString("                      ---Nota de Crédito---                   ", font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("" + DatosDeTienda.NombreTienda, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("Sucursal " + DatosDeTienda.Sucursal, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("RFC " + DatosDeTienda.RFC, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("" + DatosDeTienda.Domicilio, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("C.P. " + DatosDeTienda.CodigoPostal, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("Teléfono " + DatosDeTienda.numTel, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+
+            e.Graphics.DrawString("--------------------------------------------------------------------", font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            //Datos de venta    notaCredito
+            e.Graphics.DrawString("Recibo relacionado: #" + reciboDeVenta.IDRecibo, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("Fecha y hora de emisión: " + localdate, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("Nota de crédito #" + notaCredito.IDNotaCredito, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+
+            e.Graphics.DrawString("--------------------------------------------------------------------", font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            //Datos de producto devuelto
+            e.Graphics.DrawString("Concepto", font, Brushes.Gray, new RectangleF(0, y + 20, ancho, 20));
+            e.Graphics.DrawString("Precio U", font, Brushes.Gray, new RectangleF(300, y + 20, ancho, 20));
+            e.Graphics.DrawString("Cant", font, Brushes.Gray, new RectangleF(400, y + 20, ancho, 20));
+            e.Graphics.DrawString("Monto", font, Brushes.Gray, new RectangleF(500, y + 20, ancho, 20));
+            e.Graphics.DrawString(" ", font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+
+
+            //e.Graphics.DrawString("" + seleccion.Nombre + " " + "$" + String.Format("{0:0.00}", seleccion.Costo) + " " + String.Format("{0:0.00}", devolucion.Cantidad) + " " + "$" + String.Format("{0:0.00}", total), font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+
+            e.Graphics.DrawString("" + seleccion.Nombre, font, Brushes.Gray, new RectangleF(0, y + 20, ancho, 20));
+            e.Graphics.DrawString(" " + "$" + String.Format("{0:0.00}", seleccion.Costo), font, Brushes.Gray, new RectangleF(300, y + 20, ancho, 20));
+            e.Graphics.DrawString("" + String.Format("{0:0.00}", devolucion.Cantidad), font, Brushes.Gray, new RectangleF(400, y + 20, ancho, 20));
+            e.Graphics.DrawString("$" + String.Format("{0:0.00}", total), font, Brushes.Gray, new RectangleF(500, y + 20, ancho, 20));
+
+            e.Graphics.DrawString(" ", font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("-------------------------------------------------------------------", font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("Contacto:", font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("" + DatosDeTienda.email, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+
+
+
+
         }
     }
 }
