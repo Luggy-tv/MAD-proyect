@@ -123,7 +123,7 @@ namespace MAD3_ventanas
         }//Validacion de solo numeros en cantidad a pagar
         private void button1_Click(object sender, EventArgs e)
         {
-            ObjetoDB.ReciboDeVenta reciboDeVenta = new ObjetoDB.ReciboDeVenta();
+            //ObjetoDB.ReciboDeVenta reciboDeVenta = new ObjetoDB.ReciboDeVenta();
 
             bool comp=false;
 
@@ -191,8 +191,9 @@ namespace MAD3_ventanas
 
                 if(pagoTot>= ventas.ptotalVenta)
                 {
-                         
-                    DialogResult dr = MessageBox.Show("¿Desea emitir recibo?","Emitir recibo", MessageBoxButtons.YesNo);
+                        DialogResult dr = MessageBox.Show("¿Desea emitir recibo?",
+                         "Emitir recibo", MessageBoxButtons.YesNo);
+                    
                     switch (dr)
                     {
                         case DialogResult.Yes:
@@ -212,6 +213,7 @@ namespace MAD3_ventanas
                             {
                                 string op = "i";
                                 comp = objBD.GestDetalleProd(op, reciboDeVenta.IDRecibo, item.IDProducto, item.CantProd);
+                                
                             }
 
                             var opc = "i";
@@ -281,11 +283,15 @@ namespace MAD3_ventanas
             DatosDeTienda = objBD.ConsultaDatosDeTienda().First<ObjetoDB.DatosDeTienda>();
 
 
-            Font font = new Font("Arial", 12);
-            int ancho = 300;
+            Font font = new Font("Lucida Console", 10);
+            int ancho = 400;
             int y = 20;
 
-            e.Graphics.DrawString("       ---VELPONCH---       ", font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            DateTime horaDeVenta = loginCaj.currentLogin.fecha;
+            TimeSpan ts = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            horaDeVenta = horaDeVenta.Date + ts;
+
+            e.Graphics.DrawString("            ---Recibo de Venta---           ", font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
             e.Graphics.DrawString(""+ DatosDeTienda.NombreTienda, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
             e.Graphics.DrawString("Sucursal " + DatosDeTienda.Sucursal, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
             e.Graphics.DrawString("RFC " + DatosDeTienda.RFC, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
@@ -293,7 +299,45 @@ namespace MAD3_ventanas
             e.Graphics.DrawString("C.P. " + DatosDeTienda.CodigoPostal, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
             e.Graphics.DrawString("Teléfono " + DatosDeTienda.numTel, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
 
-            e.Graphics.DrawString("Recibo #"+ reciboDeVenta.IDRecibo, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("---------------------------------------------", font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+
+            e.Graphics.DrawString("Recibo #" + reciboDeVenta.IDRecibo, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("Caja #" + loginCaj.currentLogin.CajaFK, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("Cajero:" + loginCaj.loggedUser.nombres + " " + loginCaj.loggedUser.apellidoPat + " " + loginCaj.loggedUser.apellidoMat, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("Fecha y hora:" + horaDeVenta, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+
+            e.Graphics.DrawString("---------------------------------------------", font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+
+            e.Graphics.DrawString("Cantidad    Producto               Importe ", font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+
+
+            //FOREACH DE PRODUCTOS
+            foreach (var item in ventas.productosEnVentasLista)
+            {
+                //e.Graphics.DrawString(item.CantProd + "              " + item.Nombre + "           " + item.PrecioProds, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+                y += 20;
+                e.Graphics.DrawString("" + item.CantProd, font, Brushes.Gray, new RectangleF(0, y, ancho, 20));
+                e.Graphics.DrawString(item.Nombre, font, Brushes.Gray, new RectangleF(100, y, ancho, 20));
+                e.Graphics.DrawString("" + item.PrecioProds, font, Brushes.Gray, new RectangleF(300, y, ancho, 20));
+
+            }
+
+            e.Graphics.DrawString("Subtotal:", font, Brushes.Gray, new RectangleF(220, y += 20, ancho, 20));
+            e.Graphics.DrawString("" + ventas.subtotalVenta, font, Brushes.Gray, new RectangleF(300, y, ancho, 20));
+
+            e.Graphics.DrawString("Total:", font, Brushes.Gray, new RectangleF(220, y += 20, ancho, 20));
+            e.Graphics.DrawString("" + ventas.ptotalVenta, font, Brushes.Gray, new RectangleF(300, y, ancho, 20));
+            
+
+            e.Graphics.DrawString("---------------------------------------------", font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+
+            e.Graphics.DrawString("         >> GRACIAS POR SU COMPRA <<         ", font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+
+            e.Graphics.DrawString("---------------------------------------------", font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+
+            e.Graphics.DrawString("Contacto:", font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+            e.Graphics.DrawString("" + DatosDeTienda.email, font, Brushes.Gray, new RectangleF(0, y += 20, ancho, 20));
+
 
 
         }
