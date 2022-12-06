@@ -22,7 +22,7 @@ namespace MAD3_ventanas.Administrador
             this.Close();
             mainmenuADM1 mainmenuADM1 = new mainmenuADM1();
             mainmenuADM1.Show();
-        }
+        }//RegresarMenuPrincipal
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -46,6 +46,7 @@ namespace MAD3_ventanas.Administrador
                     string op = "n";
                     int IDrecibo = int.Parse(textBox1.Text);
                     dataGridView1.DataSource = objBD.ConsultaReciboPorNumero(op, IDrecibo);
+                    textBox1.Clear();
                 }
             }
             else
