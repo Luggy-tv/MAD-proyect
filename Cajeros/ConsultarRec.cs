@@ -45,7 +45,6 @@ namespace MAD3_ventanas
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var comp = false;
             var objBD = new EnlaceDB();
 
             if(textBox1.Text!="")
@@ -54,15 +53,14 @@ namespace MAD3_ventanas
                 {
                     string op = "c";
                     int IDrecibo = Int32.Parse(textBox1.Text);
-                    dataGridView1.DataSource = objBD.ConsultaRecibo(op, IDrecibo);
+                    dataGridView1.DataSource = objBD.ConsultaReciboPorNumero(op, IDrecibo);
                 }
             }
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
-                (e.KeyChar != '.'))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
                 e.Handled = true;
             }
@@ -70,6 +68,11 @@ namespace MAD3_ventanas
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            ObjetoDB.Caja seleccion = comboBox1.SelectedItem as ObjetoDB.Caja;
+
+            var objBD = new EnlaceDB();
+            string op = "D";
+            DateTime date = dateTimePicker1.Value;
 
         }
     }
