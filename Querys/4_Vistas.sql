@@ -188,18 +188,22 @@ IF OBJECT_ID('v_Inventario')IS NOT NULL
 GO
 CREATE VIEW v_Inventario as
 	Select 
-		Dept.nombreDept								as Departamento,
-		Product.Nombre								as Producto,
-		UniMed.Nombre								as [Unidad de Medida],
-		format(Product.PrecioUnitario,'c','en-us')	as Costo,
-		format(Product.Costo,'c','en-us')			as [Precio Unitario],
-		Product.Existencias							as Existencias,
+		Dept.nombreDept														as Departamento,
+		Product.Nombre														as Producto,
+		UniMed.Nombre														as [Unidad de Medida],
+		format(Product.PrecioUnitario,'c','en-us')							as Costo,
+		format(Product.Costo,'c','en-us')									as [Precio Unitario],
+		Product.Existencias													as Existencias,
 		CASE
 			WHEN SUM(DetalleProd.CantProd) IS NOT NULL then	
 				convert(varchar,sum( DetalleProd.CantProd))
 			else 'No se ha vendido el producto' 
-		end												as [Unidades Vendidas],
-		Count(Devol.Merma)							as Merma	
+		end																	as [Unidades Vendidas],
+		CASE 
+			WHEN SUM(Distinct cast(Devol.Merma as int))IS NOT NULL then
+				SUM(Distinct cast(Devol.Merma as int))
+				else 0							
+		end																	as Merma	
 	from Producto				as Product
 	Left Join Departamento		AS Dept				on Dept.IDDepartamento		= Product.DepartamentoFK
 	left join UnidadDeMedida	AS UniMed			on UniMed.IDUnidadDeMedida	= Product.UnidadMedidaFK

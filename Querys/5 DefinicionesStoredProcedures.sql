@@ -19,7 +19,7 @@ GO
 Create Procedure sp_GestionarUsuario(
 	 @op			CHAR(1)
 	,@IDUsuario		SMALLINT		 = NULL
-	,@contraseña	VARCHAR(20)		 = NULL
+	,@contraseï¿½a	VARCHAR(20)		 = NULL
 	,@nombres		VARCHAR(30)		 = NULL
 	,@apellidoPat	VARCHAR(30)		 = NULL
 	,@apellidoMat	VARCHAR(30)		 = NULL
@@ -35,7 +35,7 @@ Create Procedure sp_GestionarUsuario(
 	--se guarda la fecha del servidor como la fecha de alta.
 
 	--E Sobre escribe todos los datos modificables siendo estos:
-	-- Contraseña, Numero nomina, fecha nacimiento
+	-- Contraseï¿½a, Numero nomina, fecha nacimiento
 
 	--D Dar de baja logica al Administrador convirtiendo estatus de 1 a 0
 
@@ -48,14 +48,14 @@ BEGIN
 
 		IF @op='I'
 		BEGIN
-			INSERT INTO Usuario(contraseña,nombres,apellidoPat,apellidoMat,CURP,fechNac,numNomina,email,fechaAlta,esAdmin)
-				VALUES(@contraseña,@nombres,@apellidoPat,@apellidoMat,@CURP,@fechNac,@numNomina,@email,@hoy,@esAdmin);
+			INSERT INTO Usuario(contraseï¿½a,nombres,apellidoPat,apellidoMat,CURP,fechNac,numNomina,email,fechaAlta,esAdmin)
+				VALUES(@contraseï¿½a,@nombres,@apellidoPat,@apellidoMat,@CURP,@fechNac,@numNomina,@email,@hoy,@esAdmin);
 		END
 
 		IF @op='E'
 		BEGIN
 			UPDATE Usuario SET		
-				 contraseña			  =ISNULL(@contraseña	,contraseña	 )
+				 contraseï¿½a			  =ISNULL(@contraseï¿½a	,contraseï¿½a	 )
 				,nombres			  =ISNULL(@nombres		,nombres	 )
 				,apellidoPat		  =ISNULL(@apellidoPat	,apellidoPat )
 				,apellidoMat		  =ISNULL(@apellidoMat	,apellidoMat )
@@ -76,7 +76,7 @@ BEGIN
 		IF @op='S'
 		BEGIN
 			SELECT	IDUsuario	
-					,contraseña	
+					,contraseï¿½a	
 					,nombres	
 					,apellidoPat
 					,apellidoMat
@@ -818,6 +818,12 @@ BEGIN
 	BEGIN
 	
 		IF EXISTS (Select [Numero de recibo] from v_ReciboDeVenta where cast(v_ReciboDeVenta.[Fecha de Venta] as smalldatetime) =@fecha )
+
+	--declare @fecha datetime
+	--declare @IdCaja tinyint
+	--set @IdCaja =1
+	--set @fecha= GETDATE();
+		IF EXISTS (Select [Numero de recibo] from v_ReciboDeVenta where cast(v_ReciboDeVenta.FechaDVenta as date) = cast(@fecha as date) AND [Caja de la venta]=@IdCaja )
 			Select 
 				[Numero de recibo],
 				MAX([Nombre del cajero])				as [Nombre del cajero],
@@ -837,5 +843,84 @@ BEGIN
 		
 	END
 
+END
+GO
+Create Procedure sp_ConsultaNotasDeCredito( @op Char(1)
+											,@IDNotaCredito INT		=NULL
+											,@fecha smalldatetime	=NULL
+											,@IdCaja tinyint		=NULL
+									
+)
+AS
+BEGIN
+	if @op='N'
+	BEGIN
+	--declare @IDNotaCredito INT	
+	--set @IDNotaCredito =1000000
+		IF EXISTS (Select [Numero De Nota De Credito] from v_NotaCreditoYDevol where [Numero De Nota De Credito] = @IDNotaCredito)
+			Select 
+				[Numero De Nota De Credito],
+				MAX([Fecha de devolucion])				as [Fecha de Devolucion],
+				MAX(Distinct [Producto Devuelto])		as [Producto regresado],
+				MAX([Cantidad de Productos devueltos])  as [Cantidad de Productos devueltos],
+				MAX([Subtotal del Recibo])				as [Subtotal de Nota],
+				MAX([Total del Recibo])					as [Total de Nota]
+			from 
+				v_NotaCreditoYDevol as NotaCreditoYDevolucion 
+			where 
+				[Numero De Nota De Credito] = @IDNotaCredito
+			group by [Numero De Nota De Credito];
+		Else
+			SELECT 'No hay notas con ese Numero de nota'[Mensaje];
+	END
+	if @op='D'
+	BEGIN
+		--declare @fecha datetime
+		--declare @IdCaja tinyint
+		--set @IdCaja =1
+		--set @fecha= GETDATE();
+	 		IF EXISTS (Select [Numero De Nota De Credito] from v_NotaCreditoYDevol where cast([FechaDDvolucion] as date) = cast(@fecha as date))
+			Select 
+				[Numero De Nota De Credito],
+				MAX([Fecha de devolucion])				as [Fecha de Devolucion],
+				MAX(Distinct [Producto Devuelto])		as [Producto regresado],
+				MAX([Cantidad de Productos devueltos])  as [Cantidad de Productos devueltos],
+				MAX([Subtotal del Recibo])				as [Subtotal de Nota],
+				MAX([Total del Recibo])					as [Total de Nota]
+			from 
+				v_NotaCreditoYDevol as NotaCreditoYDevolucion 
+			where 
+				cast([FechaDDvolucion] as date) = cast(@fecha as date)
+			group by [Numero De Nota De Credito];
+		Else
+			SELECT 'No hay notas en esa fecha'[Mensaje];
+	END
+
+END
+GO
+
+------------------------------------------------------------------------------------------------------SP_Inventario
+IF OBJECT_ID('sp_ConsultaNotasDeCredito')IS NOT NULL
+	DROP PROCEDURE sp_ConsultaNotasDeCredito;
+GO
+Create Procedure sp_ConsultaNotasDeCredito( @op Char(1)
+											,@IDNotaCredito INT		=NULL
+											,@fecha smalldatetime	=NULL
+											,@IdCaja tinyint		=NULL
+									
+)
+AS
+BEGIN
+ if @op='s'
+ select
+	 Departamento,
+	 Producto,
+	 [Unidad de Medida],
+	 Costo,
+	 [Precio Unitario],
+	 Existencias,
+	 [Unidades Vendidas],
+	 Merma	
+	 from v_Inventario;
 END
 GO
