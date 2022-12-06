@@ -749,7 +749,6 @@ BEGIN
 			[Cantidad en recibo] as CantProd,
 			[Reembolsable]		 as Reembolsable
 		from v_BuscarProductoEnRecibo
-
 END
 GO
 ---------------------------------------------------------------------------------------------------------SP_Gestionar_NotaDeCredito
@@ -797,16 +796,19 @@ IF OBJECT_ID('Sp_Header_NotaCreditoYDevolucion')IS NOT NULL
 	DROP PROCEDURE Sp_Header_NotaCreditoYDevolucion;
 GO
 Create procedure Sp_Header_NotaCreditoYDevolucion(	@op char(1),
-													@notaCreditoFK int	= NULL,
-													@Devolucion int		= NULL,
-													@fecha Smalldatetime= NULL
+													@IDNotaCred_Devol int=NULL,
+													@notaCreditoFK int	 = NULL,
+													@Devolucion int		 = NULL,
+													@fecha Smalldatetime = NULL
 													)
 AS
 BEGIN
 	if @op='i'
 	BEGIN
 		Insert into NotaCred_Devol(NotaCreditoFK,DevolucionFK,Fecha) VALUES (@notaCreditoFK,@Devolucion,@fecha)
-		--Select IDNotaCred_Devol,NotaCreditoFK,DevolucionFK,Fecha from NotaCred_Devol where  IDNotaCred_Devol= @@IDENTITY;
+		Select IDNotaCred_Devol,NotaCreditoFK,DevolucionFK,Fecha from NotaCred_Devol where  IDNotaCred_Devol= @@IDENTITY;
 	END
+	if @op='s'
+		Select IDNotaCred_Devol,NotaCreditoFK,DevolucionFK,Fecha from NotaCred_Devol
 END
 GO

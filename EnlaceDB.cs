@@ -16,11 +16,11 @@ namespace MAD3_ventanas
     public class EnlaceDB
     {
         static private string _aux { set; get; }
-        //
+
         static private SqlConnection _conexion;
         static private SqlDataAdapter _adaptador = new SqlDataAdapter();
         static private SqlCommand _comandosql = new SqlCommand();
-        //
+
         static private DataTable _tabla = new DataTable();
         static private DataSet _DS = new DataSet();
 
@@ -80,8 +80,7 @@ namespace MAD3_ventanas
                 parametro1.Value = "s";
                 var dataReader = _comandosql.ExecuteReader();
                 lista = GetList<ObjetoDB.UnidadDeMedida>(dataReader);
-                //_adaptador.SelectCommand = _comandosql;
-                //_adaptador.Fill(tabla);
+              
             }
             catch (SqlException e)
             {
@@ -280,7 +279,6 @@ namespace MAD3_ventanas
 
             return lista;
         }
-
         public List<ObjetoDB.Producto_En_Recibo> ConsultaProductoEnRecibos()
         {
             var msg = "";
@@ -312,7 +310,6 @@ namespace MAD3_ventanas
 
             return lista;
         }
-
         public List<ObjetoDB.Inventario> ConsultaInventario()
         {
             var msg = "";
@@ -341,7 +338,7 @@ namespace MAD3_ventanas
             }
 
             return lista;
-        }//Agregado
+        } 
         public List<ObjetoDB.OpcionDePago> ConsultaOpcionDePago()
         {
             var msg = "";
@@ -372,8 +369,8 @@ namespace MAD3_ventanas
             }
 
             return lista;
-        }//Agregado
-        public List<ObjetoDB.ReciboDeVenta> ConsultaUltimoreciboDeVental(int IDRecibo   , decimal Total  , decimal Subtotal)
+        } 
+        public List<ObjetoDB.ReciboDeVenta> ConsultaReciboDeVenta(string op,int IDRecibo, decimal Total, decimal Subtotal)
         {
             var msg = "";
             List<ObjetoDB.ReciboDeVenta> obj = new List<ObjetoDB.ReciboDeVenta>();
@@ -386,21 +383,15 @@ namespace MAD3_ventanas
                 _comandosql.CommandType = CommandType.StoredProcedure;
                 _comandosql.CommandTimeout = 1200;
                 var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
-                parametro1.Value = "i";
+                parametro1.Value =op;
                 var parametro2 = _comandosql.Parameters.Add("@idRecibo", SqlDbType.Int, 4);
                 parametro2.Value = IDRecibo;
-                var parametro3 = _comandosql.Parameters.Add("@Total", SqlDbType.SmallMoney, 17);
+                var parametro3 = _comandosql.Parameters.Add("@Total", SqlDbType.SmallMoney, 4);
                 parametro3.Value = Total;
-                var parametro4 = _comandosql.Parameters.Add("@SubTotal", SqlDbType.SmallMoney, 17);
+                var parametro4 = _comandosql.Parameters.Add("@SubTotal", SqlDbType.SmallMoney, 4);
                 parametro4.Value = Subtotal;
                 var dataReader = _comandosql.ExecuteReader();
-
-                //T MapToClass<T>(SqlDataReader reader)
                 obj = GetList<ObjetoDB.ReciboDeVenta>(dataReader);
-
-                //obj2.IDRecibo = dataReader.
-                //_adaptador.SelectCommand = _comandosql;
-                //_adaptador.Fill(tabla);
             }
             catch (SqlException e)
             {
@@ -414,7 +405,123 @@ namespace MAD3_ventanas
             }
 
             return obj;
-        }//Agregado
+        }  
+        public List<ObjetoDB.NotaCredito> ConsultaNotaCredito(string op, int NumReciboFK, decimal Cantidad, decimal Subtotal)
+        {
+            var msg = "";
+            List<ObjetoDB.NotaCredito> obj = new List<ObjetoDB.NotaCredito>();
+            //ObjetoDB.ReciboDeVenta obj2 = new ObjetoDB.ReciboDeVenta();
+            try
+            {
+                conectar();
+                string qry = "sp_GestionarNotaDeCredito";
+                _comandosql = new SqlCommand(qry, _conexion);
+                _comandosql.CommandType = CommandType.StoredProcedure;
+                _comandosql.CommandTimeout = 1200;
+                var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
+                parametro1.Value = op;
+                var parametro2 = _comandosql.Parameters.Add("@Total", SqlDbType.SmallMoney, 4);
+                parametro2.Value = Cantidad;
+                var parametro3 = _comandosql.Parameters.Add("@SubTotal", SqlDbType.SmallMoney, 4);
+                parametro3.Value = Subtotal;
+                var parametro4 = _comandosql.Parameters.Add("@ReciboFK", SqlDbType.Int, 4);
+                parametro4.Value = NumReciboFK;
+                var dataReader = _comandosql.ExecuteReader();
+                
+                obj = GetList<ObjetoDB.NotaCredito>(dataReader);
+
+            }
+            catch (SqlException e)
+            {
+                msg = "Excepción de base de datos: \n";
+                msg += e.Message;
+                MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            finally
+            {
+                desconectar();
+            }
+
+            return obj;
+        }
+        public List<ObjetoDB.Devolucion> ConsultaDevolucion(string op,int proudctoFK,decimal cantidad,bool merma)
+        {
+            var msg = "";
+            List<ObjetoDB.Devolucion> obj = new List<ObjetoDB.Devolucion>();
+
+            try
+            {
+                conectar();
+                string qry = "sp_GestionarDevolucion";
+                _comandosql = new SqlCommand(qry, _conexion);
+                _comandosql.CommandType = CommandType.StoredProcedure;
+                _comandosql.CommandTimeout = 1200;
+                var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
+                parametro1.Value = op;
+                var parametro2 = _comandosql.Parameters.Add("@ProductoFK", SqlDbType.Int, 4);
+                parametro2.Value = proudctoFK;
+                var parametro3 = _comandosql.Parameters.Add("@cantidad", SqlDbType.Decimal, 4);
+                parametro3.Value = cantidad;
+                var parametro4 = _comandosql.Parameters.Add("@merma", SqlDbType.Bit, 4);
+                parametro4.Value = merma;
+
+                var dataReader = _comandosql.ExecuteReader();
+
+                obj = GetList<ObjetoDB.Devolucion>(dataReader);
+
+            }
+            catch (SqlException e)
+            {
+                msg = "Excepción de base de datos: \n";
+                msg += e.Message;
+                MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            finally
+            {
+                desconectar();
+            }
+
+            return obj;
+        }
+        public List<ObjetoDB.NotaCred_Devol> ConsultaNotaCreditoYDevolucion(string op,int IdNotaCredito_Devol, int notaCreditoFK, int Devolucion, DateTime fecha)
+        {
+            var msg = "";
+            List<ObjetoDB.NotaCred_Devol> obj = new List<ObjetoDB.NotaCred_Devol>();
+            try
+            {
+                conectar();
+                string qry = "Sp_Header_NotaCreditoYDevolucion";
+                _comandosql = new SqlCommand(qry, _conexion);
+                _comandosql.CommandType = CommandType.StoredProcedure;
+                _comandosql.CommandTimeout = 1200;
+                var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
+                parametro1.Value = op;
+                var parametro2 = _comandosql.Parameters.Add("@IDNotaCred_Devol", SqlDbType.Int, 4);
+                parametro2.Value = IdNotaCredito_Devol;
+                var parametro3 = _comandosql.Parameters.Add("@notaCreditoFK", SqlDbType.Int, 4);
+                parametro3.Value = notaCreditoFK;
+                var parametro4 = _comandosql.Parameters.Add("@Devolucion", SqlDbType.Int, 4);
+                parametro4.Value = Devolucion;
+                var parametro5 = _comandosql.Parameters.Add("@fecha", SqlDbType.SmallDateTime, 4);
+                parametro5.Value = fecha;
+                var dataReader = _comandosql.ExecuteReader();
+
+                obj = GetList<ObjetoDB.NotaCred_Devol>(dataReader);
+
+            }
+            catch (SqlException e)
+            {
+                msg = "Excepción de base de datos: \n";
+                msg += e.Message;
+                MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            finally
+            {
+                desconectar();
+            }
+
+            return obj;
+        }
         public DataTable ConsultaTablaDatosDeTienda()
         {
             var msg = "";
@@ -427,11 +534,11 @@ namespace MAD3_ventanas
                 _comandosql = new SqlCommand(qry, _conexion);
                 _comandosql.CommandType = CommandType.StoredProcedure; // Hay tres tipos de comandos: SP, tabla o text(query, cualquier clausula del DML). 
                                                                        // -> Para este proyecto siempre debe ser un Stored Procedure     
-                _comandosql.CommandTimeout = 1200; //Tiempo antes de determinar error
-
-
-                //Los parámtros deben llamarse exactamente igual que en SP
+                _comandosql.CommandTimeout = 1200;                     //Tiempo antes de determinar error
+                                                                       //Los parámtros deben llamarse exactamente igual que en SP
                 var parametro1 = _comandosql.Parameters.Add("@Op", SqlDbType.Char, 1); //Orden: (Nombre, tipo de dato, longitud)
+
+
                 parametro1.Value = opc; //Qué valor le voy a mandar. Se inicializa en el primer string (en el public)
                 _adaptador.SelectCommand = _comandosql;
                 _adaptador.Fill(tabla);
@@ -913,7 +1020,7 @@ namespace MAD3_ventanas
 
             return add;
         }
-        public bool GestDescuento(string op ,int IDDescuento ,string Nombre	,byte Porcentaje	,DateTime FechaINI  ,DateTime FechaFIN,int ProductoFK     )
+        public bool GestDescuento(string op ,int IDDescuento ,string Nombre	,byte Porcentaje,DateTime FechaINI,DateTime FechaFIN,int ProductoFK)
         {
             var msg = "";
             var add = true;

@@ -21,7 +21,6 @@ namespace MAD3_ventanas
         }
 		public class DatosDeTienda
 		{
-			public byte IDTienda { get; set; }
 			public string NombreTienda { get; set; }
 			public byte Sucursal { get; set; }
 			public string RFC { get; set; }
@@ -142,7 +141,7 @@ namespace MAD3_ventanas
 		{
 			public int IDDevolucion { get; set; }
 			public int ProductoFK { get; set; }
-			public short Cantidad { get; set; }
+			public decimal Cantidad { get; set; }
 			public bool Merma { get; set; }
 		}
 		public class NotaCred_Devol

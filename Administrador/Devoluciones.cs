@@ -35,8 +35,17 @@ namespace MAD3_ventanas.Administrador
             ListaProductoEnRecibos = objBD.ConsultaProductoEnRecibos();
 
             ObjetoDB.Producto_En_Recibo productoEnRecibo = new ObjetoDB.Producto_En_Recibo();
-            productoEnRecibo = null;
+            ObjetoDB.ReciboDeVenta reciboDeVenta = new ObjetoDB.ReciboDeVenta();
+            ObjetoDB.NotaCredito notaCredito = new ObjetoDB.NotaCredito();
+            ObjetoDB.Devolucion devolucion = new ObjetoDB.Devolucion();
+            ObjetoDB.NotaCred_Devol notaCred_Devol = new ObjetoDB.NotaCred_Devol();
 
+
+            notaCredito = null;
+            reciboDeVenta = null;
+            productoEnRecibo = null;
+            devolucion = null;
+            notaCred_Devol = null;
 
             if (textBox2.Text.Length ==0  || int.Parse(textBox2.Text) <= 0|| int.Parse(textBox2.Text)>= 2000000|| textBox1.Text.Length == 0 || decimal.Parse(textBox1.Text) <= 0)
             {
@@ -51,15 +60,26 @@ namespace MAD3_ventanas.Administrador
                    
                     if (CheckIfProductExistsInRecibo(ListaProductoEnRecibos,int.Parse(textBox2.Text), seleccion))
                     {
-
                         productoEnRecibo = GetProducto_En_ReciboFromList(ListaProductoEnRecibos, int.Parse(textBox2.Text), seleccion);
-
                         if (CheckIfProductIsReembolsable(productoEnRecibo, seleccion))
                         {
 
                             if (CheckIfProductAmmountIsCorrect(productoEnRecibo, decimal.Parse(textBox1.Text)))
                             {
-                               
+                                DateTime localdate;
+                                localdate = DateTime.Now;
+                                string op = "s";
+                                decimal dummy = 10;
+
+                                reciboDeVenta = objBD.ConsultaReciboDeVenta(op, productoEnRecibo.IDRecibo, dummy, dummy).First();
+                                op = "i";
+                                notaCredito = objBD.ConsultaNotaCredito(op, reciboDeVenta.IDRecibo, reciboDeVenta.Total, reciboDeVenta.Subtotal).First();
+
+                                devolucion = objBD.ConsultaDevolucion(op, seleccion.IDProducto, decimal.Parse(textBox1.Text),checkBox1.Checked).First();
+
+                                notaCred_Devol = objBD.ConsultaNotaCreditoYDevolucion(op, (int)dummy, notaCredito.IDNotaCredito, devolucion.IDDevolucion, localdate).First();
+
+
                                 MessageBox.Show("Carita feliz",
                             ":)", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
@@ -86,8 +106,6 @@ namespace MAD3_ventanas.Administrador
                     MessageBox.Show("Recibo no existe en la base de datos, verificar los datos ingresados",
                   "Datos incorrectos", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-               
-                
             }
 
 

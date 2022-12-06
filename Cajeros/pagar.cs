@@ -190,8 +190,9 @@ namespace MAD3_ventanas
                         case DialogResult.Yes:
 
                             var objBD = new EnlaceDB();
+                            var ops = "i";
                             
-                            reciboDeVenta = objBD.ConsultaUltimoreciboDeVental(reciboDeVenta.IDRecibo, ventas.ptotalVenta, ventas.subtotalVenta).First<ObjetoDB.ReciboDeVenta>();
+                            reciboDeVenta = objBD.ConsultaReciboDeVenta(ops, reciboDeVenta.IDRecibo, ventas.ptotalVenta, ventas.subtotalVenta).First<ObjetoDB.ReciboDeVenta>();
                             
                             foreach(var items in listaDPagos)//Aqui es para pasar la lista de opciones de pago actuales a la base_De_Datos_Uno_Por_uno. la_lista_de_productos_es_listaDPagos
                             {
