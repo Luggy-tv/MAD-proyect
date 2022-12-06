@@ -1,4 +1,5 @@
 USE Tienda01
+GO 
 
 IF OBJECT_ID('t_UpdateDepartamento') IS NOT NULL
 	DROP TRIGGER t_UpdateDepartamento;
@@ -29,4 +30,3 @@ BEGIN
 	SET NOCOUNT OFF;
 END
 GO
-

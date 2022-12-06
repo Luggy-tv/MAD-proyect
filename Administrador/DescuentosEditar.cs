@@ -72,12 +72,12 @@ namespace MAD3_ventanas.Administrador
             }
 
 
-            byte porcentaje = byte.Parse(textBox2.Text);
+            
             int min = 1;
             int max = 100;
 
             //VALIDACION DESCUENTRO ENTRE 1 AL 100
-            if (porcentaje < min || porcentaje > max)
+            if (int.Parse(textBox2.Text) < min || int.Parse(textBox2.Text) > max)
             {
                 MessageBox.Show("El porcentaje del descuento debe estar entre 1 y 100");
                 val4 = false;
@@ -94,6 +94,7 @@ namespace MAD3_ventanas.Administrador
                 {
                     case DialogResult.Yes:
 
+                        byte porcentaje = byte.Parse(textBox2.Text);
 
 
                         var objBD = new EnlaceDB();
@@ -183,6 +184,20 @@ namespace MAD3_ventanas.Administrador
 
             comboBox1.SelectedItem = seleccion.ProductoFK;
 
+        }
+        private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Verify that the pressed key isn't CTRL or any non-numeric digit
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+            // If you want, you can allow decimal (float) numbers
+            //if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            //{
+            //    e.Handled = true;
+            //}
         }
     }
 }

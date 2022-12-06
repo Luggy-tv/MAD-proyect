@@ -28,5 +28,10 @@ namespace MAD3_ventanas.Administrador
         {
             //IMPRESION EN PDF
         }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

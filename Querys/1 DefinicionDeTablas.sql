@@ -153,7 +153,7 @@ BEGIN
 	CREATE TABLE  dbo.Devolucion(
 		IDDevolucion			INT				IDENTITY(1000000,1)
 		,ProductoFK				INT				 NOT NULL
-		,Cantidad				SMALLINT		 NOT NULL
+		,Cantidad				decimal	(7,3)	 NOT NULL
 		,Merma					BIT				 NOT NULL
 		CONSTRAINT PK_DEVOLUCION
 			PRIMARY KEY (IDDevolucion),
@@ -176,9 +176,6 @@ BEGIN
 		CONSTRAINT FK_CAJEROCAJA_CAJA
 			FOREIGN KEY (CajaFK) REFERENCES Caja(IDCaja)
 	);
-
-	--alter table dbo.usuario_caja add fecha smalldatetime
-	--sp_help usuario_caja
 -------------------------------------------------------------Recibo de venta - producto
 	IF OBJECT_ID(N'dbo.DetalleProductos')IS NOT NULL
 		DROP TABLE dbo.DetalleProductos;
