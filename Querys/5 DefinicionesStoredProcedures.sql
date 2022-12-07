@@ -19,7 +19,7 @@ GO
 Create Procedure sp_GestionarUsuario(
 	 @op			CHAR(1)
 	,@IDUsuario		SMALLINT		 = NULL
-	,@contraseña	VARCHAR(20)		 = NULL
+	,@contraseÃ±a	VARCHAR(20)		 = NULL
 	,@nombres		VARCHAR(30)		 = NULL
 	,@apellidoPat	VARCHAR(30)		 = NULL
 	,@apellidoMat	VARCHAR(30)		 = NULL
@@ -35,7 +35,7 @@ Create Procedure sp_GestionarUsuario(
 	--se guarda la fecha del servidor como la fecha de alta.
 
 	--E Sobre escribe todos los datos modificables siendo estos:
-	-- Contraseña, Numero nomina, fecha nacimiento
+	-- ContraseÃ±a, Numero nomina, fecha nacimiento
 
 	--D Dar de baja logica al Administrador convirtiendo estatus de 1 a 0
 
@@ -48,14 +48,14 @@ BEGIN
 
 		IF @op='I'
 		BEGIN
-			INSERT INTO Usuario(contraseña,nombres,apellidoPat,apellidoMat,CURP,fechNac,numNomina,email,fechaAlta,esAdmin)
-				VALUES(@contraseña,@nombres,@apellidoPat,@apellidoMat,@CURP,@fechNac,@numNomina,@email,@hoy,@esAdmin);
+			INSERT INTO Usuario(contraseÃ±a,nombres,apellidoPat,apellidoMat,CURP,fechNac,numNomina,email,fechaAlta,esAdmin)
+				VALUES(@contraseÃ±a,@nombres,@apellidoPat,@apellidoMat,@CURP,@fechNac,@numNomina,@email,@hoy,@esAdmin);
 		END
 
 		IF @op='E'
 		BEGIN
 			UPDATE Usuario SET		
-				 contraseña			  =ISNULL(@contraseña	,contraseña	 )
+				 contraseÃ±a			  =ISNULL(@contraseÃ±a	,contraseÃ±a	 )
 				,nombres			  =ISNULL(@nombres		,nombres	 )
 				,apellidoPat		  =ISNULL(@apellidoPat	,apellidoPat )
 				,apellidoMat		  =ISNULL(@apellidoMat	,apellidoMat )
@@ -76,7 +76,7 @@ BEGIN
 		IF @op='S'
 		BEGIN
 			SELECT	IDUsuario	
-					,contraseña	
+					,contraseÃ±a	
 					,nombres	
 					,apellidoPat
 					,apellidoMat
@@ -816,10 +816,10 @@ BEGIN
 	if @op='D'
 	BEGIN
 
-	declare @fecha datetime
-	declare @IdCaja tinyint
-	set @IdCaja =1
-	set @fecha= GETDATE();
+	--declare @fecha datetime
+	--declare @IdCaja tinyint
+	--set @IdCaja =1
+	--set @fecha= GETDATE();
 		IF EXISTS (Select [Numero de recibo] from v_ReciboDeVenta where cast(v_ReciboDeVenta.FechaDVenta as date) = cast(@fecha as date) AND [Caja de la venta]=@IdCaja )
 			Select 
 				[Numero de recibo],
@@ -893,5 +893,25 @@ BEGIN
 			SELECT 'No hay notas en esa fecha'[Mensaje];
 	END
 
+END
+GO
+
+
+IF OBJECT_ID('sp_inventario')IS NOT NULL
+	DROP PROCEDURE sp_inventario;
+GO
+Create Procedure sp_inventario
+AS
+BEGIN
+select 
+Departamento,
+Producto,
+[Unidad de Medida],
+Costo,
+[Precio Unitario],
+Existencias,
+[Unidades Vendidas],
+Merma	
+from v_Inventario;
 END
 GO

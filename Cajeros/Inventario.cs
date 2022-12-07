@@ -38,5 +38,11 @@ namespace MAD3_ventanas
             mainmenuCAJ mainmenu = new mainmenuCAJ();
             mainmenu.Show();
         }
+
+        private void Inventario_Load(object sender, EventArgs e)
+        {
+            var objBD = new EnlaceDB();
+            dataGridView1.DataSource = objBD.Consultainventario();
+        }
     }
 }

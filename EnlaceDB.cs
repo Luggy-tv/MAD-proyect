@@ -310,35 +310,7 @@ namespace MAD3_ventanas
 
             return lista;
         }
-        public List<ObjetoDB.Inventario> ConsultaInventario()
-        {
-            var msg = "";
-            List<ObjetoDB.Inventario> lista = new List<ObjetoDB.Inventario>();
-            try
-            {
-                conectar();
-                string qry = "sp_GestionarInventario"; // crear stored procedure
-                _comandosql = new SqlCommand(qry, _conexion);
-                _comandosql.CommandType = CommandType.StoredProcedure;
-                _comandosql.CommandTimeout = 1200;
-                var parametro1 = _comandosql.Parameters.Add("@op", SqlDbType.Char, 1);
-                parametro1.Value = "s";
-                var dataReader = _comandosql.ExecuteReader();
-                lista = GetList<ObjetoDB.Inventario>(dataReader);
-            }
-            catch (SqlException e)
-            {
-                msg = "Excepción de base de datos: \n";
-                msg += e.Message;
-                MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
-            finally
-            {
-                desconectar();
-            }
 
-            return lista;
-        } 
         public List<ObjetoDB.OpcionDePago> ConsultaOpcionDePago()
         {
             var msg = "";
@@ -768,6 +740,38 @@ namespace MAD3_ventanas
                 parametro3.Value = dateTime;
                 var parametro4 = _comandosql.Parameters.Add("@IdCaja", SqlDbType.TinyInt, 4);
                 parametro4.Value = caja;
+
+                _adaptador.SelectCommand = _comandosql;
+                _adaptador.Fill(tabla);
+
+            }
+            catch (SqlException e)
+            {
+                msg = "Excepción de base de datos: \n";
+                msg += e.Message;
+                MessageBox.Show(msg, "Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            finally
+            {
+                desconectar();
+            }
+
+            return tabla;
+
+        }
+        public DataTable Consultainventario()
+        {
+            var msg = "";
+            DataTable tabla = new DataTable();
+            int dummy = 100000;
+            try
+            {
+                conectar();
+                string qry = "sp_inventario";
+                _comandosql = new SqlCommand(qry, _conexion);
+                _comandosql.CommandType = CommandType.StoredProcedure;
+
+                _comandosql.CommandTimeout = 1200;
 
                 _adaptador.SelectCommand = _comandosql;
                 _adaptador.Fill(tabla);
