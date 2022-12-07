@@ -22,6 +22,7 @@ namespace MAD3_ventanas.Administrador
         {
             InitializeComponent();
         }
+
         private void button4_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -42,6 +43,7 @@ namespace MAD3_ventanas.Administrador
             mainmenuADM1 mainmenuADM1 = new mainmenuADM1();
             mainmenuADM1.Show();
         }
+
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -65,6 +67,8 @@ namespace MAD3_ventanas.Administrador
                 e.Handled = true;
             }
         }
+
+
         {
         private void button1_Click(object sender, EventArgs e)
             var objBD = new EnlaceDB();
@@ -97,6 +101,8 @@ namespace MAD3_ventanas.Administrador
             byte dummyCaja = 1;
             dataGridView1.DataSource = objBD.ConsultaNotaPorFecha(op, dummyCaja, date);
         }
+
+
         private void Imprimir(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             var objBD = new EnlaceDB();
