@@ -47,6 +47,8 @@ namespace MAD3_ventanas.Administrador
 
             }
 
+            dataGridView1.DataSource = objBD.ConsultaInventario();
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -55,53 +57,7 @@ namespace MAD3_ventanas.Administrador
             mainmenuADM1 mainmenuADM1 = new mainmenuADM1();
             mainmenuADM1.Show();
 
-            //bool comp = false;
-            //string op = "i";
-            //decimal cantMin = 0;
-            //bool agotados = false;
-            //bool merma = false;
-
-
-
-            //ObjetoDB.Departamento departamento = comboBox1.SelectedItem as ObjetoDB.Departamento;
-
-
-
-            //cantMin = decimal.Parse(textBox1.Text);
-
-
-
-
-            //var objBD = new EnlaceDB();
-            //comp = List<ObjetoDB.Inventario>(op, departamento.IDDepartamento, cantMin, agotados, merma);
-
-
-
-
-
-
-            //if (val4 == true)
-            //{
-            //    DialogResult dr = MessageBox.Show("¿Desea agregar estos datos?",
-            //    "Agregar productos", MessageBoxButtons.YesNo);
-            //    switch (dr)
-            //    {
-            //        case DialogResult.Yes:
-
-
-            //            var objBD = new EnlaceDB();
-            //            comp = objBD.GestProd(op, IDProducto, Nombre, Descripcion, Costo, PrecioUnitario, Existencias, PuntoDeReorden, departamento.IDDepartamento, unidadDeMedida.IDUnidadDeMedida);
-
-            //            this.Close();
-            //            mainmenuADM1 mainmenu = new mainmenuADM1();
-            //            mainmenu.Show();
-
-            //            break;
-            //        case DialogResult.No:
-
-            //            break;
-            //    }
-            //}
+         
 
         }
 

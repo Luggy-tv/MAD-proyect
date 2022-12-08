@@ -19,7 +19,7 @@ GO
 Create Procedure sp_GestionarUsuario(
 	 @op			CHAR(1)
 	,@IDUsuario		SMALLINT		 = NULL
-	,@contrase�a	VARCHAR(20)		 = NULL
+	,@contraseña	VARCHAR(20)		 = NULL
 	,@nombres		VARCHAR(30)		 = NULL
 	,@apellidoPat	VARCHAR(30)		 = NULL
 	,@apellidoMat	VARCHAR(30)		 = NULL
@@ -35,7 +35,7 @@ Create Procedure sp_GestionarUsuario(
 	--se guarda la fecha del servidor como la fecha de alta.
 
 	--E Sobre escribe todos los datos modificables siendo estos:
-	-- Contrase�a, Numero nomina, fecha nacimiento
+	-- Contraseña, Numero nomina, fecha nacimiento
 
 	--D Dar de baja logica al Administrador convirtiendo estatus de 1 a 0
 
@@ -48,14 +48,14 @@ BEGIN
 
 		IF @op='I'
 		BEGIN
-			INSERT INTO Usuario(contrase�a,nombres,apellidoPat,apellidoMat,CURP,fechNac,numNomina,email,fechaAlta,esAdmin)
-				VALUES(@contrase�a,@nombres,@apellidoPat,@apellidoMat,@CURP,@fechNac,@numNomina,@email,@hoy,@esAdmin);
+			INSERT INTO Usuario(contraseña,nombres,apellidoPat,apellidoMat,CURP,fechNac,numNomina,email,fechaAlta,esAdmin)
+				VALUES(@contraseña,@nombres,@apellidoPat,@apellidoMat,@CURP,@fechNac,@numNomina,@email,@hoy,@esAdmin);
 		END
 
 		IF @op='E'
 		BEGIN
 			UPDATE Usuario SET		
-				 contrase�a			  =ISNULL(@contrase�a	,contrase�a	 )
+				 contraseña			  =ISNULL(@contraseña	,contraseña	 )
 				,nombres			  =ISNULL(@nombres		,nombres	 )
 				,apellidoPat		  =ISNULL(@apellidoPat	,apellidoPat )
 				,apellidoMat		  =ISNULL(@apellidoMat	,apellidoMat )
@@ -76,7 +76,7 @@ BEGIN
 		IF @op='S'
 		BEGIN
 			SELECT	IDUsuario	
-					,contrase�a	
+					,contraseña	
 					,nombres	
 					,apellidoPat
 					,apellidoMat
@@ -776,7 +776,7 @@ BEGIN
 			[Numero De Nota De Credito] as IDNotaCred_Devol,
 			[Recibo De Compra]			as NotaCreditoFK,
 			[Codigo del Producto]		as DevolucionFK,
-			[Fecha]						as Fecha
+			[FechaDDvolucion]						as Fecha
 		from v_NotaCreditoYDevol where @notaCreditoFK = [Recibo De Compra];
 END	
 GO	
@@ -845,6 +845,10 @@ BEGIN
 
 END
 GO
+
+IF OBJECT_ID('sp_ConsultaNotasDeCredito')IS NOT NULL
+	DROP PROCEDURE sp_ConsultaNotasDeCredito;
+GO
 Create Procedure sp_ConsultaNotasDeCredito( @op Char(1)
 											,@IDNotaCredito INT		=NULL
 											,@fecha smalldatetime	=NULL
@@ -900,10 +904,10 @@ END
 GO
 
 ------------------------------------------------------------------------------------------------------SP_Inventario
-IF OBJECT_ID('sp_ConsultaNotasDeCredito')IS NOT NULL
-	DROP PROCEDURE sp_ConsultaNotasDeCredito;
+IF OBJECT_ID('sp_inventario')IS NOT NULL
+	DROP PROCEDURE sp_inventario;
 GO
-Create Procedure sp_ConsultaNotasDeCredito( @op Char(1)
+Create Procedure sp_inventario( @op Char(1)
 											,@IDNotaCredito INT		=NULL
 											,@fecha smalldatetime	=NULL
 											,@IdCaja tinyint		=NULL
@@ -924,3 +928,7 @@ BEGIN
 	 from v_Inventario;
 END
 GO
+select * from LogVenta;
+select * from ReciboDeVenta;
+select * from DetalleProductos;
+select * from DetallePago;
